@@ -1,0 +1,4 @@
+gunicorn==19.9.0
+Flask==1.1.1
+pony==0.7.10
+werkzeug==0.16.0
