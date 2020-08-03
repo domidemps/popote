@@ -1,0 +1,16 @@
+{
+  "recipe_1": {
+    "ingredients": [
+      {
+        "name": "ingredient_1",
+        "quantity": 150,
+        "unit": "g"
+      },
+      {
+        "name": "ingredient_2",
+        "quantity": 1,
+        "unit": ""
+      }
+    ]
+  }
+}
