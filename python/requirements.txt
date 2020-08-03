@@ -1,3 +1,4 @@
+aiofiles==0.5.0
 fastapi==0.60.1
 pony==0.7.13
 uvicorn==0.11.8
