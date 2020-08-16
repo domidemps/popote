@@ -7,11 +7,7 @@ import thunk from 'redux-thunk'
 
 import reducers, {history} from 'reducers'
 
-const middlewares = [
-  thunk,
-  promise,
-  routerMiddleware(history),
-]
+const middlewares = [thunk, promise, routerMiddleware(history)]
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 

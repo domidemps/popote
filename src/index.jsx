@@ -8,7 +8,6 @@ import {history} from 'reducers'
 
 // Needed for React Developer Tools
 window.React = React
-window.THREE = THREE
 
 const render = Component => {
   ReactDOM.render(
