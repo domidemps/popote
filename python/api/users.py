@@ -1,17 +1,38 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, Security
+from pony.orm import db_session
 
+from security.oauth import get_current_active_user, get_password_hash
+from models.user import User
 
 router = APIRouter()
 
 
-@router.get("/users/{user_id}")
-async def get_user(user_id: str, color: int) -> str:
-    return f"GET TBA {user_id}, color={color}"
+@router.get("/users/users/{email}")
+async def read_user(email: str) -> str:
+    with db_session:
+        user = User.get(email=email)
+    return user.name
 
 
 @router.post("/users")
-async def post_user(user_id) -> str:
-    return f"POST TBA {user_id}"
+def create_user(name: str, email: str, password: str) -> str:
+    hashed_password = get_password_hash(password)
+    with db_session:
+        User(name=name, email=email, password=hashed_password)
+    return hashed_password
+
+
+@router.get("/users/me")
+async def read_user_me(current_user: User = Security(get_current_active_user, scopes=["user:read"])):
+    return current_user.to_dict()
+
+
+@router.post("/users/me")
+@db_session
+def update_user_name(new_name: str, current_user_uuid: str = Security(get_current_active_user, scopes=["user:write"])):
+    user = User[current_user_uuid]
+    user.name = new_name
+    return user.to_dict()
 
 
 @router.delete("/users")

@@ -1,6 +1,7 @@
 from typing import List
+
+from pony.orm import Database, Json, PrimaryKey, Required
 from pydantic import BaseModel
-from pony.orm import Database, Required, Json
 
 db = Database()
 
@@ -20,4 +21,6 @@ class IngredientsList(BaseModel):
 
 
 class Recipe(db.Entity):
+    id = PrimaryKey(int)
     ingredients_list = Required(Json)
+    instructions = Required(Json)
