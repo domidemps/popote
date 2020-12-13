@@ -10,11 +10,11 @@ module.exports = async (env, argv) => {
       contentBase: __dirname + '/static',
       historyApiFallback: true,
       proxy: {
-        '/api': {
+        '/': {
           target: 'http://localhost:5000',
           secure: false,
         },
-        '/api/logout': {
+        '/logout': {
           target: 'http://localhost:5000',
           secure: false,
         },

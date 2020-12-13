@@ -2,10 +2,10 @@ import React from 'react'
 import {Provider} from 'react-redux'
 import {Route, Switch} from 'react-router'
 import {ConnectedRouter} from 'connected-react-router'
-
 import {MuiThemeProvider} from '@material-ui/core/styles'
 
-import theme from 'styles/material_ui_raw_theme_file'
+import theme from './styles/material_ui_raw_theme_file'
+import LoginView from './login/LoginView'
 
 const Popote = ({store, history}) => {
   return (
@@ -15,6 +15,7 @@ const Popote = ({store, history}) => {
           <div>
             <Switch>
               <Route exact path="/" render={() => <html>Hello world!</html>} />
+              <Route exact path="/login" render={() => <LoginView />} />
               <Route render={() => <div>Not found</div>} />
             </Switch>
           </div>
