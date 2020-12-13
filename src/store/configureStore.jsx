@@ -5,7 +5,7 @@ import {routerMiddleware} from 'connected-react-router'
 import promise from 'redux-promise'
 import thunk from 'redux-thunk'
 
-import reducers, {history} from 'reducers'
+import reducers, {history} from '../reducers'
 
 const middlewares = [thunk, promise, routerMiddleware(history)]
 
@@ -14,7 +14,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['router', 'ui'],
 }
 
 const persistedRootReducer = persistReducer(persistConfig, reducers)
