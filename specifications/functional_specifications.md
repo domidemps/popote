@@ -6,9 +6,9 @@ Single Page Application.
 
 Create **popote** logos.
 
-- [ ] Principal logo
-- [ ] Small logo
-- [ ] Find a color theme
+- [X] Principal logo
+- [X] Small logo
+- [X] Find a color theme
 
 ## Accounts management
 
