@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/domidemps/popote/blob/master/images/popote_logo.png" />
+  <img src="https://github.com/domidemps/popote/blob/master/src/images/popote_logo.png" />
 </p>
 
 <h2 align="center">All your recipes, in one place.</h2>
