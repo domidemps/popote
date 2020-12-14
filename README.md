@@ -1,48 +1,60 @@
-# popote
+<p align="center">
+  <img src="https://img.shields.io/badge/version-1.0.0-green"/>
+  <a href="https://github.com/domidemps/popote/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-blue" alt="popote is released under the MIT license." />
+  </a>
+</p>
 
-**popote** is a web app, your modern cookbook.
+<p align="center">
+  <img src="https://github.com/domidemps/popote/blob/master/images/popote_logo.png" />
+</p>
 
-- Create many recipes
-- Keep them organized for the long haul
+<h2 align="center">All your recipes, in one place.</h2>
+
+- 🍳 Create many recipes
+- 📒 Keep them organized for the long haul
 
 A great alternative to bunch of index cards in a folder!
 
-## 1 - Install dependencies
+### Let's start
+
+🚧 *As this project is early stage, it is not deployed yet.* 🚧
+
+
+### Contributors
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/domidemps">
+        <img src="https://avatars.githubusercontent.com/domidemps?s=100" width="100px;" alt=""/>
+        <br />
+        <sub>
+          <b>Domitille Dempuré</b>
+        </sub>
+      </a>
+    <td align="center">
+      <a href="https://github.com/ldehaine">
+        <img src="https://avatars.githubusercontent.com/ldehaine?s=100" width="100px;" alt=""/>
+        <br />
+        <sub>
+          <b>Lou-Yann Dehaine</b>
+        </sub>
+      </a>
+  </tr>
+</table>
+
+### Make a copy of the project
 
 These instructions will get you a copy of the project up and running on your local machine, for development purposes.
 
-- Install **Node.js** and **yarn**:
+#### Install dependencies
 
-```
-curl https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get install -y nodejs
-sudo apt-get install curl
-curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
-yarn
-```
+- Install JS dependencies: `yarn`
+- Install **Python 3.7** dependencies: `pip install -r python/requirements.txt`
 
-- Install **Python 3.7** dependencies:
+#### Launch popote
 
-```
-pip install -r python/requirements.txt
-```
-
-## 2 - Launch popote
-
-### 2.1 - Run Python server
-
-In order to make the Python server listening on the 5000 port, run the following:
-
-```
-yarn back:env
-```
-
-### 2.2 - Compile the code
-
-```
-yarn front:dev
-```
-
-### 2.2 - Open popote
-
-Click on this link to locally open popote: [popote](http://localhost:8080/)
+- Run back-end (port 5000): `yarn back:env`
+- Run front-end: `yarn front:dev`
+- Open popote: [popote](http://localhost:8080/)
