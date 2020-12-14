@@ -1,12 +1,12 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/version-1.0.0-green"/>
+  <img src="https://img.shields.io/badge/version-0.1.0-green"/>
   <a href="https://github.com/domidemps/popote/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue" alt="popote is released under the MIT license." />
   </a>
 </p>
 
 <p align="center">
-  <img src="https://github.com/domidemps/popote/blob/master/src/images/popote_logo.png" />
+  <img src="https://github.com/domidemps/popote/blob/master/src/images/popote_logo.png" width="450px;"/>
 </p>
 
 <h2 align="center">All your recipes, in one place.</h2>
