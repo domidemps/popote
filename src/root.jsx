@@ -5,7 +5,8 @@ import {ConnectedRouter} from 'connected-react-router'
 import {MuiThemeProvider} from '@material-ui/core/styles'
 
 import theme from './styles/material_ui_raw_theme_file'
-import LoginView from './login/LoginView'
+import PrivateRoute from './containers/utils/PrivateRoute'
+import LoginView from './containers/login/LoginView'
 
 const Popote = ({store, history}) => {
   return (
@@ -14,7 +15,7 @@ const Popote = ({store, history}) => {
         <MuiThemeProvider theme={theme}>
           <div>
             <Switch>
-              <Route exact path="/" render={() => <html>Hello world!</html>} />
+              <PrivateRoute exact path="/" component={<html>Hello world!</html>} />
               <Route exact path="/login" render={() => <LoginView />} />
               <Route render={() => <div>Not found</div>} />
             </Switch>

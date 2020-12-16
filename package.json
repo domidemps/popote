@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "front:dev": "webpack-dev-server -d --hot --inline --progress --colors",
-    "back:dev": "python server.py",
+    "back:dev": "python3.7 server.py",
     "start": "concurrently --kill-others \"yarn front:dev\" \"yarn back:dev\"",
     "build": "webpack --mode=production --progress --colors",
     "stats": "webpack --json > stats.json"
@@ -51,9 +51,11 @@
     "@material-ui/icons": "^4.9.1",
     "@material/typography": "4.0.0",
     "connected-react-router": "6.7.0",
+    "dayjs": "1.8.33",
     "fbjs": "1.0.0",
     "history": "4.10.1",
     "lodash": "4.17.19",
+    "prop-types": "15.7.2",
     "react": "16.13.0",
     "react-dom": "16.13.0",
     "react-flexbox-grid": "2.1.2",
