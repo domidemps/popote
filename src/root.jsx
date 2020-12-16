@@ -8,6 +8,8 @@ import theme from './styles/material_ui_raw_theme_file'
 import PrivateRoute from './containers/utils/PrivateRoute'
 import LoginView from './containers/login/LoginView'
 
+require('./styles/main.css')
+
 const Popote = ({store, history}) => {
   return (
     <Provider store={store}>

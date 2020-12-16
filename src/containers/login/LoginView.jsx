@@ -7,32 +7,67 @@ import Typography from '@material-ui/core/Typography'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
-import FormHelperText from '@material-ui/core/FormHelperText'
+import Button from '@material-ui/core/Button'
+import MailIcon from '@material-ui/icons/Mail'
+import LockIcon from '@material-ui/icons/Lock'
+
+import PopoteLogo from '../../images/popote_logo.png'
+import {DARK_PURPLE, INTENSE_YELLOW, MEDIUM_PURPLE} from '../../styles/material_ui_raw_theme_file'
+import {darken} from '@material-ui/core'
 
 const styles = css`
-  width: 100%;
   display: flex;
   flex-direction: column;
-  .loginCanvas {
-    width: 40%;
+  height: ${window.innerHeight}px;
+  background: linear-gradient(${darken(MEDIUM_PURPLE, 0.3)}, ${INTENSE_YELLOW});
+  .loginPaper {
+    width: 60%;
     align-self: center;
     min-height: 120px;
-    padding-bottom: 40px;
+    padding: 20px 0px;
     border-radius: 12px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
   }
   .title {
     margin: 20px 0;
+    font-weight: 500;
+    color: ${DARK_PURPLE};
   }
-  .flexCanvas {
+  .flexColumn {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+  .flexRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .maxSize {
+    flex-grow: 1;
+    width: inherit;
+  }
+  .logo {
+    width: 60%;
+  }
+  .flexRow {
+    display: flex;
+    flex-direction: row;
+  }
+  .icon {
+    margin: 20px 15px 5px 5px;
+    fill: ${DARK_PURPLE};
   }
   .fullwidth: {
     width: 100%;
   }
   .textField {
     padding-bottom: 15px;
+  }
+  .button {
+    margin: 30px;
   }
 `
 
@@ -50,14 +85,35 @@ export default function LoginView() {
 
   return (
     <div css={styles}>
-      <Paper elevation={7} className="login loginCanvas">
-        <Typography variant="h4" align="center" className="title">
-          Popote
-        </Typography>
-        <FormControl>
-          <InputLabel htmlFor="login-username">Username</InputLabel>
-          <Input id="login-username" aria-describedby="my-helper-text" />
-        </FormControl>
+      <Paper elevation={7} className="loginPaper flexRow">
+        <div className="flexColumn">
+          <img src={PopoteLogo} alt="Popote" className="logo" />
+          <Typography variant="h5" align="center" className="title">
+            Toutes mes recettes, au même endroit.
+          </Typography>
+        </div>
+        <div className="flexColumn maxSize">
+          <Typography variant="h4" align="center" className="title">
+            Se connecter
+          </Typography>
+          <div className="flexRow">
+            <MailIcon className="icon" />
+            <FormControl>
+              <InputLabel htmlFor="login-email">E-mail</InputLabel>
+              <Input id="login-email" type="email" />
+            </FormControl>
+          </div>
+          <div className="flexRow">
+            <LockIcon className="icon" />
+            <FormControl>
+              <InputLabel htmlFor="login-password">Mot de passe</InputLabel>
+              <Input id="login-password" type="password" />
+            </FormControl>
+          </div>
+          <Button variant="contained" color="primary" className="button">
+            C'est parti !
+          </Button>
+        </div>
       </Paper>
     </div>
   )
