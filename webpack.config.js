@@ -2,7 +2,6 @@ const CompressionPlugin = require('compression-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = async (env, argv) => {
-  const isOnline = await require('is-online')()
   return {
     context: __dirname,
     entry: ['./src/index.jsx'],
@@ -35,7 +34,6 @@ module.exports = async (env, argv) => {
         title: 'popote',
         template: './src/index.ejs',
         appMountId: 'root',
-        isOnline,
       }),
     ],
     module: {
