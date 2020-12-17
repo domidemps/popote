@@ -15,13 +15,11 @@ const Popote = ({store, history}) => {
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <MuiThemeProvider theme={theme}>
-          <div>
-            <Switch>
-              <PrivateRoute exact path="/" component={<html>Hello world!</html>} />
-              <Route exact path="/login" render={() => <LoginView />} />
-              <Route render={() => <div>Not found</div>} />
-            </Switch>
-          </div>
+          <Switch>
+            <PrivateRoute exact path="/" component={<html>Hello world!</html>} />
+            <Route exact path="/login" render={() => <LoginView />} />
+            <Route render={() => <div>Not found</div>} />
+          </Switch>
         </MuiThemeProvider>
       </ConnectedRouter>
     </Provider>
