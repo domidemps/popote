@@ -93,6 +93,13 @@ export default function LoginView() {
     dispatch(login(email, password))
   }
 
+  const handleKeyPress = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      checkLogin()
+    }
+  }
+
   const renderFormControl = (name, value, helper, icon, setNewValue) => {
     return (
       <div className="flexRow">
@@ -113,7 +120,7 @@ export default function LoginView() {
 
   return (
     <div css={styles}>
-      <Paper elevation={7} className="loginPaper flexRow">
+      <Paper elevation={7} className="loginPaper flexRow" onKeyPress={handleKeyPress}>
         <div className="flexColumn">
           <img src={PopoteLogo} alt="Popote" className="logo" />
           <Typography variant="h5" align="center" className="title">
