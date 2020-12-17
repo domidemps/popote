@@ -2,8 +2,8 @@ const logging = () => {
   return {type: 'LOGGING'}
 }
 
-const loginSuccess = user => {
-  return {type: 'LOGIN_SUCCESS', user}
+const loginSuccess = token => {
+  return {type: 'LOGIN_SUCCESS', token}
 }
 
 const loginFailure = () => {
@@ -32,6 +32,34 @@ export const checkIfAuthenticated = () => {
       .catch(() => {
         dispatch(loginFailure())
         console.error('You are not authenticated')
+      })
+  }
+}
+
+export const login = (username, password) => {
+  return dispatch => {
+    const loginFormData = new FormData()
+    loginFormData.append('username', username)
+    loginFormData.append('password', password)
+    dispatch(logging())
+    fetch('/token', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+        Accept: 'application/json',
+      },
+      body: loginFormData,
+    })
+      .then(response => {
+        return response.json().then(json => {
+          return response.ok ? json : Promise.reject(json)
+        })
+      })
+      .then(data => {
+        dispatch(loginSuccess(data.accessToken))
+      })
+      .catch(error => {
+        console.error(error)
       })
   }
 }

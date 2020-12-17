@@ -18,27 +18,27 @@ class PrivateRoute extends Component {
   }
 
   render() {
-    const {component: newComponent, lastAuthenticationCheck, authenticated, ...rest} = this.props
+    const {component: NewComponent, lastAuthenticationCheck, authenticated, ...rest} = this.props
     let routeRender = props => null
     if (lastAuthenticationCheck != null && !authenticated) {
       routeRender = props => <Redirect to={{pathname: '/login'}} />
     } else if (lastAuthenticationCheck != null && authenticated) {
-      routeRender = props => <newComponent {...props} />
+      routeRender = props => <NewComponent {...props} />
     }
     return <Route {...rest} render={routeRender} />
   }
 }
 
 PrivateRoute.propTypes = {
-  authenticated: PropTypes.bool.isRequired,
+  authenticated: PropTypes.bool,
   component: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.object.isRequired]),
   checkAuthenticated: PropTypes.func,
   lastAuthenticationCheck: PropTypes.object,
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    isAuthenticated: state.user.authenticated,
+    authenticated: state.user.authenticated,
     lastAuthenticationCheck: state.user.lastAuthenticationCheck,
   }
 }

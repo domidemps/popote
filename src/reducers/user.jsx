@@ -4,6 +4,7 @@ const userInitialState = () => {
   return {
     authenticated: false,
     lastAuthenticationCheck: null,
+    authenticationToken: null,
   }
 }
 
@@ -17,7 +18,7 @@ export default (state = userInitialState(), action) => {
     case 'LOGIN_SUCCESS':
       return {
         ...state,
-        ...action.user,
+        authenticationToken: action.token,
         authenticated: true,
         lastAuthenticationCheck: dayjs(),
       }

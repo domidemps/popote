@@ -2,6 +2,7 @@
 import {jsx, css} from '@emotion/core'
 import {useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
+import {push} from 'connected-react-router'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import FormControl from '@material-ui/core/FormControl'
@@ -10,10 +11,12 @@ import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
 import MailIcon from '@material-ui/icons/Mail'
 import LockIcon from '@material-ui/icons/Lock'
+import {darken} from '@material-ui/core'
+import isEmpty from 'lodash/isEmpty'
 
 import PopoteLogo from '../../images/popote_logo.png'
 import {DARK_PURPLE, INTENSE_YELLOW, MEDIUM_PURPLE} from '../../styles/material_ui_raw_theme_file'
-import {darken} from '@material-ui/core'
+import {login} from '../../actions/user'
 
 const styles = css`
   display: flex;
@@ -83,6 +86,31 @@ export default function LoginView() {
     }
   }, [authenticated])
 
+  const checkLogin = () => {
+    if (isEmpty(email) || isEmpty(password)) {
+      return
+    }
+    dispatch(login(email, password))
+  }
+
+  const renderFormControl = (name, value, helper, icon, setNewValue) => {
+    return (
+      <div className="flexRow">
+        {icon}
+        <FormControl>
+          <InputLabel htmlFor={`login-${name}`}>{helper}</InputLabel>
+          <Input
+            id={`login-${name}`}
+            type={name}
+            value={value}
+            onChange={e => setNewValue(e.target.value)}
+            required
+          />
+        </FormControl>
+      </div>
+    )
+  }
+
   return (
     <div css={styles}>
       <Paper elevation={7} className="loginPaper flexRow">
@@ -96,21 +124,19 @@ export default function LoginView() {
           <Typography variant="h4" align="center" className="title">
             Se connecter
           </Typography>
-          <div className="flexRow">
-            <MailIcon className="icon" />
-            <FormControl>
-              <InputLabel htmlFor="login-email">E-mail</InputLabel>
-              <Input id="login-email" type="email" />
-            </FormControl>
-          </div>
-          <div className="flexRow">
-            <LockIcon className="icon" />
-            <FormControl>
-              <InputLabel htmlFor="login-password">Mot de passe</InputLabel>
-              <Input id="login-password" type="password" />
-            </FormControl>
-          </div>
-          <Button variant="contained" color="primary" className="button">
+          {renderFormControl('email', email, 'E-mail', <MailIcon className="icon" />, setEmail)}
+          {renderFormControl(
+            'password',
+            password,
+            'Mot de passe',
+            <LockIcon className="icon" />,
+            setPassword,
+          )}
+          <Button
+            variant="contained"
+            color="primary"
+            className="button"
+            onClick={() => checkLogin()}>
             C'est parti !
           </Button>
         </div>
@@ -118,59 +144,3 @@ export default function LoginView() {
     </div>
   )
 }
-
-// export default function LoginView() {
-//   const dispatch = useDispatch()
-//   const authenticated = useSelector(state => state.user.authenticated)
-//   const {getFieldProps, handleSubmit} = useFormik({
-//     initialValues: {
-//       email: '',
-//       password: '',
-//     },
-//     onSubmit(values) {
-//       // This will return when the form is submitted
-//     },
-//   })
-//
-//   // TODO: To remove
-//   // on ComponentDidMount:
-//   // if (authenticated) {
-//   //   dispatch(push('/')
-//   // }
-//   // on ComponentWillReceiveProps
-//   // if (nextAuthenticated && !authenticated {
-//   //    dispatch(push('/')
-//   // }
-//
-//   useEffect(() => {
-//     if (authenticated) {
-//       dispatch(push('/'))
-//     }
-//   }, [authenticated])
-//
-//   return (
-//     <div css={styles}>
-//       <Paper elevation={7} className="login loginCanvas">
-//         <Typography variant="h4" align="center" className="title">
-//           Popote
-//         </Typography>
-//         <form className="baseForm" onSubmit={handleSubmit} noValidate>
-//           <input
-//             type="email"
-//             name="E-mail"
-//             id="email"
-//             className="email formField"
-//             {...getFieldProps('email')}
-//           />
-//           <input
-//             type="password"
-//             name="Password"
-//             id="current-password"
-//             className="password formField"
-//             {...getFieldProps('password')}
-//           />
-//         </form>
-//       </Paper>
-//     </div>
-//   )
-// }
