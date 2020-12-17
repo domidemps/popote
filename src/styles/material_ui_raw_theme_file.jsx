@@ -25,6 +25,8 @@ const rawBaseTheme = {
         '&:hover': {
           backgroundColor: lighten(MEDIUM_PURPLE, 0.2),
         },
+        borderRadius: 20,
+        fontSize: 16,
       },
     },
   },
