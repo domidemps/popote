@@ -1,23 +1,13 @@
 const CompressionPlugin = require('compression-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-module.exports = async (env, argv) => {
+module.exports = async () => {
   return {
     context: __dirname,
-    entry: ['./src/index.jsx'],
+    entry: './src/index.jsx',
     devServer: {
       contentBase: __dirname + '/static',
       historyApiFallback: true,
-      proxy: {
-        '/': {
-          target: 'http://localhost:5000',
-          secure: false,
-        },
-        '/logout': {
-          target: 'http://localhost:5000',
-          secure: false,
-        },
-      },
     },
     output: {
       path: __dirname + '/static',

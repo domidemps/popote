@@ -4,7 +4,7 @@ module.exports = function(api) {
   return {
     presets: [
       [
-        '@babel/preset-env',
+        '@babel/env',
         {
           useBuiltIns: 'entry',
           loose: true,
@@ -14,7 +14,7 @@ module.exports = function(api) {
           },
         },
       ],
-      '@babel/preset-react',
+      '@babel/react',
     ],
     plugins: [
       'react-hot-loader/babel',
