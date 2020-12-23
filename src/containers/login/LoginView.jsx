@@ -78,6 +78,10 @@ export default function LoginView() {
   const dispatch = useDispatch()
   const authenticated = useSelector(state => state.user.authenticated)
   const [email, setEmail] = useState('')
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+  })
   const [password, setPassword] = useState('')
 
   useEffect(() => {
@@ -87,10 +91,15 @@ export default function LoginView() {
   }, [authenticated])
 
   const checkLogin = () => {
-    if (isEmpty(email) || isEmpty(password)) {
-      return
+    if (!isEmpty(email) && !isEmpty(password)) {
+      setErrors({email: '', password: ''})
+      dispatch(login(email, password))
+    } else {
+      setErrors({
+        email: isEmpty(email) ? 'Ce champ est obligatoire' : '',
+        password: isEmpty(password) ? 'Ce champ est obligatoire' : '',
+      })
     }
-    dispatch(login(email, password))
   }
 
   const handleKeyPress = event => {
@@ -101,11 +110,12 @@ export default function LoginView() {
   }
 
   const renderFormControl = (name, value, helper, icon, setNewValue) => {
+    const isError = !isEmpty(errors[name])
     return (
       <div className="flexRow">
         {icon}
-        <FormControl>
-          <InputLabel htmlFor={`login-${name}`}>{helper}</InputLabel>
+        <FormControl error={isError}>
+          <InputLabel htmlFor={`login-${name}`}>{isError ? errors[name] : helper}</InputLabel>
           <Input
             id={`login-${name}`}
             type={name}
