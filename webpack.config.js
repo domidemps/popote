@@ -1,7 +1,15 @@
 const CompressionPlugin = require('compression-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const webpack = require('webpack')
 
-module.exports = async () => {
+module.exports = async env => {
+  const envConfig = {}
+  if (env === 'dev') {
+    envConfig.domain = 'http://localhost:5000'
+  } else {
+    envConfig.domain = 'http://prod.domain.com'
+  }
+
   return {
     context: __dirname,
     entry: './src/index.jsx',
@@ -24,6 +32,9 @@ module.exports = async () => {
         title: 'popote',
         template: './src/index.ejs',
         appMountId: 'root',
+      }),
+      new webpack.DefinePlugin({
+        API_DOMAIN: JSON.stringify(envConfig.domain),
       }),
     ],
     module: {

@@ -13,13 +13,13 @@ const loginFailure = () => {
 export const checkIfAuthenticated = () => {
   return dispatch => {
     dispatch(logging())
-    fetch('/users/me', {
+    fetch(`${API_DOMAIN}/users/me`, {
       method: 'GET',
-      credentials: 'same-origin',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
+      mode: 'cors',
     })
       .then(response => {
         return response.json().then(json => {
@@ -42,13 +42,13 @@ export const login = (username, password) => {
     loginFormData.append('username', username)
     loginFormData.append('password', password)
     dispatch(logging())
-    fetch('/token', {
+    fetch(`${API_DOMAIN}/token`, {
       method: 'POST',
-      credentials: 'same-origin',
       headers: {
         Accept: 'application/json',
       },
       body: loginFormData,
+      mode: 'cors',
     })
       .then(response => {
         return response.json().then(json => {
