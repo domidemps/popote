@@ -11,9 +11,9 @@ class PrivateRoute extends Component {
   }
 
   componentDidMount() {
-    const {authenticated, checkAuthenticated} = this.props
+    const {authenticated, checkAuthenticated, authenticationToken} = this.props
     if (!authenticated) {
-      checkAuthenticated()
+      checkAuthenticated(authenticationToken)
     }
   }
 
@@ -31,6 +31,7 @@ class PrivateRoute extends Component {
 
 PrivateRoute.propTypes = {
   authenticated: PropTypes.bool,
+  authenticationToken: PropTypes.string,
   component: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.object.isRequired]),
   checkAuthenticated: PropTypes.func,
   lastAuthenticationCheck: PropTypes.object,
@@ -40,13 +41,14 @@ const mapStateToProps = state => {
   return {
     authenticated: state.user.authenticated,
     lastAuthenticationCheck: state.user.lastAuthenticationCheck,
+    authenticationToken: state.user.authenticationToken,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    checkAuthenticated: () => {
-      dispatch(checkIfAuthenticated())
+    checkAuthenticated: authenticationToken => {
+      dispatch(checkIfAuthenticated(authenticationToken))
     },
   }
 }

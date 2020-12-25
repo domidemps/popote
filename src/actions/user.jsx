@@ -10,7 +10,15 @@ const loginFailure = () => {
   return {type: 'LOGIN_FAILURE'}
 }
 
-export const checkIfAuthenticated = () => {
+const checkAuthenticationSuccess = name => {
+  return {type: 'AUTHENTICATION_SUCCESS', name}
+}
+
+const checkAuthenticationFailure = () => {
+  return {type: 'AUTHENTICATION_FAILURE'}
+}
+
+export const checkIfAuthenticated = token => {
   return dispatch => {
     dispatch(logging())
     fetch(`${API_DOMAIN}/users/me`, {
@@ -18,6 +26,7 @@ export const checkIfAuthenticated = () => {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       mode: 'cors',
     })
@@ -26,11 +35,11 @@ export const checkIfAuthenticated = () => {
           return response.ok ? json : Promise.reject(json.message)
         })
       })
-      .then(data => {
-        dispatch(loginSuccess(data.user))
+      .then(name => {
+        dispatch(checkAuthenticationSuccess(name))
       })
       .catch(() => {
-        dispatch(loginFailure())
+        dispatch(checkAuthenticationFailure())
         console.error('You are not authenticated')
       })
   }
@@ -56,9 +65,10 @@ export const login = (username, password) => {
         })
       })
       .then(data => {
-        dispatch(loginSuccess(data.accessToken))
+        dispatch(loginSuccess(data.access_token))
       })
       .catch(error => {
+        dispatch(loginFailure())
         console.error(error)
       })
   }
