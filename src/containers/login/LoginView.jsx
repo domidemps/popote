@@ -77,6 +77,7 @@ const styles = css`
 export default function LoginView() {
   const dispatch = useDispatch()
   const authenticated = useSelector(state => state.user.authenticated)
+  const wrongLogin = useSelector(state => state.user.wrongLogin)
   const [email, setEmail] = useState('')
   const [errors, setErrors] = useState({
     email: '',
@@ -149,6 +150,15 @@ export default function LoginView() {
             <LockIcon className="icon" />,
             setPassword,
           )}
+          {wrongLogin ? (
+            <p
+              css={css`
+                color: red;
+                margin-top: 12px;
+              `}>
+              <strong>E-mail ou mot de passe invalide</strong>
+            </p>
+          ) : null}
           <Button
             variant="contained"
             color="primary"
