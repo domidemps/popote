@@ -7,6 +7,7 @@ export const INTENSE_YELLOW = '#eca400'
 export const MEDIUM_PURPLE = '#7f055f'
 export const DARK_PURPLE = '#45062e'
 export const WHITE = '#ffffff'
+export const ERROR = '#f44336'
 
 const rawBaseTheme = {
   palette: {
