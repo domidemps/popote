@@ -1,5 +1,5 @@
 import {applyMiddleware, compose, createStore} from 'redux'
-import {persistReducer} from 'redux-persist'
+import {persistReducer, persistStore} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import {routerMiddleware} from 'connected-react-router'
 import promise from 'redux-promise'
@@ -13,6 +13,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const persistConfig = {
   key: 'root',
+  whitelist: ['user'],
   storage,
 }
 
@@ -27,3 +28,4 @@ if (module.hot) {
     store.replaceReducer(nextReducer)
   })
 }
+export const persistor = persistStore(store)
