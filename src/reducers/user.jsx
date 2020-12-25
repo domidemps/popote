@@ -6,12 +6,18 @@ const userInitialState = () => {
     lastAuthenticationCheck: null,
     authenticationToken: null,
     username: '',
+    wrongLogin: false,
   }
 }
 
 export default (state = userInitialState(), action) => {
   switch (action.type) {
     case 'LOGIN_FAILURE':
+      return {
+        ...userInitialState(),
+        lastAuthenticationCheck: dayjs(),
+        wrongLogin: true,
+      }
     case 'AUTHENTICATION_FAILURE':
       return {
         ...userInitialState(),
@@ -23,6 +29,7 @@ export default (state = userInitialState(), action) => {
         authenticationToken: action.token,
         authenticated: true,
         lastAuthenticationCheck: dayjs(),
+        wrongLogin: false,
       }
     case 'AUTHENTICATION_SUCCESS':
       return {
