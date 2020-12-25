@@ -15,7 +15,12 @@ import {darken} from '@material-ui/core'
 import isEmpty from 'lodash/isEmpty'
 
 import PopoteLogo from '../../images/popote_logo.png'
-import {DARK_PURPLE, INTENSE_YELLOW, MEDIUM_PURPLE} from '../../styles/material_ui_raw_theme_file'
+import {
+  DARK_PURPLE,
+  ERROR,
+  INTENSE_YELLOW,
+  MEDIUM_PURPLE,
+} from '../../styles/material_ui_raw_theme_file'
 import {login} from '../../actions/user'
 
 const styles = css`
@@ -153,7 +158,7 @@ export default function LoginView() {
           {wrongLogin ? (
             <p
               css={css`
-                color: red;
+                color: ${ERROR};
                 margin-top: 12px;
               `}>
               <strong>E-mail ou mot de passe invalide</strong>
