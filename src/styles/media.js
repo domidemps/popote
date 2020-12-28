@@ -1,5 +1,5 @@
 import {css} from '@emotion/core'
-import sizes from './breakpoints'
+import sizes from 'styles/breakpoints'
 
 export default Object.keys(sizes).reduce((accumulator, label) => {
   const emSize = sizes[label] / 16

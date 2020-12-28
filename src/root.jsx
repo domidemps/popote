@@ -6,10 +6,10 @@ import {PersistGate} from 'redux-persist/integration/react'
 import {MuiThemeProvider} from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-import theme from './styles/material_ui_raw_theme_file'
-import PrivateRoute from './containers/utils/PrivateRoute'
-import LoginView from './containers/login/LoginView'
-import {persistor, store} from './store/configureStore'
+import theme from 'styles/material_ui_raw_theme_file'
+import PrivateRoute from 'containers/utils/PrivateRoute'
+import LoginView from 'containers/login/LoginView'
+import {persistor, store} from 'store/configureStore'
 
 require('./styles/main.css')
 

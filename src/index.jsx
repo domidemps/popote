@@ -1,17 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {AppContainer} from 'react-hot-loader'
-import Popote from './root'
 
 import {store} from 'store/configureStore'
 import {history} from 'reducers'
+import Popote from 'root'
 
 window.React = React
 
 const render = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Component store={store} history={history}/>
+      <Component store={store} history={history} />
     </AppContainer>,
     document.getElementById('root'),
   )

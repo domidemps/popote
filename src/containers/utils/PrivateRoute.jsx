@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {Route, Redirect} from 'react-router'
 
-import {checkIfAuthenticated} from '../../actions/user'
+import {checkIfAuthenticated} from 'actions/user'
 
 class PrivateRoute extends Component {
   constructor(props, context) {
