@@ -30,6 +30,11 @@ const rawBaseTheme = {
         fontSize: 16,
       },
     },
+    MuiFormControl: {
+      root: {
+        marginRight: 10,
+      },
+    },
   },
 }
 
