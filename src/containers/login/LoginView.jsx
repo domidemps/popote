@@ -14,15 +14,10 @@ import LockIcon from '@material-ui/icons/Lock'
 import {darken} from '@material-ui/core'
 import isEmpty from 'lodash/isEmpty'
 
-import PopoteLogo from '../../images/popote_logo.png'
-import {login} from '../../actions/user'
-import media from '../../styles/media'
-import {
-  DARK_PURPLE,
-  ERROR,
-  INTENSE_YELLOW,
-  MEDIUM_PURPLE,
-} from '../../styles/material_ui_raw_theme_file'
+import PopoteLogo from 'images/popote_logo.png'
+import {login} from 'actions/user'
+import media from 'styles/media'
+import {DARK_PURPLE, ERROR, INTENSE_YELLOW, MEDIUM_PURPLE} from 'styles/material_ui_raw_theme_file'
 
 const styles = css`
   display: flex;
