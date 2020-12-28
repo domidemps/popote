@@ -15,13 +15,14 @@ import {darken} from '@material-ui/core'
 import isEmpty from 'lodash/isEmpty'
 
 import PopoteLogo from '../../images/popote_logo.png'
+import {login} from '../../actions/user'
+import media from '../../styles/media'
 import {
   DARK_PURPLE,
   ERROR,
   INTENSE_YELLOW,
   MEDIUM_PURPLE,
 } from '../../styles/material_ui_raw_theme_file'
-import {login} from '../../actions/user'
 
 const styles = css`
   display: flex;
@@ -39,13 +40,18 @@ const styles = css`
     transform: translateY(-50%);
   }
   .title {
-    margin: 20px 0;
+    margin: 20px 5px;
     font-weight: 500;
     color: ${DARK_PURPLE};
   }
   .flexColumn {
     display: flex;
     flex-direction: column;
+    align-items: center;
+  }
+  .paperFlex {
+    display: flex;
+    flex-direction: row;
     align-items: center;
   }
   .flexRow {
@@ -60,23 +66,45 @@ const styles = css`
   .logo {
     width: 60%;
   }
-  .flexRow {
-    display: flex;
-    flex-direction: row;
-  }
   .icon {
     margin: 20px 15px 5px 5px;
     fill: ${DARK_PURPLE};
   }
-  .fullwidth: {
-    width: 100%;
-  }
-  .textField {
-    padding-bottom: 15px;
-  }
   .button {
     margin: 30px;
   }
+  ${media.mediumScreen`
+    .maxSize {
+      width: 35rem;
+    }
+  `}
+  ${media.horizontalTablet`
+    .loginPaper {
+      width: 70%;
+    }
+    .title {
+      font-size: 1.2rem;
+    }
+    .logo {
+      width: 50%;
+    }
+  `}
+  ${media.verticalTablet`
+    .loginPaper {
+      width: 80%;
+    }
+    .maxSize {
+      width: 45rem;
+    }
+  `}
+  ${media.smartphone`
+    .paperFlex {
+      flex-direction: column;
+    }
+    .title {
+      font-size: 1.5rem;
+    }
+  `}
 `
 
 export default function LoginView() {
@@ -136,7 +164,7 @@ export default function LoginView() {
 
   return (
     <div css={styles}>
-      <Paper elevation={7} className="loginPaper flexRow" onKeyPress={handleKeyPress}>
+      <Paper elevation={7} className="loginPaper paperFlex" onKeyPress={handleKeyPress}>
         <div className="flexColumn">
           <img src={PopoteLogo} alt="Popote" className="logo" />
           <Typography variant="h5" align="center" className="title">
@@ -160,6 +188,7 @@ export default function LoginView() {
               css={css`
                 color: ${ERROR};
                 margin-top: 12px;
+                text-align: center;
               `}>
               <strong>E-mail ou mot de passe invalide</strong>
             </p>
