@@ -1,5 +1,5 @@
 import {createMuiTheme} from '@material-ui/core/styles'
-import {darken, lighten, fade} from '@material-ui/core'
+import {lighten, fade} from '@material-ui/core'
 
 export const LIGHT_YELLOW = '#eaf8bf'
 export const MEDIUM_YELLOW = '#e7eb90'
@@ -16,6 +16,10 @@ const rawBaseTheme = {
     },
     primary: {
       main: MEDIUM_PURPLE,
+      contrastText: WHITE,
+    },
+    secondary: {
+      main: DARK_PURPLE,
       contrastText: WHITE,
     },
   },
