@@ -1,11 +1,11 @@
 import {applyMiddleware, compose, createStore} from 'redux'
-import {persistReducer, persistStore} from 'redux-persist'
+import {persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import {routerMiddleware} from 'connected-react-router'
 import promise from 'redux-promise'
 import thunk from 'redux-thunk'
 
-import reducers, {history} from '../reducers'
+import reducers, {history} from 'reducers'
 
 const middlewares = [thunk, promise, routerMiddleware(history)]
 
@@ -13,8 +13,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const persistConfig = {
   key: 'root',
-  whitelist: ['user'],
   storage,
+  whitelist: ['router', 'ui'],
 }
 
 const persistedRootReducer = persistReducer(persistConfig, reducers)
@@ -28,4 +28,3 @@ if (module.hot) {
     store.replaceReducer(nextReducer)
   })
 }
-export const persistor = persistStore(store)

@@ -1,21 +1,24 @@
 const CompressionPlugin = require('compression-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const webpack = require('webpack')
 
-module.exports = async env => {
-  const envConfig = {}
-  if (env === 'dev') {
-    envConfig.domain = 'http://localhost:5000'
-  } else {
-    envConfig.domain = 'http://prod.domain.com'
-  }
-
+module.exports = async (env, argv) => {
+  const isOnline = await require('is-online')()
   return {
     context: __dirname,
-    entry: './src/index.jsx',
+    entry: ['./src/index.jsx'],
     devServer: {
       contentBase: __dirname + '/static',
       historyApiFallback: true,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:5000',
+          secure: false,
+        },
+        '/api/logout': {
+          target: 'http://localhost:5000',
+          secure: false,
+        },
+      },
     },
     output: {
       path: __dirname + '/static',
@@ -32,9 +35,7 @@ module.exports = async env => {
         title: 'popote',
         template: './src/index.ejs',
         appMountId: 'root',
-      }),
-      new webpack.DefinePlugin({
-        API_DOMAIN: JSON.stringify(envConfig.domain),
+        isOnline,
       }),
     ],
     module: {

@@ -24,8 +24,7 @@ def create_user(name: str, email: str, password: str) -> str:
 
 @router.get("/users/me")
 async def read_user_me(current_user: User = Security(get_current_active_user, scopes=["user:read"])):
-    # TODO: Return a JSON containing username, email...
-    return current_user
+    return current_user.to_dict()
 
 
 @router.post("/users/me")

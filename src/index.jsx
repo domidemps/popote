@@ -6,6 +6,7 @@ import Popote from './root'
 import {store} from 'store/configureStore'
 import {history} from 'reducers'
 
+// Needed for React Developer Tools
 window.React = React
 
 const render = Component => {
