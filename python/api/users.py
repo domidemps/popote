@@ -1,3 +1,5 @@
+from typing import Dict, List
+
 from fastapi import APIRouter, HTTPException, Security
 from pony.orm import TransactionIntegrityError, db_session
 
@@ -15,7 +17,7 @@ async def read_user(email: str) -> str:
 
 
 @router.get("/users")
-async def read_users(_: User = Security(get_current_active_user, scopes=["users:read"])) -> list[dict[str, str]]:
+async def read_users(_: User = Security(get_current_active_user, scopes=["users:read"])) -> List[Dict[str, str]]:
     with db_session:
         users = User.select()
         return [user.to_dict() for user in users]
