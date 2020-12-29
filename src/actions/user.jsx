@@ -18,6 +18,10 @@ const checkAuthenticationFailure = () => {
   return {type: 'AUTHENTICATION_FAILURE'}
 }
 
+export const logout = () => {
+  return {type: 'LOGOUT'}
+}
+
 export const checkIfAuthenticated = token => {
   return dispatch => {
     dispatch(logging())

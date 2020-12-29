@@ -4,7 +4,7 @@ const userInitialState = () => {
   return {
     authenticated: false,
     lastAuthenticationCheck: null,
-    authenticationToken: null,
+    authenticationToken: '',
     username: '',
     wrongLogin: false,
   }
@@ -35,6 +35,10 @@ export default (state = userInitialState(), action) => {
       return {
         ...state,
         username: action.name,
+      }
+    case 'LOGOUT':
+      return {
+        ...userInitialState(),
       }
     default:
       return state
