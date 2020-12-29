@@ -9,8 +9,9 @@ from pony.orm import ObjectNotFound, db_session
 from pydantic import BaseModel, ValidationError
 
 from models.user import User
+from security.credentials import get_credentials
 
-SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"  # FIXME: store in a file
+SECRET_KEY = get_credentials("security/jwt_key")["password"]
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -47,7 +48,7 @@ def get_user_by_email(email: str) -> User:
 
 def authenticate_user(email: str, password: str):
     user = get_user_by_email(email)
-    if not user or not verify_password(password, user.password):
+    if not user or not verify_password(password, user.password) or not user.active:
         return False
     return user
 
@@ -67,7 +68,7 @@ async def get_current_user(security_scopes: SecurityScopes, token: str = Depends
     if security_scopes.scopes:
         authenticate_value = f'Bearer scope="{security_scopes.scope_str}"'
     else:
-        authenticate_value = f"Bearer"
+        authenticate_value = "Bearer"
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",

@@ -53,6 +53,35 @@ These instructions will get you a copy of the project up and running on your loc
 - Install JS dependencies: `yarn`
 - Install **Python 3.7** dependencies: `pip install -r python/requirements.txt`
 
+#### Configure credentials storage
+
+The API needs credentials for some functionalities, including connecting to the database.
+
+To make the API run properly, you'll need to set some **environment variables**:
+* Either set "POPOTE_SECRET_JSON_PATH" to the path of your credentials JSON. It should resemble this:
+  ```JSON
+  {
+    "security": {
+      "jwt_key": {
+        "password": <YOUR_JWT_SECRET_KEY>
+    }
+  },
+    "db": {
+      "db_account": {
+        "username": <YOUR_DB_USERNAME>,
+        "password": <YOUR_DB_PASSWORD>
+      }
+    }
+  }
+  ```
+* ... or, better, set "POPOTE_KEEPASS_PATH" to the path of your .kdbx file and "POPOTE_KEEPASS_PASSWORD" to the password of said file.
+  The expected architecture of the Keepass database is copied from the above JSON example with:
+  * "security" and "db" being groups
+  * "db_account" and "jwt_key" being entries
+  * "password" and "username" fields are the attributes of the entry
+
+Easier to setup with JSON but safer with the Keepass
+
 #### Launch popote
 
 - Run back-end (port 5000): `yarn back:env`
