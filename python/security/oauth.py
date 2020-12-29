@@ -5,7 +5,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, SecurityScopes
 from jose import JWTError, jwt
 from passlib.context import CryptContext
-from pony.orm import db_session
+from pony.orm import ObjectNotFound, db_session
 from pydantic import BaseModel, ValidationError
 
 from models.user import User
@@ -18,7 +18,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl="token",
-    scopes={"user:read": "User read", "user:write": "User write"},
+    scopes={"users:read": "Users read", "users:write": "Users write"},
 )
 
 
@@ -47,9 +47,7 @@ def get_user_by_email(email: str) -> User:
 
 def authenticate_user(email: str, password: str):
     user = get_user_by_email(email)
-    if not user:
-        return False
-    if not verify_password(password, user.password):
+    if not user or not verify_password(password, user.password):
         return False
     return user
 
@@ -65,7 +63,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     return encoded_jwt
 
 
-async def get_current_user(security_scopes: SecurityScopes, token: str = Depends(oauth2_scheme)) -> str:
+async def get_current_user(security_scopes: SecurityScopes, token: str = Depends(oauth2_scheme)) -> User:
     if security_scopes.scopes:
         authenticate_value = f'Bearer scope="{security_scopes.scope_str}"'
     else:
@@ -77,13 +75,18 @@ async def get_current_user(security_scopes: SecurityScopes, token: str = Depends
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        user_uuid: str = payload.get("sub")
+        if user_uuid is None:
             raise credentials_exception
         token_scopes = payload.get("scopes", [])
-        token_data = TokenData(scopes=token_scopes, user_uuid=username)
+        token_data = TokenData(scopes=token_scopes, user_uuid=user_uuid)
     except (JWTError, ValidationError):
         raise credentials_exception
+    with db_session:
+        try:
+            user: User = User[user_uuid]
+        except ObjectNotFound as e:
+            raise credentials_exception from e
     for scope in security_scopes.scopes:
         if scope not in token_data.scopes:
             raise HTTPException(
@@ -91,8 +94,8 @@ async def get_current_user(security_scopes: SecurityScopes, token: str = Depends
                 detail="Not enough permissions",
                 headers={"WWW-Authenticate": authenticate_value},
             )
-    return token_data.user_uuid
+    return user
 
 
-async def get_current_active_user(current_user_uuid: str = Depends(get_current_user)) -> str:
-    return current_user_uuid
+async def get_current_active_user(current_user: User = Depends(get_current_user)) -> User:
+    return current_user
