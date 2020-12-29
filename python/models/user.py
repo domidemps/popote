@@ -10,3 +10,6 @@ class User(db.Entity):
     name = Required(str)
     email = Required(str, unique=True)
     password = Required(str)
+
+    def __class_getitem__(cls, item) -> "User":
+        return super().__class_getitem__(item)
