@@ -11,7 +11,7 @@ import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
 import MailIcon from '@material-ui/icons/Mail'
 import LockIcon from '@material-ui/icons/Lock'
-import {darken} from '@material-ui/core'
+import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import isEmpty from 'lodash/isEmpty'
 
 import PopoteLogo from 'images/popote_logo.png'
@@ -22,8 +22,6 @@ import {DARK_PURPLE, ERROR, INTENSE_YELLOW, MEDIUM_PURPLE} from 'styles/material
 const styles = css`
   display: flex;
   flex-direction: column;
-  height: ${window.innerHeight}px;
-  background: linear-gradient(${darken(MEDIUM_PURPLE, 0.3)}, ${INTENSE_YELLOW});
   .loginPaper {
     width: 60%;
     align-self: center;
@@ -66,7 +64,7 @@ const styles = css`
     fill: ${DARK_PURPLE};
   }
   .button {
-    margin: 30px;
+    margin: 30px 0px 15px 0px;
   }
   ${media.mediumScreen`
     .maxSize {
@@ -107,17 +105,21 @@ export default function LoginView() {
   const authenticated = useSelector(state => state.user.authenticated)
   const wrongLogin = useSelector(state => state.user.wrongLogin)
   const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({
     email: '',
     password: '',
   })
-  const [password, setPassword] = useState('')
 
   useEffect(() => {
     if (authenticated) {
       dispatch(push('/'))
     }
   }, [authenticated])
+
+  const goToSignIn = () => {
+    dispatch(push('/sign-in'))
+  }
 
   const checkLogin = () => {
     if (!isEmpty(email) && !isEmpty(password)) {
@@ -194,6 +196,15 @@ export default function LoginView() {
             className="button"
             onClick={() => checkLogin()}>
             C'est parti !
+          </Button>
+          <Button
+            color="primary"
+            css={css`
+              text-transform: none;
+            `}
+            endIcon={<NavigateNextIcon />}
+            onClick={() => goToSignIn()}>
+            Créer un compte
           </Button>
         </div>
       </Paper>
