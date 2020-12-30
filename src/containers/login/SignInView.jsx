@@ -6,13 +6,17 @@ import Typography from '@material-ui/core/Typography'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
+import Button from '@material-ui/core/Button'
 import PersonIcon from '@material-ui/icons/Person'
 import MailIcon from '@material-ui/icons/Mail'
 import LockIcon from '@material-ui/icons/Lock'
 import map from 'lodash/map'
+import isEmpty from 'lodash/isEmpty'
+import every from 'lodash/every'
 
 import media from 'styles/media'
 import {DARK_PURPLE} from 'styles/material_ui_raw_theme_file'
+import {createUser} from 'actions/user'
 
 const styles = css`
   display: flex;
@@ -44,6 +48,9 @@ const styles = css`
     margin: 20px 15px 5px 5px;
     fill: ${DARK_PURPLE};
   }
+  .button {
+    margin: 30px 0px 15px 0px;
+  }
   ${media.horizontalTablet`
     .creationPaper {
       width: 70%;
@@ -64,6 +71,12 @@ export default function SignInView() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmedPassword, setConfirmedPassword] = useState('')
+  const [errors, setErrors] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmedPassword: '',
+  })
 
   const forms = [
     {
@@ -99,14 +112,39 @@ export default function SignInView() {
       setNewValue: setConfirmedPassword,
     },
   ]
-  console.log(username, email, password, confirmedPassword)
+
+  const checkUserCreation = () => {
+    if (
+      every([username, email, password, confirmedPassword], element => {
+        return !isEmpty(element)
+      })
+    ) {
+      setErrors({
+        username: '',
+        email: '',
+        password: '',
+        confirmedPassword: '',
+      })
+      dispatch(createUser(username, email, password))
+    } else {
+      setErrors({
+        username: isEmpty(username) ? 'Ce champ est obligatoire' : '',
+        email: isEmpty(email) ? 'Ce champ est obligatoire' : '',
+        password: isEmpty(password) ? 'Ce champ est obligatoire' : '',
+        confirmedPassword: isEmpty(confirmedPassword) ? 'Ce champ est obligatoire' : '',
+      })
+    }
+  }
 
   const renderFormControl = (name, type, value, helper, icon, setNewValue) => {
+    const isError = !isEmpty(errors[name])
     return (
       <div key={`signin-${name}`} className="flexRow">
         {icon}
-        <FormControl>
-          <InputLabel htmlFor={`signin-input-${name}`}>{helper}</InputLabel>
+        <FormControl error={isError}>
+          <InputLabel htmlFor={`signin-input-${name}`}>
+            {isError ? errors[name] : helper}
+          </InputLabel>
           <Input
             id={`signin-input-${name}`}
             type={type}
@@ -135,6 +173,13 @@ export default function SignInView() {
             form.setNewValue,
           )
         })}
+        <Button
+          variant="contained"
+          color="primary"
+          className="button"
+          onClick={() => checkUserCreation()}>
+          Valider
+        </Button>
       </Paper>
     </div>
   )

@@ -77,3 +77,44 @@ export const login = (username, password) => {
       })
   }
 }
+
+const creatingUser = () => {
+  return {type: 'CREATING_USER'}
+}
+
+const createUserSuccess = () => {
+  return {type: 'CREATE_USER_SUCCESS'}
+}
+
+const createUserFailure = () => {
+  return {type: 'CREATE_USER_FAILURE'}
+}
+
+export const createUser = (name, email, password) => {
+  const parameters = {
+    name,
+    email,
+    password,
+  }
+  return dispatch => {
+    dispatch(creatingUser())
+    fetch(`${API_DOMAIN}/users`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+      body: parameters,
+      mode: 'cors',
+    })
+      .then(response => {
+        return response.json().then(json => {
+          return response.ok ? json : Promise.reject(json)
+        })
+      })
+      .then(dispatch(createUserSuccess()))
+      .catch(error => {
+        dispatch(createUserFailure())
+        console.log(error)
+      })
+  }
+}
