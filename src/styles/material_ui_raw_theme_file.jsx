@@ -33,6 +33,9 @@ const rawBaseTheme = {
         borderRadius: 20,
         fontSize: 16,
       },
+      endIcon: {
+        marginLeft: 2,
+      },
     },
     MuiFormControl: {
       root: {
