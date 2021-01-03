@@ -113,27 +113,38 @@ export default function SignInView() {
     },
   ]
 
+  const handleKeyPress = event => {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      checkUserCreation()
+    }
+  }
+
   const checkUserCreation = () => {
+    let errors = {
+      username: '',
+      email: '',
+      password: '',
+      confirmedPassword: '',
+    }
     if (
       every([username, email, password, confirmedPassword], element => {
         return !isEmpty(element)
       })
     ) {
-      setErrors({
-        username: '',
-        email: '',
-        password: '',
-        confirmedPassword: '',
-      })
       dispatch(createUser(username, email, password))
     } else {
-      setErrors({
+      errors = {
         username: isEmpty(username) ? 'Ce champ est obligatoire' : '',
         email: isEmpty(email) ? 'Ce champ est obligatoire' : '',
         password: isEmpty(password) ? 'Ce champ est obligatoire' : '',
         confirmedPassword: isEmpty(confirmedPassword) ? 'Ce champ est obligatoire' : '',
-      })
+      }
     }
+    if (password !== confirmedPassword) {
+      errors = {...errors, confirmedPassword: 'Le mot de passe est différent'}
+    }
+    setErrors(errors)
   }
 
   const renderFormControl = (name, type, value, helper, icon, setNewValue) => {
@@ -159,7 +170,7 @@ export default function SignInView() {
 
   return (
     <div css={styles}>
-      <Paper elevation={7} className="creationPaper">
+      <Paper elevation={7} className="creationPaper" onKeyPress={handleKeyPress}>
         <Typography variant="h4" align="center" className="title">
           Créer un compte
         </Typography>
