@@ -98,12 +98,11 @@ export const createUser = (name, email, password) => {
   }
   return dispatch => {
     dispatch(creatingUser())
-    fetch(`${API_DOMAIN}/users`, {
+    fetch(`${API_DOMAIN}/users/?` + new URLSearchParams(parameters), {
       method: 'POST',
       headers: {
         Accept: 'application/json',
       },
-      body: parameters,
       mode: 'cors',
     })
       .then(response => {
