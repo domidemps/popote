@@ -13,11 +13,13 @@ import MailIcon from '@material-ui/icons/Mail'
 import LockIcon from '@material-ui/icons/Lock'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
 import isEmpty from 'lodash/isEmpty'
+import every from 'lodash/every'
 
 import PopoteLogo from 'images/popote_logo.png'
 import {login} from 'actions/user'
 import media from 'styles/media'
 import {DARK_PURPLE, ERROR, INTENSE_YELLOW, MEDIUM_PURPLE} from 'styles/material_ui_raw_theme_file'
+import {EMAIL_VALIDITY} from 'helpers/regex'
 
 const styles = css`
   display: flex;
@@ -122,15 +124,23 @@ export default function LoginView() {
   }
 
   const checkLogin = () => {
-    if (!isEmpty(email) && !isEmpty(password)) {
-      setErrors({email: '', password: ''})
-      dispatch(login(email, password))
-    } else {
-      setErrors({
-        email: isEmpty(email) ? 'Ce champ est obligatoire' : '',
-        password: isEmpty(password) ? 'Ce champ est obligatoire' : '',
-      })
+    console.log('checkLogin')
+    const isEmailValid = EMAIL_VALIDITY.test(email.toLowerCase())
+    let errors = {
+      email: isEmpty(email) ? 'Ce champ est obligatoire' : '',
+      password: isEmpty(password) ? 'Ce champ est obligatoire' : '',
     }
+    if (!isEmailValid) {
+      errors.email = "Cet e-mail n'est pas valide"
+    }
+    if (
+      every(errors, error => {
+        return isEmpty(error)
+      })
+    ) {
+      dispatch(login(email, password))
+    }
+    setErrors(errors)
   }
 
   const handleKeyPress = event => {

@@ -20,6 +20,7 @@ import every from 'lodash/every'
 import media from 'styles/media'
 import {DARK_PURPLE} from 'styles/material_ui_raw_theme_file'
 import {createUser} from 'actions/user'
+import {EMAIL_VALIDITY} from 'helpers/regex'
 
 const styles = css`
   display: flex;
@@ -125,32 +126,32 @@ export default function SignInView() {
   }
 
   const goToLogin = () => {
+    // Empty password fields for security
+    setPassword('')
+    setConfirmedPassword('')
     dispatch(push('/login'))
   }
 
   const checkUserCreation = () => {
+    const isEmailValid = EMAIL_VALIDITY.test(email.toLowerCase())
     let errors = {
-      username: '',
-      email: '',
-      password: '',
-      confirmedPassword: '',
+      username: isEmpty(username) ? 'Ce champ est obligatoire' : '',
+      email: isEmpty(email) ? 'Ce champ est obligatoire' : '',
+      password: isEmpty(password) ? 'Ce champ est obligatoire' : '',
+      confirmedPassword: isEmpty(confirmedPassword) ? 'Ce champ est obligatoire' : '',
+    }
+    if (!isEmailValid) {
+      errors.email = "Cet e-mail n'est pas valide"
+    }
+    if (password !== confirmedPassword) {
+      errors.confirmedPassword = 'Le mot de passe est différent'
     }
     if (
-      every([username, email, password, confirmedPassword], element => {
-        return !isEmpty(element)
+      every(errors, error => {
+        return isEmpty(error)
       })
     ) {
       dispatch(createUser(username, email, password))
-    } else {
-      errors = {
-        username: isEmpty(username) ? 'Ce champ est obligatoire' : '',
-        email: isEmpty(email) ? 'Ce champ est obligatoire' : '',
-        password: isEmpty(password) ? 'Ce champ est obligatoire' : '',
-        confirmedPassword: isEmpty(confirmedPassword) ? 'Ce champ est obligatoire' : '',
-      }
-    }
-    if (password !== confirmedPassword) {
-      errors = {...errors, confirmedPassword: 'Le mot de passe est différent'}
     }
     setErrors(errors)
   }
