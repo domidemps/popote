@@ -1,6 +1,8 @@
 /** @jsx jsx */
 import {jsx, css} from '@emotion/core'
 import {useState} from 'react'
+import {push} from 'connected-react-router'
+import {useDispatch} from 'react-redux'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import FormControl from '@material-ui/core/FormControl'
@@ -10,6 +12,7 @@ import Button from '@material-ui/core/Button'
 import PersonIcon from '@material-ui/icons/Person'
 import MailIcon from '@material-ui/icons/Mail'
 import LockIcon from '@material-ui/icons/Lock'
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore'
 import map from 'lodash/map'
 import isEmpty from 'lodash/isEmpty'
 import every from 'lodash/every'
@@ -67,6 +70,7 @@ const styles = css`
 `
 
 export default function SignInView() {
+  const dispatch = useDispatch()
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -118,6 +122,10 @@ export default function SignInView() {
       event.preventDefault()
       checkUserCreation()
     }
+  }
+
+  const goToLogin = () => {
+    dispatch(push('/login'))
   }
 
   const checkUserCreation = () => {
@@ -190,6 +198,15 @@ export default function SignInView() {
           className="button"
           onClick={() => checkUserCreation()}>
           Valider
+        </Button>
+        <Button
+          color="primary"
+          css={css`
+            text-transform: none;
+          `}
+          startIcon={<NavigateBeforeIcon />}
+          onClick={() => goToLogin()}>
+          Déjà un compte ?
         </Button>
       </Paper>
     </div>
