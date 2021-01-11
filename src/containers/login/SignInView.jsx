@@ -8,11 +8,16 @@ import Typography from '@material-ui/core/Typography'
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
+import Dialog from '@material-ui/core/Dialog'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
 import Button from '@material-ui/core/Button'
 import PersonIcon from '@material-ui/icons/Person'
 import MailIcon from '@material-ui/icons/Mail'
 import LockIcon from '@material-ui/icons/Lock'
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore'
+import zxcvbn from 'zxcvbn'
 import map from 'lodash/map'
 import isEmpty from 'lodash/isEmpty'
 import every from 'lodash/every'
@@ -21,6 +26,7 @@ import media from 'styles/media'
 import {DARK_PURPLE} from 'styles/material_ui_raw_theme_file'
 import {createUser} from 'actions/user'
 import {EMAIL_VALIDITY} from 'helpers/regex'
+import EmailSent from 'images/email_sent.svg'
 
 const styles = css`
   display: flex;
@@ -55,6 +61,63 @@ const styles = css`
   .button {
     margin: 30px 0px 15px 0px;
   }
+  .invisible {
+    display: none;
+  }
+  .fieldValidated {
+    color: green;
+  }
+  .strength-meter-fill {
+    background: transparent;
+    height: inherit;
+    position: absolute;
+    width: 0;
+    border-radius: inherit;
+    transition: width 0.5s ease-in-out, background 0.25s;
+    &[data-strength='0'] {
+      width: 20%;
+      background: darkred;
+    }
+    &[data-strength='1'] {
+      width: 40%;
+      background: orangered;
+    }
+    &[data-strength='2'] {
+      width: 60%;
+      background: orange;
+    }
+    &[data-strength='3'] {
+      width: 80%;
+      background: yellowgreen;
+    }
+    &[data-strength='4'] {
+      width: 100%;
+      background: green;
+    }
+  }
+  .strength-meter {
+    position: relative;
+    height: 3px;
+    background: #ddd;
+    margin: 7px 0;
+    border-radius: 2px;
+    &:before,
+    &:after {
+      content: '';
+      height: inherit;
+      background: transparent;
+      display: block;
+      position: absolute;
+      width: calc(20% + 6px);
+      z-index: 10;
+    }
+    &:before {
+      left: calc(20% - 3px);
+    }
+    &:after {
+      right: calc(20% - 3px);
+    }
+  }
   ${media.horizontalTablet`
     .creationPaper {
       width: 70%;
@@ -75,6 +138,7 @@ export default function SignInView() {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordStrength, setPasswordStrength] = useState(0)
   const [confirmedPassword, setConfirmedPassword] = useState('')
   const [errors, setErrors] = useState({
     username: '',
@@ -82,6 +146,7 @@ export default function SignInView() {
     password: '',
     confirmedPassword: '',
   })
+  const [dialogOpen, toggleDialog] = useState(false)
 
   const forms = [
     {
@@ -125,6 +190,17 @@ export default function SignInView() {
     }
   }
 
+  const onPasswordChange = newPassword => {
+    setPassword(newPassword)
+    const strength = zxcvbn(newPassword).score
+    setPasswordStrength(strength)
+    if (strength < 3 && !isEmpty(newPassword)) {
+      setErrors({...errors, password: 'Mot de passe trop faible'})
+    } else {
+      setErrors({...errors, password: ''})
+    }
+  }
+
   const goToLogin = () => {
     // Empty password fields for security
     setPassword('')
@@ -156,22 +232,64 @@ export default function SignInView() {
     setErrors(errors)
   }
 
+  const renderEmailSentDialog = () => {
+    return (
+      <Dialog
+        open={dialogOpen}
+        onClose={toggleDialog}
+        aria-labelledby="form-dialog-title"
+        disableBackdropClick
+        disableEscapeKeyDown>
+        <DialogTitle id="form-dialog-title">Hop hop, dernière étape !</DialogTitle>
+        <DialogContent>
+          <img src={EmailSent} alt="E-mail envoyé" />
+          <DialogContentText>
+            Un e-mail de confirmation a été envoyé à l'adresse {email}
+            <br />
+            Clique sur le lien pour valider ton inscription et continuer.
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
   const renderFormControl = (name, type, value, helper, icon, setNewValue) => {
     const isError = !isEmpty(errors[name])
+    const strengthClass = ['strength-meter', password.length === 0 ? 'invisible' : '']
+      .join(' ')
+      .trim()
+    const isPasswordOk = passwordStrength > 2 && name === 'password'
+    let label = helper
+    if (isError) {
+      label = errors[name]
+    } else if (isPasswordOk) {
+      label = 'Mot de passe sécurisé'
+    }
     return (
       <div key={`signin-${name}`} className="flexRow">
         {icon}
         <FormControl error={isError}>
-          <InputLabel htmlFor={`signin-input-${name}`}>
-            {isError ? errors[name] : helper}
+          <InputLabel
+            htmlFor={`signin-input-${name}`}
+            className={isPasswordOk ? 'fieldValidated' : ''}>
+            {label}
           </InputLabel>
           <Input
             id={`signin-input-${name}`}
             type={type}
             value={value}
-            onChange={e => setNewValue(e.target.value)}
+            onChange={
+              name === 'password'
+                ? e => onPasswordChange(e.target.value)
+                : e => setNewValue(e.target.value)
+            }
             required
           />
+          {name === 'password' ? (
+            <div className={strengthClass}>
+              <div className="strength-meter-fill" data-strength={passwordStrength} />
+            </div>
+          ) : null}
         </FormControl>
       </div>
     )
@@ -210,6 +328,7 @@ export default function SignInView() {
           Déjà un compte ?
         </Button>
       </Paper>
+      {renderEmailSentDialog()}
     </div>
   )
 }

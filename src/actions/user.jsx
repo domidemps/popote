@@ -113,7 +113,7 @@ export const createUser = (name, email, password) => {
       .then(dispatch(createUserSuccess()))
       .catch(error => {
         dispatch(createUserFailure())
-        console.log(error)
+        console.error(error)
       })
   }
 }

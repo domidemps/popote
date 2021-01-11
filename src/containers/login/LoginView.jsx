@@ -124,7 +124,6 @@ export default function LoginView() {
   }
 
   const checkLogin = () => {
-    console.log('checkLogin')
     const isEmailValid = EMAIL_VALIDITY.test(email.toLowerCase())
     let errors = {
       email: isEmpty(email) ? 'Ce champ est obligatoire' : '',
