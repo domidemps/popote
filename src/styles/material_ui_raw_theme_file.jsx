@@ -42,6 +42,21 @@ const rawBaseTheme = {
         marginRight: 10,
       },
     },
+    MuiDialog: {
+      paper: {
+        backgroundColor: LIGHT_YELLOW,
+      },
+    },
+    MuiDialogTitle: {
+      root: {
+        color: DARK_PURPLE,
+      },
+    },
+    MuiDialogContentText: {
+      root: {
+        color: DARK_PURPLE,
+      },
+    },
   },
 }
 
