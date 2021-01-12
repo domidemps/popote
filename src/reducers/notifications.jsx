@@ -2,6 +2,7 @@ const notificationsInitialState = () => {
   return {
     message: '',
     severity: '',
+    dialogOpen: false,
   }
 }
 
@@ -14,7 +15,21 @@ export default (state = notificationsInitialState(), action) => {
         severity: action.severity,
       }
     case 'RESET_NOTIFICATION':
-      return notificationsInitialState()
+      return {
+        ...state,
+        message: '',
+        severity: '',
+      }
+    case 'CREATE_USER_SUCCESS':
+      return {
+        ...state,
+        dialogOpen: true,
+      }
+    case 'RESET_DIALOG':
+      return {
+        ...state,
+        dialogOpen: false,
+      }
     default:
       return state
   }
