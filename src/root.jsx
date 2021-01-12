@@ -11,6 +11,7 @@ import PrivateRoute from 'containers/utils/PrivateRoute'
 import LoginView from 'containers/login/LoginView'
 import MainView from 'containers/MainView'
 import SignInView from 'containers/login/SignInView'
+import NotificationCenter from 'containers/utils/NotificationCenter'
 import {persistor, store} from 'store/configureStore'
 
 require('./styles/main.css')
@@ -21,6 +22,7 @@ const Popote = ({history}) => {
       <PersistGate loading={<CircularProgress size={65} thickness={5} />} persistor={persistor}>
         <ConnectedRouter history={history}>
           <MuiThemeProvider theme={theme}>
+            <NotificationCenter />
             <Switch>
               <PrivateRoute exact path="/" component={MainView} />
               <Route exact path="/login" render={() => <LoginView />} />

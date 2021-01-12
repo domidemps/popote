@@ -49,6 +49,7 @@
     "@instructure/uid": "^6.17.0",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@material/typography": "4.0.0",
     "connected-react-router": "6.7.0",
     "dayjs": "1.8.33",

@@ -1,3 +1,5 @@
+import {notify} from 'actions/utils'
+
 const logging = () => {
   return {type: 'LOGGING'}
 }
@@ -112,6 +114,9 @@ export const createUser = (name, email, password) => {
       })
       .then(dispatch(createUserSuccess()))
       .catch(error => {
+        if (error.detail.includes('A user with the same email address')) {
+          dispatch(notify('error', 'Cette adresse e-mail est déjà utilisée'))
+        }
         dispatch(createUserFailure())
         console.error(error)
       })
