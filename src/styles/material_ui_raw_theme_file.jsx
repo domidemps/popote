@@ -44,7 +44,7 @@ const rawBaseTheme = {
     },
     MuiDialog: {
       paper: {
-        backgroundColor: LIGHT_YELLOW,
+        backgroundColor: lighten(LIGHT_YELLOW, 0.2),
       },
     },
     MuiDialogTitle: {

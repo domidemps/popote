@@ -2,7 +2,7 @@
 import {jsx, css} from '@emotion/core'
 import {useState} from 'react'
 import {push} from 'connected-react-router'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 import FormControl from '@material-ui/core/FormControl'
@@ -11,6 +11,7 @@ import Input from '@material-ui/core/Input'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
+import DialogActions from '@material-ui/core/DialogActions'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import Button from '@material-ui/core/Button'
 import PersonIcon from '@material-ui/icons/Person'
@@ -27,6 +28,7 @@ import {DARK_PURPLE} from 'styles/material_ui_raw_theme_file'
 import {createUser} from 'actions/user'
 import {EMAIL_VALIDITY} from 'helpers/regex'
 import EmailSent from 'images/email_sent.svg'
+import {resetDialog} from 'actions/utils'
 
 const styles = css`
   display: flex;
@@ -146,7 +148,7 @@ export default function SignInView() {
     password: '',
     confirmedPassword: '',
   })
-  const [dialogOpen, toggleDialog] = useState(false)
+  const dialogOpen = useSelector(state => state.notifications.dialogOpen)
 
   const forms = [
     {
@@ -232,11 +234,14 @@ export default function SignInView() {
     setErrors(errors)
   }
 
+  const handleDialogClose = () => {
+    dispatch(resetDialog())
+  }
+
   const renderEmailSentDialog = () => {
     return (
       <Dialog
         open={dialogOpen}
-        onClose={toggleDialog}
         aria-labelledby="form-dialog-title"
         disableBackdropClick
         disableEscapeKeyDown>
@@ -244,11 +249,16 @@ export default function SignInView() {
         <DialogContent>
           <img src={EmailSent} alt="E-mail envoyé" />
           <DialogContentText>
-            Un e-mail de confirmation a été envoyé à l'adresse {email}
+            Un e-mail de confirmation a été envoyé à l'adresse <u>{email}</u>
             <br />
             Clique sur le lien pour valider ton inscription et continuer.
           </DialogContentText>
         </DialogContent>
+        <DialogActions>
+          <Button onClick={handleDialogClose} color="primary">
+            Fermer
+          </Button>
+        </DialogActions>
       </Dialog>
     )
   }
@@ -275,6 +285,7 @@ export default function SignInView() {
             {label}
           </InputLabel>
           <Input
+            autoComplete="off"
             id={`signin-input-${name}`}
             type={type}
             value={value}
