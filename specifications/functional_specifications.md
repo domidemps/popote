@@ -12,18 +12,18 @@ Create **popote** logos.
 
 ## Accounts management
 
-- [ ] Create "Users" database
+- [X] Create "Users" database
 - [ ] Registration system
-    - [ ] "Subscribe" interface
+    - [X] "Subscribe" interface
     - [ ] Send email of welcome
-    - [ ] "Log in" interface
+    - [X] "Log in" interface
     - [ ] Edit password
     - [ ] Send email of password modification
-    - [ ] Log out
+    - [X] Log out
 - [ ] User settings
-    - [ ] First name and last name
-    - [ ] Avatar image
-    - [ ] Language
+    - [ ] Change name
+    - [ ] Change avatar image
+    - [ ] Change language
 
 ## Recipe creation
 
