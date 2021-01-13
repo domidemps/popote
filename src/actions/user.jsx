@@ -109,16 +109,16 @@ export const createUser = (name, email, password) => {
     })
       .then(response => {
         return response.json().then(json => {
-          return response.ok ? json : Promise.reject(json)
+          return response.ok ? json : Promise.reject({json, response})
         })
       })
       .then(() => dispatch(createUserSuccess()))
       .catch(error => {
-        if (error.detail.includes('A user with the same email address')) {
+        if (error.response.status === 409) {
           dispatch(notify('error', 'Cette adresse e-mail est déjà utilisée'))
         }
         dispatch(createUserFailure())
-        console.error(error)
+        console.error(error.json)
       })
   }
 }
