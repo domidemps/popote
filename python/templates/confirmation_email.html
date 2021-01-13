@@ -27,6 +27,7 @@
       border-color: #7f055f;
       background: #7f055f;
       display: inline-block;
+      border-radius: 7px;
     }
     .dark-text {
       color: #45062e;
@@ -34,6 +35,10 @@
     .text-size {
       font-size: 1.1rem;
       line-height: 1.6rem;
+    }
+    .button:hover {
+      border-color: #aa0584;
+      background: #aa0584;
     }
   </style>
   <head>
@@ -94,9 +99,9 @@
           class="medium-yellow"
           style="padding: 15px 10px 15px 10px; margin: 0;"
         >
-          <span class="purple-border" style="border-radius: 7px; width: auto;">
+          <span class="purple-border" style="width: auto;">
             <a
-              class="purple-border"
+              class="purple-border button"
               style="font-size: 1.2rem; color: #FFFFFF; border-width: 15px 30px; text-decoration: none;"
               target="_blank"
               href="{{ confirmation_url }}"
