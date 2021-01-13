@@ -11,13 +11,13 @@
       padding: 0;
     }
     .light-yellow {
-      background-color: #f3fbda;
+      background: #f3fbda;
     }
     .medium-yellow {
-      background-color: #ebdfa5;
+      background: #ebdfa5;
     }
     .dark-purple {
-      background-color: #45062e;
+      background: #45062e;
     }
     .border-collapsed {
       border-collapse: collapse;
@@ -27,18 +27,38 @@
       border-color: #7f055f;
       background: #7f055f;
       display: inline-block;
-      border-radius: 7px;
+      border-radius: 30px;
     }
-    .dark-text {
+    .yellow-border {
+      border-style: solid;
+      border-color: #eca400;
+      background: #eca400;
+      display: inline-block;
+      border-radius: 30px;
+    }
+    .purple-text {
       color: #45062e;
     }
-    .text-size {
+    .grey-text {
+      color: #303030;
+    }
+    .medium-size {
       font-size: 1.1rem;
       line-height: 1.6rem;
     }
-    .button:hover {
+    .small-size {
+      font-size: 0.9rem;
+      line-height: 1.3rem;
+    }
+    .purple-button:hover,
+    .purple-border:hover {
       border-color: #aa0584;
       background: #aa0584;
+    }
+    .yellow-button:hover,
+    .yellow-border:hover {
+      border-color: #ffca00;
+      background: #ffca00;
     }
   </style>
   <head>
@@ -48,60 +68,55 @@
   <body
     style="height: 100%; display: flex; flex-direction: column; font-size: 1em; overflow: hidden;"
   >
-    <table style="width: 100%;" cellpadding="0" cellspacing="0">
+    <table class="light-yellow" style="width: 100%;" cellpadding="0" cellspacing="0">
       <colgroup>
-        <col id="col-left" span="1" style="width: 25%;" />
-        <col id="col-middle" span="1" style="width: 50%;" />
-        <col id="col-right" span="1" style="width: 25%;" />
+        <col span="1" style="width: 25%;" />
+        <col span="1" style="width: 50%;" />
+        <col span="1" style="width: 25%;" />
       </colgroup>
-      <tr id="tr-logo" class="border-collapsed">
-        <td id="td-logo-left" class="light-yellow"></td>
-        <td id="td-logo-middle" class="light-yellow" align="center">
+      <tr class="border-collapsed">
+        <td class="light-yellow"></td>
+        <td class="light-yellow" align="center">
           <img
             src="https://raw.githubusercontent.com/domidemps/popote/master/src/images/popote_logo.png"
             alt="Popote"
             style="width: 300px; padding: 45px 20px 35px 20px;"
           />
         </td>
-        <td id="td-logo-right" class="light-yellow"></td>
+        <td class="light-yellow"></td>
       </tr>
-      <tr id="tr-welcome" class="border-collapsed light-yellow">
-        <td id="td-welcome-left" class="light-yellow"></td>
-        <td id="td-welcome-middle" class="medium-yellow" style="border-radius: 10px 10px 0 0;">
+      <tr class="border-collapsed light-yellow">
+        <td class="light-yellow"></td>
+        <td class="medium-yellow" style="border-radius: 10px 10px 0 0;">
           <h1
-            class="dark-text"
+            class="purple-text"
             style="font-size: 2.5rem; padding: 35px 30px 5px 30px; font-weight: normal; margin: 0;"
             align="center"
           >
             Bienvenue ! &#128075;&#127998;
           </h1>
         </td>
-        <td id="td-welcome-right" class="light-yellow"></td>
+        <td class="light-yellow"></td>
       </tr>
-      <tr id="tr-explanations" class="border-collapsed">
-        <td id="td-explanations-left" class="dark-purple"></td>
-        <td id="td-explanations-middle" class="medium-yellow" style="padding: 20px 30px;">
-          <p style="margin: 0; padding-bottom: 15px;" class="text-size dark-text">
+      <tr class="border-collapsed">
+        <td class="dark-purple"></td>
+        <td class="medium-yellow" style="padding: 20px 30px;">
+          <p style="margin: 0; padding-bottom: 15px;" class="medium-size purple-text">
             Cuisinier du dimanche, pâtissière amatrice ou véritable cordon-bleu, c'est un plaisir de
             te compter parmi nos utilisateur·ice·s.
           </p>
-          <p class="text-size dark-text" style="margin: 0;">
+          <p class="medium-size purple-text" style="margin: 0;">
             Pour activer ton compte, clique sur le lien suivant :
           </p>
         </td>
-        <td id="td-explanations-right" class="dark-purple"></td>
+        <td class="dark-purple"></td>
       </tr>
-      <tr id="tr-button" class="border-collapsed">
-        <td id="td-button-left" class="dark-purple"></td>
-        <td
-          id="td-button-middle"
-          align="center"
-          class="medium-yellow"
-          style="padding: 15px 10px 15px 10px; margin: 0;"
-        >
+      <tr class="border-collapsed">
+        <td class="dark-purple"></td>
+        <td align="center" class="medium-yellow" style="padding: 15px 10px 15px 10px; margin: 0;">
           <span class="purple-border" style="width: auto;">
             <a
-              class="purple-border button"
+              class="purple-border purple-button"
               style="font-size: 1.2rem; color: #FFFFFF; border-width: 15px 30px; text-decoration: none;"
               target="_blank"
               href="{{ confirmation_url }}"
@@ -110,28 +125,82 @@
             </a>
           </span>
         </td>
-        <td id="td-button-right" class="dark-purple"></td>
+        <td class="dark-purple"></td>
       </tr>
-      <tr id="tr-end" class="border-collapsed dark-purple">
-        <td id="td-end-left" class="dark-purple"></td>
-        <td
-          id="td-end-middle"
-          class="medium-yellow"
-          style="padding: 20px 30px; border-radius: 0 0 10px 10px;"
-        >
-          <p id="p-link" class="text-size dark-text" style="padding-bottom: 15px;">
+      <tr class="border-collapsed dark-purple">
+        <td class="dark-purple"></td>
+        <td class="medium-yellow" style="padding: 20px 30px 0 30px;">
+          <p class="medium-size purple-text" style="padding-bottom: 15px;">
             Si cela ne fonctionne pas, copie-colle le lien suivant dans ton navigateur :
           </p>
-          <a target="_blank" class="text-size" style="color: #7F055F;">
+          <a target="_blank" class="medium-size" style="color: #7F055F;">
             {{ confirmation_url }}
           </a>
-          <p id="p-signature" class="text-size dark-text" style="padding-top: 15px;">
+          <p class="medium-size purple-text" style="padding-top: 15px;">
             À tes fourneaux !
-            <br />
-            Lou-Yann et Domitille
+          </p>
+          <p class="purple-text" style="padding-top: 10px;">
+            <i>La Popote team - Lou-Yann et Domitille</i>
           </p>
         </td>
-        <td id="td-end-right" class="dark-purple"></td>
+        <td class="dark-purple"></td>
+      </tr>
+      <tr class="border-collapsed dark-purple">
+        <td class="dark-purple"></td>
+        <td class="medium-yellow" style="padding: 20px 30px 15px 30px;">
+          <hr style="margin-bottom: 15px; border-style: solid; color: #7F055F;" />
+        </td>
+        <td class="dark-purple"></td>
+      </tr>
+    </table>
+
+    <table class="dark-purple" style="width: 100%;" cellpadding="0" cellspacing="0">
+      <colgroup>
+        <col span="1" style="width: 25%;" />
+        <col span="1" style="width: 25%;" />
+        <col span="1" style="width: 25%;" />
+        <col span="1" style="width: 25%;" />
+      </colgroup>
+      <tr class="border-collapsed dark-purple">
+        <td class="dark-purple"></td>
+        <td
+          class="medium-yellow"
+          align="right"
+          style="padding: 0 10px 20px 0; border-radius: 0 0 0 10px;"
+        >
+          <span class="yellow-border" style="width: auto;">
+            <a
+              class="grey-text small-size yellow-border yellow-button"
+              style="border-width: 5px; text-decoration: none;"
+              href="mailto:contact.popote@gmail.com"
+            >
+              Contact &nbsp; &#9993;&#65039;
+            </a>
+          </span>
+        </td>
+        <td
+          class="medium-yellow"
+          align="left"
+          style="padding: 0 0 20px 10px; border-radius: 0 0 10px 0;"
+        >
+          <span class="yellow-border" style="width: auto;">
+            <a
+              class="grey-text small-size yellow-border yellow-button"
+              style="border-width: 5px; text-decoration: none;"
+              target="_blank"
+              href="https://github.com/domidemps/popote"
+            >
+              Code source &nbsp; &#128187;
+            </a>
+          </span>
+        </td>
+        <td class="dark-purple"></td>
+      </tr>
+      <tr class="border-collapsed dark-purple" style="height: 20px">
+        <td class="dark-purple"></td>
+        <td class="dark-purple"></td>
+        <td class="dark-purple"></td>
+        <td class="dark-purple"></td>
       </tr>
     </table>
   </body>
