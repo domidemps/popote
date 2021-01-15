@@ -10,14 +10,13 @@
       margin: 0;
       padding: 0;
     }
+
+    html {
+      background: linear-gradient(rgba(255, 180, 0, 0.6), rgba(69, 6, 46, 1));
+    }
+
     .light-yellow {
-      background: #f3fbda;
-    }
-    .medium-yellow {
-      background: #ebdfa5;
-    }
-    .dark-purple {
-      background: #45062e;
+      background: rgba(243, 251, 218, 0.8);
     }
     .border-collapsed {
       border-collapse: collapse;
@@ -39,9 +38,6 @@
     .purple-text {
       color: #45062e;
     }
-    .grey-text {
-      color: #303030;
-    }
     .medium-size {
       font-size: 1.1rem;
       line-height: 1.6rem;
@@ -60,6 +56,9 @@
       border-color: #ffca00;
       background: #ffca00;
     }
+    .transparent {
+      background: transparent;
+    }
   </style>
   <head>
     <title>Popote - confirmation email</title>
@@ -68,26 +67,26 @@
   <body
     style="height: 100%; display: flex; flex-direction: column; font-size: 1em; overflow: hidden;"
   >
-    <table class="light-yellow" style="width: 100%;" cellpadding="0" cellspacing="0">
+    <table class="transparent" style="width: 100%;" cellpadding="0" cellspacing="0">
       <colgroup>
         <col span="1" style="width: 25%;" />
         <col span="1" style="width: 50%;" />
         <col span="1" style="width: 25%;" />
       </colgroup>
       <tr class="border-collapsed">
-        <td class="light-yellow"></td>
-        <td class="light-yellow" align="center">
+        <td class="transparent"></td>
+        <td class="transparent" align="center">
           <img
             src="https://raw.githubusercontent.com/domidemps/popote/master/src/images/popote_logo.png"
             alt="Popote"
             style="width: 300px; padding: 45px 20px 35px 20px;"
           />
         </td>
-        <td class="light-yellow"></td>
+        <td class="transparent"></td>
       </tr>
-      <tr class="border-collapsed light-yellow">
-        <td class="light-yellow"></td>
-        <td class="medium-yellow" style="border-radius: 10px 10px 0 0;">
+      <tr class="border-collapsed transparent">
+        <td class="transparent"></td>
+        <td class="light-yellow" style="border-radius: 10px 10px 0 0;">
           <h1
             class="purple-text"
             style="font-size: 2.5rem; padding: 35px 30px 5px 30px; font-weight: normal; margin: 0;"
@@ -96,11 +95,11 @@
             Bienvenue ! &#128075;&#127998;
           </h1>
         </td>
-        <td class="light-yellow"></td>
+        <td class="transparent"></td>
       </tr>
       <tr class="border-collapsed">
-        <td class="dark-purple"></td>
-        <td class="medium-yellow" style="padding: 20px 30px;">
+        <td class="transparent"></td>
+        <td class="light-yellow" style="padding: 20px 30px;">
           <p style="margin: 0; padding-bottom: 15px;" class="medium-size purple-text">
             Cuisinier du dimanche, pâtissière amatrice ou véritable cordon-bleu, c'est un plaisir de
             te compter parmi nos utilisateur·ice·s.
@@ -109,11 +108,11 @@
             Pour activer ton compte, clique sur le lien suivant :
           </p>
         </td>
-        <td class="dark-purple"></td>
+        <td class="transparent"></td>
       </tr>
       <tr class="border-collapsed">
-        <td class="dark-purple"></td>
-        <td align="center" class="medium-yellow" style="padding: 15px 10px 15px 10px; margin: 0;">
+        <td class="transparent"></td>
+        <td align="center" class="light-yellow" style="padding: 15px 10px 15px 10px; margin: 0;">
           <span class="purple-border" style="width: auto;">
             <a
               class="purple-border purple-button"
@@ -125,11 +124,11 @@
             </a>
           </span>
         </td>
-        <td class="dark-purple"></td>
+        <td class="transparent"></td>
       </tr>
-      <tr class="border-collapsed dark-purple">
-        <td class="dark-purple"></td>
-        <td class="medium-yellow" style="padding: 20px 30px 0 30px;">
+      <tr class="border-collapsed transparent">
+        <td class="transparent"></td>
+        <td class="light-yellow" style="padding: 20px 30px 0 30px;">
           <p class="medium-size purple-text" style="padding-bottom: 15px;">
             Si cela ne fonctionne pas, copie-colle le lien suivant dans ton navigateur :
           </p>
@@ -143,64 +142,72 @@
             <i>La Popote team - Lou-Yann et Domitille</i>
           </p>
         </td>
-        <td class="dark-purple"></td>
+        <td class="transparent"></td>
       </tr>
-      <tr class="border-collapsed dark-purple">
-        <td class="dark-purple"></td>
-        <td class="medium-yellow" style="padding: 20px 30px 15px 30px;">
+      <tr class="border-collapsed transparent">
+        <td class="transparent"></td>
+        <td class="light-yellow" style="padding: 20px 30px 15px 30px;">
           <hr style="margin-bottom: 15px; border-style: solid; color: #7F055F;" />
         </td>
-        <td class="dark-purple"></td>
+        <td class="transparent"></td>
       </tr>
     </table>
 
-    <table class="dark-purple" style="width: 100%;" cellpadding="0" cellspacing="0">
+    <table class="transparent" style="width: 100%;" cellpadding="0" cellspacing="0">
       <colgroup>
         <col span="1" style="width: 25%;" />
         <col span="1" style="width: 25%;" />
         <col span="1" style="width: 25%;" />
         <col span="1" style="width: 25%;" />
       </colgroup>
-      <tr class="border-collapsed dark-purple">
-        <td class="dark-purple"></td>
+      <tr class="border-collapsed transparent">
+        <td class="transparent"></td>
         <td
-          class="medium-yellow"
+          class="light-yellow"
           align="right"
-          style="padding: 0 10px 20px 0; border-radius: 0 0 0 10px;"
+          style="padding: 0 10px 20px 0; border-radius: 0 0 0 10px; min-width: 160px;"
         >
           <span class="yellow-border" style="width: auto;">
             <a
-              class="grey-text small-size yellow-border yellow-button"
+              class="purple-text small-size yellow-border yellow-button"
               style="border-width: 5px; text-decoration: none;"
               href="mailto:contact.popote@gmail.com"
             >
-              Contact &nbsp; &#9993;&#65039;
+              Contact&nbsp;
+              <!--TODO: Host this image on Popote's Google Drive-->
+              <img
+                src="https://drive.google.com/uc?id=1OsxGyRAZ8kui-7-JQZEzKpOLtv_k4u7V&export=download"
+                alt="e-mail"
+                width="20px"
+                style="vertical-align: middle; padding-bottom: 2px;"
+              />
             </a>
           </span>
         </td>
         <td
-          class="medium-yellow"
+          class="light-yellow"
           align="left"
-          style="padding: 0 0 20px 10px; border-radius: 0 0 10px 0;"
+          style="padding: 0 0 20px 10px; border-radius: 0 0 10px 0; min-width: 160px;"
         >
           <span class="yellow-border" style="width: auto;">
             <a
-              class="grey-text small-size yellow-border yellow-button"
+              class="purple-text small-size yellow-border yellow-button"
               style="border-width: 5px; text-decoration: none;"
               target="_blank"
               href="https://github.com/domidemps/popote"
             >
-              Code source &nbsp; &#128187;
+              Code source&nbsp;
+              <!--TODO: Host this image on Popote's Google Drive-->
+              <img
+                src="https://drive.google.com/uc?id=11FZWw035sVpa-zqTWCtzgL0Jie5K-R8k&export=download"
+                alt="on GitHub"
+                width="20px"
+                style="vertical-align: middle; padding-bottom: 2px;"
+              />
             </a>
           </span>
         </td>
-        <td class="dark-purple"></td>
-      </tr>
-      <tr class="border-collapsed dark-purple" style="height: 20px">
-        <td class="dark-purple"></td>
-        <td class="dark-purple"></td>
-        <td class="dark-purple"></td>
-        <td class="dark-purple"></td>
+        <td class="transparent"></td>
       </tr>
     </table>
   </body>
