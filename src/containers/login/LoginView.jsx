@@ -24,6 +24,7 @@ import {EMAIL_VALIDITY} from 'helpers/regex'
 const styles = css`
   display: flex;
   flex-direction: column;
+  height: ${window.innerHeight}px;
   .loginPaper {
     width: 60%;
     align-self: center;
