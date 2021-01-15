@@ -10,6 +10,7 @@ from pydantic import BaseModel, ValidationError
 
 from models.user import User
 from security.credentials import get_credentials
+from security.scopes import users_reset
 
 SECRET_KEY = get_credentials("security/jwt_key")["password"]
 ALGORITHM = "HS256"
@@ -19,7 +20,11 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl="token",
-    scopes={"users:read": "Users read", "users:write": "Users write"},
+    scopes={
+        "users:read": "Users read",
+        users_reset: "Users reset password",
+        "users:activate": "Users activate account",
+    },
 )
 
 

@@ -1,4 +1,4 @@
-import uuid
+from uuid import UUID, uuid4
 
 from pony.orm import PrimaryKey, Required
 
@@ -6,10 +6,12 @@ from .base import db
 
 
 class User(db.Entity):
-    uuid = PrimaryKey(uuid.UUID, default=uuid.uuid4)
-    name = Required(str)
-    email = Required(str, unique=True)
-    password = Required(str)
+    uuid: UUID = PrimaryKey(UUID, default=uuid4)
+    name: str = Required(str)
+    email: str = Required(str, unique=True)
+    password: str = Required(str)
+    active: bool = Required(bool, default=False)
 
-    def __class_getitem__(cls, item) -> "User":
-        return super().__class_getitem__(item)
+    def __class_getitem__(cls, uuid: str) -> "User":
+        """Used to silence type checkers warnings with the type hint"""
+        return super().__class_getitem__(uuid)
