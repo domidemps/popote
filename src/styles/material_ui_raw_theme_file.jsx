@@ -12,7 +12,7 @@ export const ERROR = '#f44336'
 const rawBaseTheme = {
   palette: {
     background: {
-      paper: fade(LIGHT_YELLOW, 0.6),
+      paper: 'rgba(243, 251, 218, 0.8)',
     },
     primary: {
       main: MEDIUM_PURPLE,

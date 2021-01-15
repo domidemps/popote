@@ -7,7 +7,7 @@ html {
   font-family: 'Roboto', sans-serif;
   color: #282828;
   height: 100%;
-  background: linear-gradient(#590742, #eca400);
+  background: linear-gradient(rgba(255, 180, 0, 0.6), rgba(69, 6, 46, 1));;
 }
 
 html,
