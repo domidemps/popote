@@ -21,20 +21,6 @@
     .border-collapsed {
       border-collapse: collapse;
     }
-    .purple-border {
-      border-style: solid;
-      border-color: #7f055f;
-      background: #7f055f;
-      display: inline-block;
-      border-radius: 30px;
-    }
-    .yellow-border {
-      border-style: solid;
-      border-color: #eca400;
-      background: #eca400;
-      display: inline-block;
-      border-radius: 30px;
-    }
     .purple-text {
       color: #45062e;
     }
@@ -46,15 +32,33 @@
       font-size: 0.9rem;
       line-height: 1.3rem;
     }
-    .purple-button:hover,
-    .purple-border:hover {
-      border-color: #aa0584;
-      background: #aa0584;
+    .purple-button,
+    .yellow-button {
+      box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 1px 5px 0 rgba(0, 0, 0, 0.12);
+      padding: 5px 15px;
     }
-    .yellow-button:hover,
-    .yellow-border:hover {
-      border-color: #ffca00;
-      background: #ffca00;
+    .purple-button {
+      display: inline-block;
+      background: #7f055f;
+      line-height: 2.25;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      color: #ffffff;
+      text-decoration: none;
+    }
+    .yellow-button {
+      display: inline-block;
+      background: #eca400;
+      line-height: 1.75;
+      border-radius: 30px;
+      text-decoration: none;
+    }
+    .purple-button:hover {
+      background: #960576;
+    }
+    .yellow-button:hover {
+      background: #f6c400;
     }
     .transparent {
       background: transparent;
@@ -112,14 +116,9 @@
       </tr>
       <tr class="border-collapsed">
         <td class="transparent"></td>
-        <td align="center" class="light-yellow" style="padding: 15px 10px 15px 10px; margin: 0;">
-          <span class="purple-border" style="width: auto;">
-            <a
-              class="purple-border purple-button"
-              style="font-size: 1.2rem; color: #FFFFFF; border-width: 15px 30px; text-decoration: none;"
-              target="_blank"
-              href="{{ confirmation_url }}"
-            >
+        <td align="center" class="light-yellow" style="padding: 10px; margin: 0;">
+          <span>
+            <a class="purple-button" target="_blank" href="{{ confirmation_url }}">
               Confirmer l'inscription
             </a>
           </span>
@@ -147,7 +146,7 @@
       <tr class="border-collapsed transparent">
         <td class="transparent"></td>
         <td class="light-yellow" style="padding: 20px 30px 15px 30px;">
-          <hr style="margin-bottom: 15px; border-style: solid; color: #7F055F;" />
+          <hr style="margin-bottom: 10px; border-style: solid; color: #7F055F;" />
         </td>
         <td class="transparent"></td>
       </tr>
@@ -167,12 +166,8 @@
           align="right"
           style="padding: 0 10px 20px 0; border-radius: 0 0 0 10px; min-width: 160px;"
         >
-          <span class="yellow-border" style="width: auto;">
-            <a
-              class="purple-text small-size yellow-border yellow-button"
-              style="border-width: 5px; text-decoration: none;"
-              href="mailto:contact.popote@gmail.com"
-            >
+          <span>
+            <a class="purple-text small-size yellow-button" href="mailto:contact.popote@gmail.com">
               Contact&nbsp;
               <!--TODO: Host this image on Popote's Google Drive-->
               <img
@@ -189,10 +184,9 @@
           align="left"
           style="padding: 0 0 20px 10px; border-radius: 0 0 10px 0; min-width: 160px;"
         >
-          <span class="yellow-border" style="width: auto;">
+          <span>
             <a
-              class="purple-text small-size yellow-border yellow-button"
-              style="border-width: 5px; text-decoration: none;"
+              class="purple-text small-size yellow-button"
               target="_blank"
               href="https://github.com/domidemps/popote"
             >
