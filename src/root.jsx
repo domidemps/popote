@@ -8,10 +8,11 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 
 import theme from 'styles/material_ui_raw_theme_file'
 import PrivateRoute from 'containers/utils/PrivateRoute'
-import LoginView from 'containers/login/LoginView'
+import LoginView from 'containers/user/LoginView'
 import MainView from 'containers/MainView'
-import SignInView from 'containers/login/SignInView'
+import SignInView from 'containers/user/SignInView'
 import NotificationCenter from 'containers/utils/NotificationCenter'
+import AccountValidationView from 'containers/user/AccountValidationView'
 import {persistor, store} from 'store/configureStore'
 
 require('./styles/main.css')
@@ -27,6 +28,7 @@ const Popote = ({history}) => {
               <PrivateRoute exact path="/" component={MainView} />
               <Route exact path="/login" render={() => <LoginView />} />
               <Route exact path="/sign-in" render={() => <SignInView />} />
+              <Route path="/account-validation/:token" component={AccountValidationView} />
               <Route render={() => <div>Not found</div>} />
             </Switch>
           </MuiThemeProvider>
