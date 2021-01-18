@@ -7,7 +7,7 @@ const userInitialState = () => {
     authenticationToken: '',
     username: '',
     wrongLogin: false,
-    emailValidity: true,
+    emailValidity: false,
   }
 }
 

@@ -100,7 +100,7 @@ export const createUser = (name, email, password) => {
   }
   return dispatch => {
     dispatch(creatingUser())
-    fetch(`${API_DOMAIN}/users/?` + new URLSearchParams(parameters), {
+    fetch(`${API_DOMAIN}/users?` + new URLSearchParams(parameters), {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -127,8 +127,8 @@ const checkingEmailValidity = () => {
   return {type: 'CHECKING_EMAIL_VALIDITY'}
 }
 
-const checkEmailValiditySuccess = () => {
-  return {type: 'CHECK_EMAIL_VALIDITY_SUCCESS'}
+const checkEmailValiditySuccess = emailValidity => {
+  return {type: 'CHECK_EMAIL_VALIDITY_SUCCESS', emailValidity}
 }
 
 const checkEmailValidityFailure = () => {
@@ -141,7 +141,7 @@ export const checkEmailValidity = token => {
   }
   return dispatch => {
     dispatch(checkingEmailValidity())
-    fetch(`${API_DOMAIN}/users/check-email-validity/?` + new URLSearchParams(parameters), {
+    fetch(`${API_DOMAIN}/users/activate?` + new URLSearchParams(parameters), {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -153,8 +153,12 @@ export const checkEmailValidity = token => {
           return response.ok ? json : Promise.reject({json, response})
         })
       })
-      .then(() => dispatch(checkEmailValiditySuccess()))
+      .then(() => dispatch(checkEmailValiditySuccess(true)))
       .catch(error => {
+        // Email is expired
+        if (error.response.status === 400) {
+          dispatch(checkEmailValiditySuccess(false))
+        }
         dispatch(checkEmailValidityFailure())
       })
   }
