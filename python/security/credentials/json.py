@@ -23,4 +23,4 @@ class JSONCredentialsReader(CredentialsReader):
                 entry = entry[key]
         except KeyError:
             raise ConfigurationError(f"Path {path} not found in JSON credentials file.")
-        return {key: value for key, value in entry.items() if (value in fields if fields else True)}
+        return {key: value for key, value in entry.items() if (key in fields if fields else True)}
