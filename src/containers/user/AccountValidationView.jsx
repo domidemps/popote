@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button'
 import ConfirmedEmailImage from 'images/email_confirmed.png'
 import ExpiredEmailImage from 'images/email_expired.png'
 import {DARK_PURPLE} from 'styles/material_ui_raw_theme_file'
+import media from 'styles/media'
 
 const styles = css`
   display: flex;
@@ -18,7 +19,7 @@ const styles = css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 60%;
+    width: 40%;
     align-self: center;
     min-height: 120px;
     padding: 20px 0px;
@@ -33,15 +34,46 @@ const styles = css`
     color: ${DARK_PURPLE};
   }
   .emailStatusImage {
-    width: 30%;
+    width: 50%;
   }
   .message {
-    margin: 20px 5px;
+    margin: 20px 10px;
     color: ${DARK_PURPLE};
   }
   .button {
     margin: 15px 0;
   }
+  ${media.horizontalTablet`
+    .validationPaper {
+      width: 70%;
+      min-width: 70%;
+    }
+    .title {
+      font-size: 1.5rem;
+    }
+    .message {
+      font-size: 1.25rem;
+    }
+    .emailStatusImage {
+      width: 40%;
+    }
+  `}
+  ${media.verticalTablet`
+    .validationPaper {
+      width: 80%;
+    }
+  `}
+  ${media.smartphone`
+    .validationPaper {
+      width: 90%;
+    }
+    .title {
+      font-size: 1.25rem;
+    }
+    .message {
+      font-size: 1rem;
+    }
+  `}
 `
 
 export default function AccountValidationView() {
@@ -59,7 +91,7 @@ export default function AccountValidationView() {
           E-mail vérifié avec succès
         </Typography>
         <img src={ConfirmedEmailImage} alt="E-mail vérifié" className="emailStatusImage" />
-        <Typography variant="h5" className="message">
+        <Typography variant="h5" align="center" className="message">
           Bravo, ton compte a été validé !
         </Typography>
         <Button variant="contained" color="primary" className="button" onClick={() => goToLogin()}>
