@@ -4,6 +4,9 @@ package-lock.json
 
 .idea
 
+# Security
+.credentials.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
