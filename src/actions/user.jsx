@@ -122,3 +122,40 @@ export const createUser = (name, email, password) => {
       })
   }
 }
+
+const checkingEmailValidity = () => {
+  return {type: 'CHECKING_EMAIL_VALIDITY'}
+}
+
+const checkEmailValiditySuccess = () => {
+  return {type: 'CHECK_EMAIL_VALIDITY_SUCCESS'}
+}
+
+const checkEmailValidityFailure = () => {
+  return {type: 'CHECK_EMAIL_VALIDITY_FAILURE'}
+}
+
+export const checkEmailValidity = token => {
+  const parameters = {
+    token,
+  }
+  return dispatch => {
+    dispatch(checkingEmailValidity())
+    fetch(`${API_DOMAIN}/users/check-email-validity/?` + new URLSearchParams(parameters), {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+      mode: 'cors',
+    })
+      .then(response => {
+        return response.json().then(json => {
+          return response.ok ? json : Promise.reject({json, response})
+        })
+      })
+      .then(() => dispatch(checkEmailValiditySuccess()))
+      .catch(error => {
+        dispatch(checkEmailValidityFailure())
+      })
+  }
+}

@@ -7,6 +7,7 @@ const userInitialState = () => {
     authenticationToken: '',
     username: '',
     wrongLogin: false,
+    emailValidity: true,
   }
 }
 
@@ -40,6 +41,17 @@ export default (state = userInitialState(), action) => {
       return {
         ...userInitialState(),
       }
+    case 'CHECK_EMAIL_VALIDITY_SUCCESS':
+      return {
+        ...state,
+        emailValidity: true,
+      }
+    case 'CHECK_EMAIL_VALIDITY_FAILURE':
+      return {
+        ...state,
+        emailValidity: false,
+      }
+
     default:
       return state
   }
