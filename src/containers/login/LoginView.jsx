@@ -9,6 +9,11 @@ import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
 import Button from '@material-ui/core/Button'
+import Link from '@material-ui/core/Link'
+import Dialog from '@material-ui/core/Dialog'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogActions from '@material-ui/core/DialogActions'
 import MailIcon from '@material-ui/icons/Mail'
 import LockIcon from '@material-ui/icons/Lock'
 import NavigateNextIcon from '@material-ui/icons/NavigateNext'
@@ -69,6 +74,9 @@ const styles = css`
   .button {
     margin: 30px 0px 15px 0px;
   }
+  .link {
+    margin: 10px 0px 0px 90px;
+  }
   ${media.mediumScreen`
     .maxSize {
       width: 35rem;
@@ -109,9 +117,14 @@ export default function LoginView() {
   const wrongLogin = useSelector(state => state.user.wrongLogin)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState({
+  const [loginErrors, setLoginErrors] = useState({
     email: '',
     password: '',
+  })
+  const [dialogOpen, toggleDialog] = useState(false)
+  const [resetEmail, setResetEmail] = useState('')
+  const [resetPasswordErrors, setResetPasswordErrors] = useState({
+    email: '',
   })
 
   useEffect(() => {
@@ -126,21 +139,21 @@ export default function LoginView() {
 
   const checkLogin = () => {
     const isEmailValid = EMAIL_VALIDITY.test(email.toLowerCase())
-    let errors = {
+    let loginErrors = {
       email: isEmpty(email) ? 'Ce champ est obligatoire' : '',
       password: isEmpty(password) ? 'Ce champ est obligatoire' : '',
     }
     if (!isEmailValid) {
-      errors.email = "Cet e-mail n'est pas valide"
+      loginErrors.email = "Cet e-mail n'est pas valide"
     }
     if (
-      every(errors, error => {
+      every(loginErrors, error => {
         return isEmpty(error)
       })
     ) {
       dispatch(login(email, password))
     }
-    setErrors(errors)
+    setLoginErrors(loginErrors)
   }
 
   const handleKeyPress = event => {
@@ -150,13 +163,54 @@ export default function LoginView() {
     }
   }
 
+  const renderForgotPasswordDialog = () => {
+    return (
+      <Dialog open={dialogOpen} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Mot de passe oublié ?</DialogTitle>
+        <DialogContent>
+          Pour réinitialiser ton mot de passe, entre l'e-mail utilisé pour ton inscription dans le
+          champ suivant :
+          <div className="flexRow">
+            <MailIcon
+              css={css`
+                margin: 20px 15px 5px 5px;
+                fill: ${DARK_PURPLE};
+              `}
+            />
+            <FormControl
+              css={css`
+                margin-bottom: 20px;
+              `}>
+              <InputLabel htmlFor="forgot-pwd-input">E-mail</InputLabel>
+              <Input
+                id="forgot-pwd-input"
+                type="email"
+                value={resetEmail}
+                onChange={e => setResetEmail(e.target.value)}
+                required
+              />
+            </FormControl>
+            <DialogActions>
+              <Button color="primary" variant="contained">
+                Réinitialiser
+              </Button>
+              <Button color="primary" onClick={() => toggleDialog(false)}>
+                Annuler
+              </Button>
+            </DialogActions>
+          </div>
+        </DialogContent>
+      </Dialog>
+    )
+  }
+
   const renderFormControl = (name, value, helper, icon, setNewValue) => {
-    const isError = !isEmpty(errors[name])
+    const isError = !isEmpty(loginErrors[name])
     return (
       <div className="flexRow">
         {icon}
         <FormControl error={isError}>
-          <InputLabel htmlFor={`login-${name}`}>{isError ? errors[name] : helper}</InputLabel>
+          <InputLabel htmlFor={`login-${name}`}>{isError ? loginErrors[name] : helper}</InputLabel>
           <Input
             id={`login-${name}`}
             type={name}
@@ -171,6 +225,7 @@ export default function LoginView() {
 
   return (
     <div css={styles}>
+      {renderForgotPasswordDialog()}
       <Paper elevation={7} className="loginPaper paperFlex" onKeyPress={handleKeyPress}>
         <div className="flexColumn">
           <img src={PopoteLogo} alt="Popote" className="logo" />
@@ -200,6 +255,13 @@ export default function LoginView() {
               <strong>E-mail ou mot de passe invalide</strong>
             </p>
           ) : null}
+          <Link
+            component="button"
+            variant="body2"
+            className="link"
+            onClick={() => toggleDialog(true)}>
+            Mot de passe oublié ?
+          </Link>
           <Button
             variant="contained"
             color="primary"
