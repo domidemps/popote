@@ -157,7 +157,7 @@ export default function LoginView() {
   }
 
   const checkResetEmail = () => {
-    const isEmailValid = EMAIL_VALIDITY.test(email.toLowerCase())
+    const isEmailValid = EMAIL_VALIDITY.test(resetEmail.toLowerCase())
     if (isEmpty(resetEmail)) {
       setResetPasswordErrors({email: 'Ce champ est obligatoire'})
     } else if (!isEmailValid) {
@@ -180,6 +180,7 @@ export default function LoginView() {
   }
 
   const renderForgotPasswordDialog = () => {
+    const hasError = !isEmpty(resetPasswordErrors.email)
     return (
       <Dialog open={dialogOpen} aria-labelledby="form-dialog-title" onClose={() => onCloseDialog()}>
         <DialogTitle id="form-dialog-title">Mot de passe oublié ?</DialogTitle>
@@ -197,10 +198,13 @@ export default function LoginView() {
               `}
             />
             <FormControl
+              error={hasError}
               css={css`
                 margin: 10px 10px 20px 0px;
               `}>
-              <InputLabel htmlFor="forgot-pwd-input">E-mail</InputLabel>
+              <InputLabel htmlFor="forgot-pwd-input">
+                {hasError ? resetPasswordErrors.email : 'E-mail'}
+              </InputLabel>
               <Input
                 id="forgot-pwd-input"
                 type="email"
@@ -224,12 +228,12 @@ export default function LoginView() {
   }
 
   const renderFormControl = (name, value, helper, icon, setNewValue) => {
-    const isError = !isEmpty(loginErrors[name])
+    const hasError = !isEmpty(loginErrors[name])
     return (
       <div className="flexRow">
         {icon}
-        <FormControl error={isError}>
-          <InputLabel htmlFor={`login-${name}`}>{isError ? loginErrors[name] : helper}</InputLabel>
+        <FormControl error={hasError}>
+          <InputLabel htmlFor={`login-${name}`}>{hasError ? loginErrors[name] : helper}</InputLabel>
           <Input
             id={`login-${name}`}
             type={name}

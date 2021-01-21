@@ -264,13 +264,13 @@ export default function SignInView() {
   }
 
   const renderFormControl = (name, type, value, helper, icon, setNewValue) => {
-    const isError = !isEmpty(errors[name])
+    const hasError = !isEmpty(errors[name])
     const strengthClass = ['strength-meter', password.length === 0 ? 'invisible' : '']
       .join(' ')
       .trim()
     const isPasswordOk = passwordStrength > 2 && name === 'password'
     let label = helper
-    if (isError) {
+    if (hasError) {
       label = errors[name]
     } else if (isPasswordOk) {
       label = 'Mot de passe sécurisé'
@@ -278,7 +278,7 @@ export default function SignInView() {
     return (
       <div key={`signin-${name}`} className="flexRow">
         {icon}
-        <FormControl error={isError}>
+        <FormControl error={hasError}>
           <InputLabel
             htmlFor={`signin-input-${name}`}
             className={isPasswordOk ? 'fieldValidated' : ''}>
