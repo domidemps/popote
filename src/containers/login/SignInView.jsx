@@ -71,6 +71,9 @@ const styles = css`
   .fieldValidated {
     color: green;
   }
+  .signinForm {
+    width: 40%;
+  }
   .strength-meter-fill {
     background: transparent;
     height: inherit;
@@ -133,6 +136,14 @@ const styles = css`
   ${media.verticalTablet`
     .creationPaper {
       width: 80%;
+    }
+    .signinForm {
+      width: 60%;
+    }
+  `}
+  ${media.smartphone`
+    .signinForm {
+      width: 70%;
     }
   `}
 `
@@ -280,11 +291,7 @@ export default function SignInView() {
     return (
       <div key={`signin-${name}`} className="flexRow">
         {icon}
-        <FormControl
-          error={hasError}
-          css={css`
-            width: 40%;
-          `}>
+        <FormControl error={hasError} className="signinForm">
           <InputLabel
             htmlFor={`signin-input-${name}`}
             className={isPasswordOk ? 'fieldValidated' : ''}>
