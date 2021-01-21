@@ -21,7 +21,7 @@ import isEmpty from 'lodash/isEmpty'
 import every from 'lodash/every'
 
 import PopoteLogo from 'images/popote_logo.png'
-import {login} from 'actions/user'
+import {login, sendForgotPassword} from 'actions/user'
 import media from 'styles/media'
 import {DARK_PURPLE, ERROR, INTENSE_YELLOW, MEDIUM_PURPLE} from 'styles/material_ui_raw_theme_file'
 import {EMAIL_VALIDITY} from 'helpers/regex'
@@ -143,7 +143,7 @@ export default function LoginView() {
       email: isEmpty(email) ? 'Ce champ est obligatoire' : '',
       password: isEmpty(password) ? 'Ce champ est obligatoire' : '',
     }
-    if (!isEmailValid) {
+    if (!isEmailValid && !isEmpty(email)) {
       loginErrors.email = "Cet e-mail n'est pas valide"
     }
     if (
@@ -156,6 +156,17 @@ export default function LoginView() {
     setLoginErrors(loginErrors)
   }
 
+  const checkResetEmail = () => {
+    const isEmailValid = EMAIL_VALIDITY.test(email.toLowerCase())
+    if (isEmpty(resetEmail)) {
+      setResetPasswordErrors({email: 'Ce champ est obligatoire'})
+    } else if (!isEmailValid) {
+      setResetPasswordErrors({email: "Cet e-mail n'est pas valide"})
+    } else {
+      dispatch(sendForgotPassword(resetEmail))
+    }
+  }
+
   const handleKeyPress = event => {
     if (event.key === 'Enter') {
       event.preventDefault()
@@ -163,23 +174,31 @@ export default function LoginView() {
     }
   }
 
+  const onCloseDialog = () => {
+    setResetEmail('')
+    toggleDialog(false)
+  }
+
   const renderForgotPasswordDialog = () => {
     return (
-      <Dialog open={dialogOpen} aria-labelledby="form-dialog-title">
+      <Dialog open={dialogOpen} aria-labelledby="form-dialog-title" onClose={() => onCloseDialog()}>
         <DialogTitle id="form-dialog-title">Mot de passe oublié ?</DialogTitle>
-        <DialogContent>
-          Pour réinitialiser ton mot de passe, entre l'e-mail utilisé pour ton inscription dans le
-          champ suivant :
+        <DialogContent
+          css={css`
+            color: ${DARK_PURPLE};
+          `}>
+          Pour réinitialiser ton mot de passe, entre l'adresse e-mail utilisée lors de ton
+          inscription :
           <div className="flexRow">
             <MailIcon
               css={css`
-                margin: 20px 15px 5px 5px;
+                margin: 30px 15px 5px 5px;
                 fill: ${DARK_PURPLE};
               `}
             />
             <FormControl
               css={css`
-                margin-bottom: 20px;
+                margin: 10px 10px 20px 0px;
               `}>
               <InputLabel htmlFor="forgot-pwd-input">E-mail</InputLabel>
               <Input
@@ -191,10 +210,10 @@ export default function LoginView() {
               />
             </FormControl>
             <DialogActions>
-              <Button color="primary" variant="contained">
+              <Button color="primary" variant="contained" onClick={() => checkResetEmail()}>
                 Réinitialiser
               </Button>
-              <Button color="primary" onClick={() => toggleDialog(false)}>
+              <Button color="primary" onClick={() => onCloseDialog()}>
                 Annuler
               </Button>
             </DialogActions>

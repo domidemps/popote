@@ -25,13 +25,18 @@ const rawBaseTheme = {
   },
   overrides: {
     MuiButton: {
+      root: {
+        borderRadius: 20,
+        fontSize: 16,
+      },
+      text: {
+        padding: '6px 16px',
+      },
       containedPrimary: {
         backgroundColor: MEDIUM_PURPLE,
         '&:hover': {
           backgroundColor: lighten(MEDIUM_PURPLE, 0.2),
         },
-        borderRadius: 20,
-        fontSize: 16,
       },
       endIcon: {
         marginLeft: 2,

@@ -122,3 +122,45 @@ export const createUser = (name, email, password) => {
       })
   }
 }
+
+const sendingForgotPassword = () => {
+  return {type: 'SENDING_FORGOT_PASSWORD'}
+}
+
+const sendForgotPasswordSuccess = () => {
+  return {type: 'SEND_FORGOT_PASSWORD_SUCCESS'}
+}
+
+const sendForgotPasswordFailure = () => {
+  return {type: 'SEND_FORGOT_PASSWORD_FAILURE'}
+}
+
+export const sendForgotPassword = email => {
+  const parameters = {
+    email,
+  }
+  return dispatch => {
+    dispatch(sendingForgotPassword())
+    fetch(`${API_DOMAIN}/users/forgot-password`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+      mode: 'cors',
+      body: JSON.stringify(parameters),
+    })
+      .then(response => {
+        return response.json().then(json => {
+          return response.ok ? json : Promise.reject({json, response})
+        })
+      })
+      .then(() => dispatch(sendForgotPasswordSuccess()))
+      .catch(error => {
+        if (error.response.status === 400) {
+          dispatch(notify('error', "Cette adresse e-mail n'est pas associée à un compte"))
+        }
+        dispatch(sendForgotPasswordFailure())
+        console.error(error.json)
+      })
+  }
+}

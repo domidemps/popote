@@ -218,7 +218,7 @@ export default function SignInView() {
       password: isEmpty(password) ? 'Ce champ est obligatoire' : '',
       confirmedPassword: isEmpty(confirmedPassword) ? 'Ce champ est obligatoire' : '',
     }
-    if (!isEmailValid) {
+    if (!isEmailValid && !isEmpty(email)) {
       errors.email = "Cet e-mail n'est pas valide"
     }
     if (password !== confirmedPassword) {
