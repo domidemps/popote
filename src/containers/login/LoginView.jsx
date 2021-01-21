@@ -13,6 +13,7 @@ import Link from '@material-ui/core/Link'
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogActions from '@material-ui/core/DialogActions'
 import MailIcon from '@material-ui/icons/Mail'
 import LockIcon from '@material-ui/icons/Lock'
@@ -22,6 +23,8 @@ import every from 'lodash/every'
 
 import PopoteLogo from 'images/popote_logo.png'
 import {login, sendForgotPassword} from 'actions/user'
+import {resetDialog} from 'actions/utils'
+import EmailSent from 'images/email_sent.svg'
 import media from 'styles/media'
 import {DARK_PURPLE, ERROR, INTENSE_YELLOW, MEDIUM_PURPLE} from 'styles/material_ui_raw_theme_file'
 import {EMAIL_VALIDITY} from 'helpers/regex'
@@ -129,17 +132,25 @@ export default function LoginView() {
     email: '',
     password: '',
   })
-  const [dialogOpen, toggleDialog] = useState(false)
+  const [resetPasswordDialogOpen, toggleResetPasswordDialog] = useState(false)
   const [resetEmail, setResetEmail] = useState('')
   const [resetPasswordErrors, setResetPasswordErrors] = useState({
     email: '',
   })
+  const sentEmailDialogOpen = useSelector(state => state.notifications.dialogOpen)
 
   useEffect(() => {
     if (authenticated) {
       dispatch(push('/'))
     }
   }, [authenticated])
+
+  useEffect(() => {
+    // If the "email sent" dialog is opened, we close the reset password dialog
+    if (sentEmailDialogOpen) {
+      toggleResetPasswordDialog(false)
+    }
+  }, [sentEmailDialogOpen])
 
   const goToSignIn = () => {
     dispatch(push('/sign-in'))
@@ -182,15 +193,47 @@ export default function LoginView() {
     }
   }
 
-  const onCloseDialog = () => {
+  const closeEmailSentDialog = () => {
+    dispatch(resetDialog())
+  }
+
+  const renderEmailSentDialog = () => {
+    return (
+      <Dialog
+        open={sentEmailDialogOpen}
+        aria-labelledby="form-email-dialog-title"
+        disableBackdropClick
+        disableEscapeKeyDown>
+        <DialogTitle id="form-email-dialog-title">E-mail de réinitialisation envoyé</DialogTitle>
+        <DialogContent>
+          <img src={EmailSent} alt="" />
+          <DialogContentText>
+            Un e-mail de réinitialisation a été envoyé à l'adresse <u>{resetEmail}</u>.
+            <br />
+            Il contient un lien pour changer ton mot de passe.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button color="primary" onClick={() => closeEmailSentDialog()}>
+            Fermer
+          </Button>
+        </DialogActions>
+      </Dialog>
+    )
+  }
+
+  const closeResetPasswordDialog = () => {
     setResetEmail('')
-    toggleDialog(false)
+    toggleResetPasswordDialog(false)
   }
 
   const renderForgotPasswordDialog = () => {
     const hasError = !isEmpty(resetPasswordErrors.email)
     return (
-      <Dialog open={dialogOpen} aria-labelledby="form-dialog-title" onClose={() => onCloseDialog()}>
+      <Dialog
+        open={resetPasswordDialogOpen}
+        aria-labelledby="form-dialog-title"
+        onClose={() => closeResetPasswordDialog()}>
         <DialogTitle id="form-dialog-title">Mot de passe oublié ?</DialogTitle>
         <DialogContent
           css={css`
@@ -226,7 +269,7 @@ export default function LoginView() {
               <Button color="primary" variant="contained" onClick={() => checkResetEmail()}>
                 Réinitialiser
               </Button>
-              <Button color="primary" onClick={() => onCloseDialog()}>
+              <Button color="primary" onClick={() => closeResetPasswordDialog()}>
                 Annuler
               </Button>
             </DialogActions>
@@ -258,6 +301,7 @@ export default function LoginView() {
   return (
     <div css={styles}>
       {renderForgotPasswordDialog()}
+      {renderEmailSentDialog()}
       <Paper elevation={7} className="loginPaper paperFlex" onKeyPress={handleKeyPress}>
         <div className="flexColumn">
           <img src={PopoteLogo} alt="Popote" className="logo" />
@@ -291,7 +335,7 @@ export default function LoginView() {
             component="button"
             variant="body2"
             className="link"
-            onClick={() => toggleDialog(true)}>
+            onClick={() => toggleResetPasswordDialog(true)}>
             Mot de passe oublié ?
           </Link>
           <Button

@@ -21,6 +21,7 @@ export default (state = notificationsInitialState(), action) => {
         severity: '',
       }
     case 'CREATE_USER_SUCCESS':
+    case 'SEND_FORGOT_PASSWORD_SUCCESS':
       return {
         ...state,
         dialogOpen: true,

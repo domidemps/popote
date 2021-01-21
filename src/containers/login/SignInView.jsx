@@ -236,7 +236,7 @@ export default function SignInView() {
     setErrors(errors)
   }
 
-  const handleDialogClose = () => {
+  const closeEmailSentDialog = () => {
     dispatch(resetDialog())
   }
 
@@ -249,15 +249,15 @@ export default function SignInView() {
         disableEscapeKeyDown>
         <DialogTitle id="form-dialog-title">Hop hop, dernière étape !</DialogTitle>
         <DialogContent>
-          <img src={EmailSent} alt="E-mail envoyé" />
+          <img src={EmailSent} alt="" />
           <DialogContentText>
-            Un e-mail de confirmation a été envoyé à l'adresse <u>{email}</u>
+            Un e-mail de confirmation a été envoyé à l'adresse <u>{email}</u>.
             <br />
-            Clique sur le lien pour valider ton inscription et continuer.
+            Il contient un lien pour valider ton inscription et continuer.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDialogClose} color="primary">
+          <Button onClick={closeEmailSentDialog} color="primary">
             Fermer
           </Button>
         </DialogActions>
