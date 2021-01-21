@@ -55,6 +55,8 @@ const styles = css`
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
+    justify-content: center;
   }
   .icon {
     margin: 20px 15px 5px 5px;
@@ -278,7 +280,11 @@ export default function SignInView() {
     return (
       <div key={`signin-${name}`} className="flexRow">
         {icon}
-        <FormControl error={hasError}>
+        <FormControl
+          error={hasError}
+          css={css`
+            width: 40%;
+          `}>
           <InputLabel
             htmlFor={`signin-input-${name}`}
             className={isPasswordOk ? 'fieldValidated' : ''}>

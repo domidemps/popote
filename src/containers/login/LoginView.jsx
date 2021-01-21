@@ -59,6 +59,8 @@ const styles = css`
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
+    justify-content: center;
   }
   .maxSize {
     flex-grow: 1;
@@ -76,6 +78,9 @@ const styles = css`
   }
   .link {
     margin: 10px 0px 0px 90px;
+  }
+  .loginForm {
+    width: 70%;
   }
   ${media.mediumScreen`
     .maxSize {
@@ -107,6 +112,9 @@ const styles = css`
     }
     .title {
       font-size: 1.5rem;
+    }
+    .loginForm {
+      width: 30%;
     }
   `}
 `
@@ -201,6 +209,7 @@ export default function LoginView() {
               error={hasError}
               css={css`
                 margin: 10px 10px 20px 0px;
+                width: 60%;
               `}>
               <InputLabel htmlFor="forgot-pwd-input">
                 {hasError ? resetPasswordErrors.email : 'E-mail'}
@@ -232,7 +241,7 @@ export default function LoginView() {
     return (
       <div className="flexRow">
         {icon}
-        <FormControl error={hasError}>
+        <FormControl error={hasError} className="loginForm">
           <InputLabel htmlFor={`login-${name}`}>{hasError ? loginErrors[name] : helper}</InputLabel>
           <Input
             id={`login-${name}`}
