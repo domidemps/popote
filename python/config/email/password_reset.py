@@ -7,8 +7,8 @@ class PasswordResetEmailConfig(EmailConfig):
         self.user = user
         self.to = user.email
         self.subject = "Popote - Réinitialisation du mot de passe"
-        self.content = self.generate_content(client_url, token)
+        self.contents = self.generate_content(client_url, token)
 
-    @staticmethod
-    def generate_content(client_url, token):
-        return client_url + f"/reset-password/{token}"
+    def generate_content(self, client_url, token):
+        template = self.get_template("password_reset_email.html")  # TODO: Invalid HTML
+        return template.render(password_reset_url=f"{client_url}/reset-password/{token}")

@@ -29,7 +29,7 @@ class KeepassCredentialsReader(CredentialsReader):
         if entry.attachments:
             try:
                 file_content = json.loads(entry.attachments[0].data)
-                return {field: file_content.get(field) for field in fields}
+                return file_content
             except JSONDecodeError:
                 raise ConfigurationError(f"Unable to parse file at path {path} in Keepass.")
         return {field: getattr(entry, field, None) for field in fields}

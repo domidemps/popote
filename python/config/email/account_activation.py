@@ -7,8 +7,8 @@ class AccountActivationEmailConfig(EmailConfig):
         self.user = user
         self.to = user.email
         self.subject = "Popote - Activation du compte"
-        self.content = self.generate_content(client_url, token)
+        self.contents = self.generate_content(client_url, token)
 
-    @staticmethod
-    def generate_content(client_url, token):
-        return client_url + f"/account-activation/{token}"
+    def generate_content(self, client_url, token):
+        template = self.get_template("account_activation.html")
+        return template.render(activation_url=f"{client_url}/account-validation/{token}")

@@ -1,3 +1,3 @@
 users_activate = "users:activate"
-users_read = "users:read"
+users_readwrite = "users:readwrite"
 users_reset = "users:reset"

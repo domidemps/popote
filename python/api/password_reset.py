@@ -16,9 +16,7 @@ router = APIRouter()
 
 
 @router.post("/forgot-password", status_code=status.HTTP_202_ACCEPTED)
-async def forgot_password(
-    request: Request, email: EmailStr = Body(..., embed=True)
-):
+async def forgot_password(request: Request, email: EmailStr = Body(..., embed=True)):
     with db_session:
         user = User.get(email=email)
 
