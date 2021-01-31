@@ -26,9 +26,27 @@ class KeepassCredentialsReader(CredentialsReader):
         entry = self.keepass.find_entries(path=path)
         if entry is None:
             raise ConfigurationError(f"No entry found at path {path} in Keepass.")
+        attachment_properties = {}
         if entry.attachments:
             try:
-                return json.loads(entry.attachments[0].data)
+                attachment_properties = {}
+                for attachment in entry.attachments:
+                    file_content = json.loads(attachment.data)
+                    attachment_properties.update(
+                        {field: file_content.get(field) for field in fields if file_content.get(field)}
+                    )  # TODO: Should use walrus operator once we migrate to 3.8
             except JSONDecodeError:
-                raise ConfigurationError(f"Unable to parse file at path {path} in Keepass.")
-        return {field: getattr(entry, field, None) for field in fields}
+                raise ConfigurationError(f"Unable to parse attached file of entry {path} in Keepass.")
+
+        custom_properties = {
+            field: entry.custom_properties.get(field) for field in fields if entry.custom_properties.get(field)
+        }  # TODO: Should use walrus operator once we migrate to 3.8
+        default_properties = {
+            field: getattr(entry, field, None) for field in fields if getattr(entry, field, None)
+        }  # TODO: Should use walrus operator once we migrate to 3.8
+
+        all_properties = {}  # TODO: Should use dict union operator once we migrate to 3.9
+        for properties in (default_properties, custom_properties, attachment_properties):
+            all_properties.update(properties)
+
+        return all_properties
