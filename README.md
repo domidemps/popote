@@ -67,9 +67,11 @@ To make the API run properly, you'll need to set some **environment variables**:
     }
   },
     "db": {
-      "db_account": {
+      "account": {
         "username": <YOUR_DB_USERNAME>,
-        "password": <YOUR_DB_PASSWORD>
+        "password": <YOUR_DB_PASSWORD>,
+        "url": <YOUR_DB_URL>
+        "database_name": <YOUR_DB_NAME>,
       }
     },
     "email": {
@@ -82,14 +84,22 @@ To make the API run properly, you'll need to set some **environment variables**:
     }
   }
   ```
-* ... or, better, set "POPOTE_KEEPASS_PATH" to the path of your .kdbx file and "POPOTE_KEEPASS_PASSWORD" to the password of said file.
-  The expected architecture of the Keepass database is copied from the above JSON example with:
-  * "security", "db" and "email" being groups
-  * "db_account", "jwt_key" and "oauth2" being entries
-  * "password" and "username" fields are the attributes of the entry
-  * **WARNING**: The content of "email/oauth2" is set as a JSON file attached to the entry
 
-Easier to setup with JSON but safer with the Keepass
+* ... or, **better**, set "POPOTE_KEEPASS_PATH" to the path of your .kdbx file and "POPOTE_KEEPASS_PASSWORD" to the
+ password of said file. The expected architecture of the Keepass database is copied from the above JSON example with:
+  * "security" and "db" being groups
+  * "account" and "jwt_key" being entries
+  * "password", "username", "url" or "database_name" fields are the attributes of the entry
+  * Some attributes (e.g. username) are default properties in Keepass but others(e.g. database_name) need to be set
+   as custom properties
+  * You can also put data in a JSON file attached to the entry
+  * You should avoid naming conflicts between default properties, custom properties and attached JSON file but should
+   any conflict occur, the app wil prioritize values from attached JSON file, then custom properties, then default
+   properties
+
+Easier to setup with JSON but safer with the Keepass. If both solutions are available, the app will prioritize using
+Keepass.
+>>>>>>> Update README.md for Remote db usage
 
 #### Launch popote
 
