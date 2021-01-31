@@ -53,7 +53,7 @@ def get_user_by_email(email: str) -> User:
 
 def authenticate_user(email: str, password: str):
     user = get_user_by_email(email)
-    if not user or not verify_password(password, user.password) or not user.active:
+    if not user or not verify_password(password, user.password):
         return False
     return user
 

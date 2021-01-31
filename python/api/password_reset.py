@@ -21,7 +21,7 @@ async def forgot_password(request: Request, email: EmailStr = Body(..., embed=Tr
         user = User.get(email=email)
 
     if user is not None:
-        expire = datetime.utcnow() + timedelta(minutes=15)
+        expire = datetime.utcnow() + timedelta(minutes=30)
         token_data = {"user_id": str(user.id), "scopes": [users_reset], "exp": expire}
         token = jwt.encode(token_data, SECRET_KEY, algorithm=ALGORITHM)
         client_url = request.client.host + ":" + request.client.port

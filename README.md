@@ -71,14 +71,23 @@ To make the API run properly, you'll need to set some **environment variables**:
         "username": <YOUR_DB_USERNAME>,
         "password": <YOUR_DB_PASSWORD>
       }
+    },
+    "email": {
+      "oauth2": {
+        "email_address": <YOUR_EMAIL_ADDRESS>,,
+        "google_client_id": <YOUR_GOOGLE_CLIENT_ID>,
+        "google_client_secret": <YOUR_GOOGLE_CLIENT_SECRET>,
+        "google_refresh_token": <YOUR_GOOGLE_REFRESH_TOKEN>
+      }
     }
   }
   ```
 * ... or, better, set "POPOTE_KEEPASS_PATH" to the path of your .kdbx file and "POPOTE_KEEPASS_PASSWORD" to the password of said file.
   The expected architecture of the Keepass database is copied from the above JSON example with:
-  * "security" and "db" being groups
-  * "db_account" and "jwt_key" being entries
+  * "security", "db" and "email" being groups
+  * "db_account", "jwt_key" and "oauth2" being entries
   * "password" and "username" fields are the attributes of the entry
+  * **WARNING**: The content of "email/oauth2" is set as a JSON file attached to the entry
 
 Easier to setup with JSON but safer with the Keepass
 

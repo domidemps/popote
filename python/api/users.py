@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
 
-from fastapi import APIRouter, HTTPException, Request, Response, Security, status
+from fastapi import APIRouter, HTTPException, Response, Security, status
 from jose import JWTError, jwt
-from pony.orm import RowNotFound, TransactionIntegrityError, db_session
+from pony.orm import TransactionIntegrityError, db_session
 from pydantic import BaseModel, UUID4
 
 from core.email.account_activation import send_account_activation_email
+from core.users.creation import update_inactive_user
 from models.user import User
 from security.oauth import ALGORITHM, SECRET_KEY, get_current_active_user, get_password_hash
 from security.scopes import users_readwrite
@@ -27,39 +28,24 @@ async def read_user_me(current_user: User = Security(get_current_active_user, sc
 
 
 @router.post("/users", status_code=201)
-async def create_user(request: Request, response: Response, name: str, password: str, email: str):
+async def create_user(response: Response, name: str, password: str, email: str):
     hashed_password = get_password_hash(password)
     try:
         with db_session:
             user = User(name=name, email=email, password=hashed_password)
     except TransactionIntegrityError as e:
-        try:
-            with db_session:
-                user = User.get(email=email)
-                if not user.active:
-                    now = datetime.utcnow()
-                    if (user.creation_date - now).days == 0:
-                        raise HTTPException(
-                            status_code=400,
-                            detail=(
-                                f"An inactive user with the same email address ({email}) already exists in the "
-                                f"database."
-                            ),
-                        ) from e
-                    user.set(name=name, password=hashed_password, creation_date=now)
-        except RowNotFound:
-            raise HTTPException(
-                status_code=409,
-                detail=f"A user with the same email address ({email}) already exists in the database.",
-            ) from e
+        user = await update_inactive_user(e, email, hashed_password, name)
 
     response.headers["Location"] = f"/users/users/{user.uuid}"
 
-    expire = datetime.utcnow() + timedelta(days=1)
-    token_data = {"user_id": str(user.uuid), "scopes": ["users:activate"], "exp": expire}
-    token = jwt.encode(token_data, SECRET_KEY, algorithm=ALGORITHM)
-    client_url = request.client.host + ":" + "8080"
-    await send_account_activation_email(user, token, client_url)
+    activation_token_data = {
+        "user_id": str(user.uuid),
+        "scopes": ["users:activate"],
+        "exp": datetime.utcnow() + timedelta(days=1),
+    }
+    activation_token = jwt.encode(activation_token_data, SECRET_KEY, algorithm=ALGORITHM)
+    client_url = "localhost:8080"  # TODO: Temporary for dev and debug
+    await send_account_activation_email(user, activation_token, client_url)
 
 
 @router.post("/users/activate")

@@ -28,8 +28,7 @@ class KeepassCredentialsReader(CredentialsReader):
             raise ConfigurationError(f"No entry found at path {path} in Keepass.")
         if entry.attachments:
             try:
-                file_content = json.loads(entry.attachments[0].data)
-                return file_content
+                return json.loads(entry.attachments[0].data)
             except JSONDecodeError:
                 raise ConfigurationError(f"Unable to parse file at path {path} in Keepass.")
         return {field: getattr(entry, field, None) for field in fields}
