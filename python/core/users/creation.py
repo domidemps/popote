@@ -6,7 +6,7 @@ from pony.orm import db_session
 from models.user import User
 
 
-async def update_inactive_user(email, hashed_password, username, previous_exception):
+async def update_inactive_user(email: str, hashed_password: str, username: str, previous_exception: Exception):
     # Async here is useless ATM but won't be once we move from Pony to Tortoise ORM
     with db_session:
         user = User.get(email=email)

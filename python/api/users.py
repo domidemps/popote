@@ -34,7 +34,7 @@ async def create_user(response: Response, name: str, password: str, email: str):
         with db_session:
             user = User(name=name, email=email, password=hashed_password)
     except TransactionIntegrityError as e:
-        user = await update_inactive_user(e, email, hashed_password, name)
+        user = await update_inactive_user(email, hashed_password, name, e)
 
     response.headers["Location"] = f"/users/users/{user.uuid}"
 
