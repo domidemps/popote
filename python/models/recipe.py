@@ -1,9 +1,9 @@
 from typing import List
 
-from pony.orm import Database, Json, PrimaryKey, Required
+from pony.orm import Json, PrimaryKey, Required
 from pydantic import BaseModel
 
-db = Database()
+from models import db
 
 
 class IngredientQuantity(BaseModel):

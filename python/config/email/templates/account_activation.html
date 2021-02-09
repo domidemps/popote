@@ -1,0 +1,128 @@
+<html lang="fr" style="font-family: 'Roboto', sans-serif; margin:0; padding:0; height: 100%; display: flex; flex-direction: column; font-size: 1em;">
+<meta content="text/html charset=UTF-8" http-equiv="Content-Type" />
+<head>
+    <style type="text/css">
+       * {margin: 0; padding: 0;} html { background: linear-gradient(rgba(255, 180, 0, 0.6),rgba(69, 6, 46, 1));}.light-yellow {background: rgba(243, 251, 218, 0.8);}.border-collapsed {border-collapse: collapse;}.purple-text {color: #45062e;}.medium-size {font-size: 1.1em; line-height: 1.6em;}.small-size {font-size: 0.9em;line-height: 1.3em;}.purple-button, .yellow-button {box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);padding: 5px 15px;}.purple-button {display: inline-block;background: #7f055f;line-height: 2.25;border-radius: 30px;font-size: 1.2em;color: #ffffff;text-decoration: none;}.yellow-button {display: inline-block;background: #eca400;line-height: 1.75;border-radius: 30px;text-decoration: none;}.purple-button:hover {background: #960576;}.yellow-button:hover {background: #f6c400;}.transparent {background: transparent;}.ExternalClass {width: 100%;}
+    </style>
+    <title>Popote - confirmation email</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet"/>
+</head>
+<body style="height: 100%; display: flex; flex-direction: column; font-size: 1em;">
+<table cellpadding="0" cellspacing="0" class="transparent" style="width: 100%;">
+    <colgroup>
+        <col span="1" style="width: 25%;"/>
+        <col span="1" style="width: 50%;"/>
+        <col span="1" style="width: 25%;"/>
+    </colgroup>
+    <tr class="border-collapsed">
+        <td class="transparent"></td>
+        <td align="center" class="transparent">
+            <img alt="Popote" src="https://raw.githubusercontent.com/domidemps/popote/master/src/images/popote_logo.png" style="width: 300px; padding: 45px 20px 35px 20px;"/>
+        </td>
+        <td class="transparent"></td>
+    </tr>
+    <tr class="border-collapsed transparent">
+        <td class="transparent"></td>
+        <td class="light-yellow" style="border-radius: 10px 10px 0 0;">
+            <h1 align="center" class="purple-text" style="font-size: 2.25em; padding: 35px 30px 5px 30px; font-weight: normal; margin: 0;">
+                Bienvenue ! &#128075;&#127998;
+            </h1>
+        </td>
+        <td class="transparent"></td>
+    </tr>
+    <tr class="border-collapsed">
+        <td class="transparent"></td>
+        <td class="light-yellow" style="padding: 20px 30px;">
+            <p class="medium-size purple-text" style="margin: 0; padding-bottom: 15px;">
+                Cuisinier du dimanche, pâtissière amatrice ou véritable cordon-bleu, c'est un plaisir de te compter parmi nos utilisateur·ice·s.
+            </p>
+            <p class="medium-size purple-text" style="margin: 0;">
+                Pour activer ton compte, clique sur le lien suivant :
+            </p>
+        </td>
+        <td class="transparent"></td>
+    </tr>
+    <tr class="border-collapsed">
+        <td class="transparent"></td>
+        <td align="center" class="light-yellow" style="padding: 10px; margin: 0;">
+          <span>
+            <a class="purple-button" href="{{ activation_url }}" target="_blank">
+              Confirmer l'inscription
+            </a>
+          </span>
+        </td>
+        <td class="transparent"></td>
+    </tr>
+    <tr class="border-collapsed transparent">
+        <td class="transparent"></td>
+        <td class="light-yellow" style="padding: 20px 30px 0 30px;">
+            <p class="medium-size purple-text" style="padding-bottom: 15px;">
+                Si cela ne fonctionne pas, copie-colle le lien suivant dans ton navigateur :
+            </p>
+            <a class="medium-size" style="color: #7F055F; line-break: anywhere;" target="_blank">
+                {{ activation_url }}
+            </a>
+            <p class="medium-size purple-text" style="padding-top: 15px;">
+                Attention, ce lien n'est valable que 24 heures.
+            </p>
+            <p class="medium-size purple-text" style="padding-top: 20px;"> À tes fourneaux ! </p>
+            <p class="purple-text" style="padding-top: 10px;"><i>La Popote team</i></p></td>
+        <td class="transparent"></td>
+    </tr>
+    <tr class="border-collapsed transparent">
+        <td class="transparent"></td>
+        <td class="light-yellow" style="padding: 20px 30px 13px 30px;">
+            <hr style="margin-bottom: 10px; border-style: solid; color: #7F055F;"/>
+        </td>
+        <td class="transparent"></td>
+    </tr>
+</table>
+<table cellpadding="0" cellspacing="0" class="transparent" style="width: 100%;">
+    <colgroup>
+        <col span="1" style="width: 25%;"/>
+        <col span="1" style="width: 25%;"/>
+        <col span="1" style="width: 25%;"/>
+        <col span="1" style="width: 25%;"/>
+    </colgroup>
+    <tr class="border-collapsed transparent">
+        <td class="transparent"></td>
+        <td align="right" class="light-yellow" style="padding: 0 10px 20px 0; min-width: 160px;">
+          <span>
+            <a class="purple-text small-size yellow-button" href="mailto:contact.popote@gmail.com">
+              Contact&nbsp;
+              <img alt="e-mail" src="https://drive.google.com/uc?id=1OsxGyRAZ8kui-7-JQZEzKpOLtv_k4u7V&export=download" style="vertical-align: middle; padding-bottom: 2px;" width="20px"/>
+            </a>
+          </span>
+        </td>
+        <td align="left" class="light-yellow" style="padding: 0 0 20px 10px; min-width: 160px;">
+          <span>
+            <a class="purple-text small-size yellow-button" href="https://github.com/domidemps/popote" target="_blank">
+              Code source&nbsp;
+              <img alt="on GitHub" src="https://drive.google.com/uc?id=11FZWw035sVpa-zqTWCtzgL0Jie5K-R8k&export=download" style="vertical-align: middle; padding-bottom: 2px;" width="20px"/>
+            </a>
+          </span>
+        </td>
+        <td class="transparent"></td>
+    </tr>
+</table>
+<table cellpadding="0" cellspacing="0" class="transparent" style="width: 100%;">
+    <colgroup>
+        <col span="1" style="width: 25%;"/>
+        <col span="1" style="width: 50%;"/>
+        <col span="1" style="width: 25%;"/>
+    </colgroup>
+    <tr class="border-collapsed transparent">
+        <td class="transparent"></td>
+        <td align="center" class="light-yellow purple-text small-size" style="padding: 0 10px 20px 0; border-radius: 0 0 10px 10px; min-width: 160px;">
+            <p> Copyright &copy;
+                <script>
+                document.write(new Date().getFullYear().toString())
+                </script>
+                Lou-Yann Dehaine & Domitille Dempuré
+            </p>
+        </td>
+        <td class="transparent"></td>
+    </tr>
+</table>
+</body>
+</html>

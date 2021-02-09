@@ -30,7 +30,7 @@ app.include_router(token.router)
 
 os.chdir("python")
 
-db = init_db(db)
+init_db(db)
 
 
 @app.get("/")
