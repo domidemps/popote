@@ -29,7 +29,6 @@ class KeepassCredentialsReader(CredentialsReader):
         attachment_properties = {}
         if entry.attachments:
             try:
-                attachment_properties = {}
                 for attachment in entry.attachments:
                     file_content = json.loads(attachment.data)
                     attachment_properties.update(
@@ -41,9 +40,7 @@ class KeepassCredentialsReader(CredentialsReader):
         custom_properties = {
             field: entry.custom_properties.get(field) for field in fields if entry.custom_properties.get(field)
         }  # TODO: Should use walrus operator once we migrate to 3.8
-        default_properties = {
-            field: getattr(entry, field, None) for field in fields if getattr(entry, field, None)
-        }  # TODO: Should use walrus operator once we migrate to 3.8
+        default_properties = {field: getattr(entry, field, None) for field in fields}
 
         all_properties = {}  # TODO: Should use dict union operator once we migrate to 3.9
         for properties in (default_properties, custom_properties, attachment_properties):

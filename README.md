@@ -94,7 +94,7 @@ To make the API run properly, you'll need to set some **environment variables**:
    as custom properties
   * You can also put data in a JSON file attached to the entry
   * You should avoid naming conflicts between default properties, custom properties and attached JSON file but should
-   any conflict occur, the app wil prioritize values from attached JSON file, then custom properties, then default
+   any conflict occur, the app will prioritize values from attached JSON file, then custom properties, then default
    properties
 
 Easier to setup with JSON but safer with the Keepass. If both solutions are available, the app will prioritize using
