@@ -24,7 +24,7 @@ module.exports = function(api) {
       [
         'module-resolver',
         {
-          root: ['./frontend/**'],
+          root: ['./src/**'],
         },
       ],
     ],

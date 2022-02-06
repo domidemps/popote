@@ -1,10 +1,10 @@
 {
   "name": "popote",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Your modern cookbook",
-  "main": "index.jsx",
+  "main": "index.js",
   "scripts": {
-    "front:dev": "webpack-dev-server --env=dev -d --hot --progress",
+    "front:dev": "webpack-dev-server --env=dev -d --hot --inline --progress --colors",
     "back:dev": "python3.10 backend/main.py",
     "start": "concurrently --kill-others \"yarn front:dev\" \"yarn back:dev\"",
     "build": "webpack --mode=production --progress --colors",
@@ -41,7 +41,8 @@
     "url-loader": "2.1.0",
     "webpack": "4.41.5",
     "webpack-cli": "3.3.10",
-    "webpack-dev-server": "3.10.1"
+    "webpack-dev-server": "3.10.1",
+    "webpack-hot-middleware": "2.25.0"
   },
   "dependencies": {
     "@emotion/core": "^10.0.27",
@@ -52,14 +53,19 @@
     "@material/typography": "4.0.0",
     "connected-react-router": "6.7.0",
     "dayjs": "1.8.33",
+    "fbjs": "1.0.0",
     "history": "4.10.1",
     "lodash": "4.17.19",
     "prop-types": "15.7.2",
     "react": "16.13.0",
     "react-dom": "16.13.0",
+    "react-flexbox-grid": "2.1.2",
     "react-redux": "7.2.0",
     "react-router": "5.1.2",
+    "react-router-dom": "^5.1.2",
+    "react-select": "2.3.0",
     "redux": "4.0.5",
+    "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
     "redux-promise": "^0.6.0",
     "redux-thunk": "2.3.0",
