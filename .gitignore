@@ -1,7 +1,8 @@
+# Frontend related
 node_modules
-static
-package-lock.json
+frontend/static
 
+# IntelliJ IDEA
 .idea
 
 # Byte-compiled / optimized / DLL files

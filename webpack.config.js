@@ -12,7 +12,7 @@ module.exports = async env => {
 
   return {
     context: __dirname,
-    entry: './src/index.jsx',
+    entry: './frontend/index.jsx',
     devServer: {
       contentBase: __dirname + '/static',
       historyApiFallback: true,
@@ -30,8 +30,9 @@ module.exports = async env => {
       new HtmlWebpackPlugin({
         inject: false,
         title: 'popote',
-        template: './src/index.ejs',
         appMountId: 'root',
+        template: './frontend/index.ejs',
+        filename: './frontend/index.ejs',
       }),
       new webpack.DefinePlugin({
         API_DOMAIN: JSON.stringify(envConfig.domain),
