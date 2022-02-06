@@ -1,4 +1,0 @@
-import os
-
-KEEPASS_PATH = os.environ.get("POPOTE_KEEPASS_PATH")
-KEEPASS_PASSWORD = os.environ.get("POPOTE_KEEPASS_PASSWORD")
