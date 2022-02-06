@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/domidemps/popote/blob/master/src/images/popote_logo.png" width="450px;"/>
+  <img src="https://github.com/domidemps/popote/blob/master/frontend/images/popote_logo.png" width="450px;"/>
 </p>
 
 <h2 align="center">Popote Backend</h2>
