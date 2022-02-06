@@ -1,0 +1,38 @@
+name: CI
+on: [push]
+jobs:
+  backend-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: Lint
+        uses: pre-commit/action@v2.0.3
+        with:
+          extra_args: --config ${{ github.workspace }}/backend/.pre-commit-config.yaml
+  backend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m venv ${{ github.workspace }}/.venv
+          source ${{ github.workspace }}/.venv/bin/activate
+          python -m pip install --verbose --upgrade pip pipenv
+          pipenv sync --verbose --dev
+      - name: Run tests
+        env:
+          VIRTUAL_ENV: ${{ github.workspace }}/.venv
+          PATH: ${{ github.workspace }}/.venv/bin
+        run: |
+          export PYTHONPATH=${PYTHONPATH}:${{ github.workspace }}/backend
+          pipenv run tests

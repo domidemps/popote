@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+fastapi-users = {extras = ["tortoise-orm"], version = "*"}
+requests = "*"
+
+[dev-packages]
+pytest = "*"
+asynctest = "*"
+pre-commit = "*"
+black = "*"
+flake8 = "*"
+
+[requires]
+python_version = "3.10"
+
+[scripts]
+tests="pytest tests/"
