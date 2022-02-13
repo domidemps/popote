@@ -11,10 +11,10 @@ module.exports = async env => {
   }
 
   return {
-    context: __dirname + '/frontend',
+    context: __dirname + '/src',
     entry: './index.jsx',
     devServer: {
-      contentBase: __dirname + '/frontend/static',
+      contentBase: __dirname + '/static',
       host: '0.0.0.0',
       historyApiFallback: true,
       disableHostCheck: true,
@@ -24,7 +24,7 @@ module.exports = async env => {
       poll: 1000, // Check for changes every second
     },
     output: {
-      path: __dirname + '/frontend/static',
+      path: __dirname + '/static',
       filename: 'bundle.js',
       globalObject: 'this',
     },

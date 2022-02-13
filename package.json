@@ -2,13 +2,13 @@
   "name": "popote",
   "version": "1.0.0",
   "description": "Your modern cookbook",
-  "main": "index.js",
+  "main": "./frontend/index.js",
   "scripts": {
-    "front:dev": "webpack-dev-server --env=dev -d --hot --inline --progress --colors",
+    "front:dev": "webpack-dev-server --config ./frontend/webpack.config.js --env=dev -d --hot --inline --progress --colors",
     "back:dev": "python backend/main.py",
     "start": "concurrently --kill-others \"yarn front:dev\" \"yarn back:dev\"",
-    "build": "webpack --mode=production --progress --colors",
-    "stats": "webpack --json > stats.json"
+    "build": "webpack --config ./frontend/webpack.config.js --mode=production --progress",
+    "stats": "webpack --config ./frontend/webpack.config.js --json > stats.json"
   },
   "keywords": [
     "React",
