@@ -6,12 +6,12 @@ import { MuiThemeProvider } from "@material-ui/core/styles"
 import CircularProgress from "@material-ui/core/CircularProgress"
 
 import theme from "styles/material_ui_raw_theme_file"
-import PrivateRoute from "containers/utils/PrivateRoute"
-import LoginView from "containers/login/LoginView"
-import MainView from "containers/MainView"
-import SignInView from "containers/login/SignInView"
-import NotificationCenter from "containers/utils/NotificationCenter"
-import { persistor, store } from "store/configureStore"
+import PrivateRoute from "src/containers/utils/PrivateRoute"
+import { LoginView } from "src/containers/Login/LoginView"
+import MainView from "src/containers/MainView"
+import SignInView from "src/containers/Login/SignInView"
+import NotificationCenter from "src/containers/utils/NotificationCenter"
+import { persistor, store } from "src/store/configureStore"
 
 require("./styles/main.css")
 
@@ -27,8 +27,8 @@ const Popote = ({ history }) => {
             <NotificationCenter />
             <Switch>
               <PrivateRoute exact path="/" component={MainView} />
-              <Route exact path="/login" render={() => <LoginView />} />
-              <Route exact path="/sign-in" render={() => <SignInView />} />
+              <Route exact path="/login" component={LoginView} />
+              <Route exact path="/sign-in" component={SignInView} />
               <Route render={() => <div>Not found</div>} />
             </Switch>
           </MuiThemeProvider>

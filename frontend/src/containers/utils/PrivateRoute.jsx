@@ -1,7 +1,7 @@
 import { connect } from "react-redux"
 import React, { Component } from "react"
 import PropTypes from "prop-types"
-import { Redirect, Route } from "react-router-dom"
+import { Route } from "react-router-dom"
 
 import { checkIfAuthenticated } from "actions/user"
 
@@ -30,7 +30,9 @@ class PrivateRoute extends Component {
     } = this.props
     let routeRender = (props) => null
     if (lastAuthenticationCheck != null && !authenticated) {
-      routeRender = (props) => <Redirect to={{ pathname: "/login" }} />
+      routeRender = (props) => {
+        window.location.href = "/login"
+      }
     } else if (lastAuthenticationCheck != null && authenticated) {
       routeRender = (props) => <NewComponent {...props} />
     }

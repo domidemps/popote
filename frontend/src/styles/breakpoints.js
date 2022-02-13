@@ -1,7 +1,7 @@
-export default {
-  bigScreen: 1700,
-  mediumScreen: 1260,
-  horizontalTablet: 1109,
-  verticalTablet: 900,
-  smartphone: 414,
+export const sizes = {
+  bigScreen: "1700px",
+  mediumScreen: "1260px",
+  horizontalTablet: "1109px",
+  verticalTablet: "900px",
+  smartphone: "414px",
 }
