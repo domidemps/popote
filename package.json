@@ -5,7 +5,8 @@
   "main": "./frontend/index.js",
   "scripts": {
     "front:dev": "webpack-dev-server --config ./frontend/webpack.config.js --env=dev -d --hot --inline --progress --colors",
-    "back:dev": "python backend/main.py",
+    "back:dev": "python backend/launch_dev.py --db memory",
+    "back:dev:dockerdb": "python backend/launch_dev.py --db docker",
     "start": "concurrently --kill-others \"yarn front:dev\" \"yarn back:dev\"",
     "build": "webpack --config ./frontend/webpack.config.js --mode=production --progress",
     "stats": "webpack --config ./frontend/webpack.config.js --json > stats.json"

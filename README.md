@@ -55,6 +55,6 @@ These instructions will get you a copy of the project up and running on your loc
 
 #### Launch popote
 
-- Run back-end (port 5000): `yarn back:env`
+- Run back-end (port 5000): `yarn back:dev`
 - Run front-end: `yarn front:dev`
 - Open popote: [popote](http://localhost:8080/)

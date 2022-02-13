@@ -1,7 +1,9 @@
 version: "3.8"
 services:
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: ./deployment/Dockerfile
     ports:
       - "5000:5000"
     depends_on:
@@ -24,5 +26,7 @@ services:
       options:
         max-size: 10m
         max-file: "3"
+    volumes:
+      - ./backend/deployment/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - '15432:5432'
