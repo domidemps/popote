@@ -1,9 +1,9 @@
-from fastapi import Depends, FastAPI
+from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
 
 from app.db import DATABASE_URL
-from app.models import UserDB
-from app.users import auth_backend, current_active_user, fastapi_users
+from app.recipes.controller import router as recipes_router
+from app.users import auth_backend, fastapi_users
 
 app = FastAPI()
 
@@ -23,11 +23,17 @@ app.include_router(
 )
 app.include_router(fastapi_users.get_users_router(), prefix="/users", tags=["users"])
 
+app.include_router(recipes_router)
 
-@app.get("/authenticated-route")
-async def authenticated_route(user: UserDB = Depends(current_active_user)):
-    return {"message": f"Hello {user.email}!"}
-
+TORTOISE_ORM = {
+    "connections": {"default": DATABASE_URL},
+    "apps": {
+        "models": {
+            "models": ["app.models", "aerich.models"],
+            "default_connection": "default",
+        },
+    },
+}
 
 register_tortoise(
     app,

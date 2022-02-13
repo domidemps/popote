@@ -7,18 +7,23 @@ module.exports = async env => {
   if (env === 'dev') {
     envConfig.domain = 'http://localhost:5000'
   } else {
-    envConfig.domain = 'http://prod.domain.com'
+    envConfig.domain = 'http://localhost:5000'
   }
 
   return {
-    context: __dirname,
-    entry: './frontend/index.jsx',
+    context: __dirname + '/frontend',
+    entry: './index.jsx',
     devServer: {
-      contentBase: __dirname + '/static',
+      contentBase: __dirname + '/frontend/static',
+      host: '0.0.0.0',
       historyApiFallback: true,
+      disableHostCheck: true,
+    },
+    watchOptions: {
+      poll: 1000, // Check for changes every second
     },
     output: {
-      path: __dirname + '/static',
+      path: __dirname + '/frontend/static',
       filename: 'bundle.js',
       globalObject: 'this',
     },
@@ -30,7 +35,7 @@ module.exports = async env => {
       new HtmlWebpackPlugin({
         inject: false,
         title: 'popote',
-        template: './frontend/index.ejs',
+        template: './index.ejs',
         appMountId: 'root',
       }),
       new webpack.DefinePlugin({

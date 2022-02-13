@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "front:dev": "webpack-dev-server --env=dev -d --hot --inline --progress --colors",
-    "back:dev": "python3.10 backend/main.py",
+    "back:dev": "python backend/main.py",
     "start": "concurrently --kill-others \"yarn front:dev\" \"yarn back:dev\"",
     "build": "webpack --mode=production --progress --colors",
     "stats": "webpack --json > stats.json"

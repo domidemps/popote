@@ -1,6 +1,3 @@
-import json
-
-
 user_payload = {
     "email": "dwight.shrute@dundermifflin.com",
     "password": "beets",
@@ -8,8 +5,5 @@ user_payload = {
 
 
 def test_register_user(client):
-    response = client.post(
-        "/auth/register",
-        data=json.dumps(user_payload),
-    )
+    response = client.post("/auth/register", json=user_payload)
     assert response.status_code == 201

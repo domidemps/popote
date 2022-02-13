@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
+    ports:
+      - '15432:5432'

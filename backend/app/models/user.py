@@ -16,7 +16,8 @@ class UserUpdate(models.BaseUserUpdate):
 
 
 class UserModel(TortoiseBaseUserModel):
-    pass
+    class Meta:
+        table = "users"
 
 
 class UserDB(User, models.BaseUserDB, PydanticModel):
