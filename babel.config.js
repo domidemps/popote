@@ -1,31 +1,32 @@
 module.exports = function(api) {
-  api.cache(true)
+  api.cache(true);
 
   return {
     presets: [
       [
-        '@babel/env',
+        "@babel/env",
         {
-          useBuiltIns: 'entry',
+          useBuiltIns: "entry",
           loose: true,
-          corejs: '3',
+          corejs: "3",
           targets: {
-            browsers: ['last 2 versions', 'not ie < 11'],
-          },
-        },
+            browsers: ["last 2 versions", "not ie < 11"]
+          }
+        }
       ],
-      '@babel/react',
+      "@babel/preset-react"
     ],
     plugins: [
-      '@babel/transform-runtime',
-      '@babel/syntax-dynamic-import',
-      ['@babel/proposal-class-properties', {loose: true}],
+      "@babel/plugin-syntax-jsx",
+      "@babel/transform-runtime",
+      "@babel/syntax-dynamic-import",
+      ["@babel/proposal-class-properties", { loose: true }],
       [
-        'module-resolver',
+        "module-resolver",
         {
-          root: ['./frontend/**'],
-        },
-      ],
-    ],
-  }
-}
+          root: ["./frontend/**"]
+        }
+      ]
+    ]
+  };
+};

@@ -1,9 +1,9 @@
-import {connect} from 'react-redux'
-import React, {Component} from 'react'
-import PropTypes from 'prop-types'
-import {Route, Redirect} from 'react-router-dom'
+import { connect } from "react-redux"
+import React, { Component } from "react"
+import PropTypes from "prop-types"
+import { Redirect, Route } from "react-router-dom"
 
-import {checkIfAuthenticated} from 'actions/user'
+import { checkIfAuthenticated } from "actions/user"
 
 class PrivateRoute extends Component {
   constructor(props, context) {
@@ -11,19 +11,28 @@ class PrivateRoute extends Component {
   }
 
   componentDidMount() {
-    const {authenticated, checkAuthenticated, authenticationToken} = this.props
+    const {
+      authenticated,
+      checkAuthenticated,
+      authenticationToken,
+    } = this.props
     if (!authenticated) {
       checkAuthenticated(authenticationToken)
     }
   }
 
   render() {
-    const {component: NewComponent, lastAuthenticationCheck, authenticated, ...rest} = this.props
-    let routeRender = props => null
+    const {
+      component: NewComponent,
+      lastAuthenticationCheck,
+      authenticated,
+      ...rest
+    } = this.props
+    let routeRender = (props) => null
     if (lastAuthenticationCheck != null && !authenticated) {
-      routeRender = props => <Redirect to={{pathname: '/login'}} />
+      routeRender = (props) => <Redirect to={{ pathname: "/login" }} />
     } else if (lastAuthenticationCheck != null && authenticated) {
-      routeRender = props => <NewComponent {...props} />
+      routeRender = (props) => <NewComponent {...props} />
     }
     return <Route {...rest} render={routeRender} />
   }
@@ -32,12 +41,15 @@ class PrivateRoute extends Component {
 PrivateRoute.propTypes = {
   authenticated: PropTypes.bool,
   authenticationToken: PropTypes.string,
-  component: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.object.isRequired]),
+  component: PropTypes.oneOfType([
+    PropTypes.func.isRequired,
+    PropTypes.object.isRequired,
+  ]),
   checkAuthenticated: PropTypes.func,
   lastAuthenticationCheck: PropTypes.string,
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     authenticated: state.user.authenticated,
     lastAuthenticationCheck: state.user.lastAuthenticationCheck,
@@ -45,9 +57,9 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    checkAuthenticated: authenticationToken => {
+    checkAuthenticated: (authenticationToken) => {
       dispatch(checkIfAuthenticated(authenticationToken))
     },
   }

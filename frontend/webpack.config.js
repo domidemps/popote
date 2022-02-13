@@ -1,77 +1,77 @@
-const CompressionPlugin = require('compression-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const webpack = require('webpack')
+const CompressionPlugin = require("compression-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = async env => {
-  const envConfig = {}
-  if (env === 'dev') {
-    envConfig.domain = 'http://localhost:5000'
+  const envConfig = {};
+  if (env === "dev") {
+    envConfig.domain = "http://localhost:5000";
   } else {
-    envConfig.domain = 'http://localhost:5000'
+    envConfig.domain = "http://localhost:5000";
   }
 
   return {
-    context: __dirname + '/src',
-    entry: './index.jsx',
+    context: __dirname + "/src",
+    entry: "./index.jsx",
     devServer: {
-      contentBase: __dirname + '/static',
-      host: '0.0.0.0',
+      contentBase: __dirname + "/static",
+      host: "0.0.0.0",
       historyApiFallback: true,
       disableHostCheck: true,
-      hot: true,
+      hot: true
     },
     watchOptions: {
-      poll: 1000, // Check for changes every second
+      poll: 1000 // Check for changes every second
     },
     output: {
-      path: __dirname + '/static',
-      filename: 'bundle.js',
-      globalObject: 'this',
+      path: __dirname + "/static",
+      filename: "bundle.js",
+      globalObject: "this"
     },
     plugins: [
       new CompressionPlugin({
         test: /\.js(\?.*)?$/i,
-        algorithm: 'gzip',
+        algorithm: "gzip"
       }),
       new HtmlWebpackPlugin({
         inject: false,
-        title: 'popote',
-        template: './index.ejs',
-        appMountId: 'root',
+        title: "popote",
+        template: "./index.ejs",
+        appMountId: "root"
       }),
       new webpack.DefinePlugin({
-        API_DOMAIN: JSON.stringify(envConfig.domain),
-      }),
+        API_DOMAIN: JSON.stringify(envConfig.domain)
+      })
     ],
     module: {
       rules: [
         {
           test: /\.(jpg|png|gif|svg|pdf|ico)$/,
-          use: 'url-loader?name=[path][name]-[hash:8].[ext]',
+          use: "url-loader?name=[path][name]-[hash:8].[ext]"
         },
         {
           test: /\.css$/,
           use: [
             {
-              loader: 'style-loader',
+              loader: "style-loader"
             },
             {
-              loader: 'css-loader',
-            },
-          ],
+              loader: "css-loader"
+            }
+          ]
         },
         {
           test: /\.(js|ts)x?$/,
-          use: 'babel-loader',
-        },
-      ],
+          use: "babel-loader"
+        }
+      ]
     },
     resolve: {
-      modules: ['node_modules'],
+      modules: ["node_modules"],
       alias: {
-        'react-dom': '@hot-loader/react-dom',
+        "react-dom": "@hot-loader/react-dom"
       },
-      extensions: ['.js', '.jsx'],
-    },
-  }
-}
+      extensions: [".js", ".jsx"]
+    }
+  };
+};

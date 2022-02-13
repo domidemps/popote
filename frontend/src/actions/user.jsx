@@ -1,79 +1,79 @@
-import {notify} from 'actions/utils'
+import { notify } from "actions/utils"
 
 const logging = () => {
-  return {type: 'LOGGING'}
+  return { type: "LOGGING" }
 }
 
-const loginSuccess = token => {
-  return {type: 'LOGIN_SUCCESS', token}
+const loginSuccess = (token) => {
+  return { type: "LOGIN_SUCCESS", token }
 }
 
 const loginFailure = () => {
-  return {type: 'LOGIN_FAILURE'}
+  return { type: "LOGIN_FAILURE" }
 }
 
-const checkAuthenticationSuccess = name => {
-  return {type: 'AUTHENTICATION_SUCCESS', name}
+const checkAuthenticationSuccess = (name) => {
+  return { type: "AUTHENTICATION_SUCCESS", name }
 }
 
 const checkAuthenticationFailure = () => {
-  return {type: 'AUTHENTICATION_FAILURE'}
+  return { type: "AUTHENTICATION_FAILURE" }
 }
 
 export const logout = () => {
-  return {type: 'LOGOUT'}
+  return { type: "LOGOUT" }
 }
 
-export const checkIfAuthenticated = token => {
-  return dispatch => {
+export const checkIfAuthenticated = (token) => {
+  return (dispatch) => {
     dispatch(logging())
     fetch(`${API_DOMAIN}/users/me`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      mode: 'cors',
+      mode: "cors",
     })
-      .then(response => {
-        return response.json().then(json => {
+      .then((response) => {
+        return response.json().then((json) => {
           return response.ok ? json : Promise.reject(json.message)
         })
       })
-      .then(name => {
+      .then((name) => {
         dispatch(checkAuthenticationSuccess(name))
       })
       .catch(() => {
         dispatch(checkAuthenticationFailure())
-        console.error('You are not authenticated')
+        console.error("You are not authenticated")
       })
   }
 }
 
 export const login = (username, password) => {
-  return dispatch => {
+  return (dispatch) => {
     const loginFormData = new FormData()
-    loginFormData.append('username', username)
-    loginFormData.append('password', password)
+    loginFormData.append("username", username)
+    loginFormData.append("password", password)
     dispatch(logging())
     fetch(`${API_DOMAIN}/token`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        Accept: 'application/json',
+        Accept: "application/json",
       },
       body: loginFormData,
-      mode: 'cors',
+      mode: "cors",
     })
-      .then(response => {
-        return response.json().then(json => {
+      .then((response) => {
+        return response.json().then((json) => {
           return response.ok ? json : Promise.reject(json)
         })
       })
-      .then(data => {
+      .then((data) => {
         dispatch(loginSuccess(data.access_token))
       })
-      .catch(error => {
+      .catch((error) => {
         dispatch(loginFailure())
         console.error(error)
       })
@@ -81,15 +81,15 @@ export const login = (username, password) => {
 }
 
 const creatingUser = () => {
-  return {type: 'CREATING_USER'}
+  return { type: "CREATING_USER" }
 }
 
 const createUserSuccess = () => {
-  return {type: 'CREATE_USER_SUCCESS'}
+  return { type: "CREATE_USER_SUCCESS" }
 }
 
 const createUserFailure = () => {
-  return {type: 'CREATE_USER_FAILURE'}
+  return { type: "CREATE_USER_FAILURE" }
 }
 
 export const createUser = (name, email, password) => {
@@ -98,24 +98,24 @@ export const createUser = (name, email, password) => {
     email,
     password,
   }
-  return dispatch => {
+  return (dispatch) => {
     dispatch(creatingUser())
     fetch(`${API_DOMAIN}/users/?` + new URLSearchParams(parameters), {
-      method: 'POST',
+      method: "POST",
       headers: {
-        Accept: 'application/json',
+        Accept: "application/json",
       },
-      mode: 'cors',
+      mode: "cors",
     })
-      .then(response => {
-        return response.json().then(json => {
-          return response.ok ? json : Promise.reject({json, response})
+      .then((response) => {
+        return response.json().then((json) => {
+          return response.ok ? json : Promise.reject({ json, response })
         })
       })
       .then(() => dispatch(createUserSuccess()))
-      .catch(error => {
+      .catch((error) => {
         if (error.response.status === 409) {
-          dispatch(notify('error', 'Cette adresse e-mail est déjà utilisée'))
+          dispatch(notify("error", "Cette adresse e-mail est déjà utilisée"))
         }
         dispatch(createUserFailure())
         console.error(error.json)

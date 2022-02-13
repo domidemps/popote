@@ -1,15 +1,15 @@
 /** @jsx jsx */
-import {css, jsx} from '@emotion/core'
-import {useDispatch} from 'react-redux'
-import {push} from 'connected-react-router'
-import AppBar from '@material-ui/core/AppBar'
-import IconButton from '@material-ui/core/IconButton'
-import Typography from '@material-ui/core/Typography'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import { css, jsx } from "@emotion/core"
+import { useDispatch } from "react-redux"
+import { push } from "connected-react-router"
+import AppBar from "@material-ui/core/AppBar"
+import IconButton from "@material-ui/core/IconButton"
+import Typography from "@material-ui/core/Typography"
+import ExitToAppIcon from "@material-ui/icons/ExitToApp"
 
-import {INTENSE_YELLOW, MEDIUM_PURPLE, DARK_PURPLE} from 'styles/material_ui_raw_theme_file'
-import AddNotes from 'images/add_notes.svg'
-import {logout} from 'actions/user'
+import { DARK_PURPLE } from "styles/material_ui_raw_theme_file"
+import AddNotes from "images/add_notes.svg"
+import { logout } from "actions/user"
 
 const styles = css`
   .appBar {
@@ -17,6 +17,7 @@ const styles = css`
     flex-direction: row;
     justify-content: space-between;
   }
+
   .body {
     display: flex;
     flex-direction: column;
@@ -25,9 +26,11 @@ const styles = css`
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
   }
+
   .signOut {
     color: white;
   }
+
   .message {
     color: ${DARK_PURPLE};
     margin: 40px;
@@ -40,7 +43,7 @@ export default function MainView() {
 
   const doSignOut = () => {
     dispatch(logout())
-    dispatch(push('/login'))
+    dispatch(push("/login"))
   }
 
   return (
