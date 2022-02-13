@@ -1,7 +1,6 @@
 import React from 'react'
-import {Provider} from 'react-redux'
-import {Route, Switch} from 'react-router'
-import {ConnectedRouter} from 'connected-react-router'
+import {Provider, ReactReduxContext} from 'react-redux'
+import {Route, Switch, Router} from 'react-router-dom'
 import {PersistGate} from 'redux-persist/integration/react'
 import {MuiThemeProvider} from '@material-ui/core/styles'
 import CircularProgress from '@material-ui/core/CircularProgress'
@@ -20,7 +19,7 @@ const Popote = ({history}) => {
   return (
     <Provider store={store}>
       <PersistGate loading={<CircularProgress size={65} thickness={5} />} persistor={persistor}>
-        <ConnectedRouter history={history}>
+        <Router history={history} context={ReactReduxContext}>
           <MuiThemeProvider theme={theme}>
             <NotificationCenter />
             <Switch>
@@ -30,7 +29,7 @@ const Popote = ({history}) => {
               <Route render={() => <div>Not found</div>} />
             </Switch>
           </MuiThemeProvider>
-        </ConnectedRouter>
+        </Router>
       </PersistGate>
     </Provider>
   )

@@ -17,7 +17,6 @@ module.exports = function(api) {
       '@babel/react',
     ],
     plugins: [
-      'react-hot-loader/babel',
       '@babel/transform-runtime',
       '@babel/syntax-dynamic-import',
       ['@babel/proposal-class-properties', {loose: true}],

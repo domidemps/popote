@@ -18,6 +18,7 @@ module.exports = async env => {
       host: '0.0.0.0',
       historyApiFallback: true,
       disableHostCheck: true,
+      hot: true,
     },
     watchOptions: {
       poll: 1000, // Check for changes every second

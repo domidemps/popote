@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import {Route, Redirect} from 'react-router'
+import {Route, Redirect} from 'react-router-dom'
 
 import {checkIfAuthenticated} from 'actions/user'
 
@@ -34,7 +34,7 @@ PrivateRoute.propTypes = {
   authenticationToken: PropTypes.string,
   component: PropTypes.oneOfType([PropTypes.func.isRequired, PropTypes.object.isRequired]),
   checkAuthenticated: PropTypes.func,
-  lastAuthenticationCheck: PropTypes.object,
+  lastAuthenticationCheck: PropTypes.string,
 }
 
 const mapStateToProps = state => {
