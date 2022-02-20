@@ -20,8 +20,6 @@ class Recipe(Model):
         table = "recipes"
 
 
-Recipe_Create = pydantic_model_creator(
-    Recipe, exclude=("created", "modified", "id")
-)
+RecipeCreate = pydantic_model_creator(Recipe, exclude=("created", "modified", "id"))
 
-Recipe_Read = pydantic_model_creator(Recipe)
+RecipeRead = pydantic_model_creator(Recipe)

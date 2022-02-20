@@ -13,13 +13,17 @@ asyncpg = "*"
 jinja2 = "*"
 aioyagmail = "*"
 structlog = "*"
+pytest-cov = "*"
 
 [dev-packages]
 pytest = "*"
-asynctest = "*"
+httpx = "*"
+anyio = "*"
 pre-commit = "*"
 black = "*"
 flake8 = "*"
+requests-mock = "*"
+pytest-mock = "*"
 
 [requires]
 python_version = "3.10"
