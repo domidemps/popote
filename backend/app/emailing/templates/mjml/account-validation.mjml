@@ -1,0 +1,71 @@
+<mjml>
+  <mj-head>
+    <mj-style>
+      .hover:hover a { background-color: #960576 !important; }
+    </mj-style>
+    <mj-font name="Roboto" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+    <mj-title>Popote - confirmation email</mj-title>
+  </mj-head>
+  <mj-body>
+    <mj-wrapper padding="30px 30px" background-color="linear-gradient(rgba(255, 180, 0, 0.6), rgba(69, 6, 46, 1))">
+      <mj-section>
+        <mj-column>
+          <mj-image width="200px" src="https://github.com/domidemps/popote/blob/master/frontend/src/images/popote_logo.png?raw=true" />
+        </mj-column>
+      </mj-section>
+      <mj-section padding="20px 20px 0 0" background-color="rgba(243, 251, 218, 0.8)" border-radius="10px 10px 0 0">
+        <mj-column>
+          <mj-text font-size="20px" color="#45062E" font-family="Roboto" align="center">Bienvenue ! &#128075;&#127998;</mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section padding="0 20px 0 20px" background-color="rgba(243, 251, 218, 0.8)">
+        <mj-column>
+          <mj-text font-family="Roboto">
+            Cuisinier du dimanche, pâtissière amatrice ou véritable cordon-bleu, c'est un plaisir de te compter parmi nos utilisateur·ice·s.
+          </mj-text>
+          <mj-text font-family="Roboto">
+            Pour activer ton compte, clique sur le lien suivant :
+          </mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section padding="0 25% 0 25%" background-color="rgba(243, 251, 218, 0.8)">
+        <mj-column>
+          <mj-button css-class="hover" font-family="Roboto" background-color="#7f055f" color="white" border-radius="200px" href="{{ link_url }}">
+            Confirmer l'inscription
+          </mj-button>
+        </mj-column>
+      </mj-section>
+      <mj-section padding="0 20px 0 20px" background-color="rgba(243, 251, 218, 0.8)">
+        <mj-column>
+          <mj-text>
+            Si cela ne fonctionne pas, copie-colle le lien suivant dans ton navigateur : <br />
+            {{ link_url }}
+            <p> Attention, ce lien n'est valable que 24 heures. </p>
+            À tes fourneaux ! &#127859;
+          </mj-text>
+          <mj-text font-style="italic">
+            La Popote team
+          </mj-text>
+          <mj-divider border-width="2px" border-color="#960576" />
+        </mj-column>
+      </mj-section>
+      <mj-section padding="0 50px 0 50px" background-color="rgba(243, 251, 218, 0.8)">
+        <mj-group>
+          <mj-column>
+            <mj-button css-class="hover" font-family="Roboto" background-color="#7f055f" color="white" border-radius="200px" href="mailto:contact.popote@gmail.com">Contact</mj-button>
+          </mj-column>
+          <mj-column>
+            <mj-button css-class="hover" font-family="Roboto" background-color="#7f055f" color="white" border-radius="200px" href="https://github.com/domidemps/popote">Code source</mj-button>
+          </mj-column>
+        </mj-group>
+      </mj-section>
+      <mj-section padding="0 20px 0 20px" background-color="rgba(243, 251, 218, 0.8)" border-radius="0 0 10px 10px">
+        <mj-column>
+          <mj-text padding="20px" align="center" font-size="10px">
+            Copyright © 2022 Lou-Yann Dehaine &amp; Domitille Dempuré
+          </mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
+  </mj-body>
+</mjml>

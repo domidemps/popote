@@ -27,6 +27,6 @@ services:
         max-size: 10m
         max-file: "3"
     volumes:
-      - ./backend/deployment/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./backend/deployment/create_db.sql:/docker-entrypoint-initdb.d/create_db.sql
     ports:
-      - '15432:5432'
+      - "15432:5432"

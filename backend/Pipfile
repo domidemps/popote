@@ -10,6 +10,9 @@ fastapi-users = {extras = ["tortoise-orm"], version = "*"}
 requests = "*"
 aerich = "*"
 asyncpg = "*"
+jinja2 = "*"
+aioyagmail = "*"
+structlog = "*"
 
 [dev-packages]
 pytest = "*"
@@ -17,8 +20,6 @@ asynctest = "*"
 pre-commit = "*"
 black = "*"
 flake8 = "*"
-anyio = {extras = ["trio"], version = "*"}
-httpx = "*"
 
 [requires]
 python_version = "3.10"
