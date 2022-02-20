@@ -14,5 +14,5 @@ def get_email_client(client_type: str) -> EmailClient:
     except KeyError:
         raise ConfigurationError(
             f"{EmailSettings().Config.env_prefix.upper()}CLIENT should be one of "
-            f"{' | '.join(EMAIL_CLIENTS_MAPPING)}"
+            f"({' | '.join(EMAIL_CLIENTS_MAPPING)})"
         )

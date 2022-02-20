@@ -17,7 +17,7 @@ class MailtrapClient:
         message["To"] = email_config.to
         now = datetime.datetime.utcnow().astimezone().strftime("%a, %d %b %Y %H:%M:%S %z")
         message["Date"] = now
-        message.set_content(email_config.contents, subtype='html')
+        message.set_content(email_config.contents, subtype="html")
         with smtplib.SMTP("smtp.mailtrap.io", 2525) as server:
             server.login(mailtrap_settings.username, mailtrap_settings.password)
             server.send_message(message, mailtrap_settings.sender, email_config.to)
