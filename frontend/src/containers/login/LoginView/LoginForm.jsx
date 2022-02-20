@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { useState } from "react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import { push } from "connected-react-router"
 import { css, jsx } from "@emotion/core"
@@ -74,10 +74,6 @@ const SubmitButton = styled(Button)`
   margin: 30px 0 15px 0;
 `
 
-const goToSignIn = () => {
-  dispatch(push("/sign-in"))
-}
-
 export const LoginForm = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -85,8 +81,13 @@ export const LoginForm = () => {
     email: "",
     password: "",
   })
+  const dispatch = useDispatch()
 
   const wrongLogin = useSelector((state) => state.user.wrongLogin)
+
+  const goToSignIn = () => {
+    dispatch(push("/sign-in"))
+  }
 
   const renderFormControl = (name, value, helper, icon, setNewValue) => {
     const isError = !isEmpty(errors[name])

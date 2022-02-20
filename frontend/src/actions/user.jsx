@@ -1,11 +1,15 @@
-import { notify } from "actions/utils"
+import { notify } from "src/actions/utils"
+import { encodeParamsToUrl } from "src/helpers/routes"
 
 const logging = () => {
   return { type: "LOGGING" }
 }
 
 const loginSuccess = (token) => {
-  return { type: "LOGIN_SUCCESS", token }
+  return {
+    type: "LOGIN_SUCCESS",
+    token,
+  }
 }
 
 const loginFailure = () => {
@@ -13,7 +17,10 @@ const loginFailure = () => {
 }
 
 const checkAuthenticationSuccess = (name) => {
-  return { type: "AUTHENTICATION_SUCCESS", name }
+  return {
+    type: "AUTHENTICATION_SUCCESS",
+    name,
+  }
 }
 
 const checkAuthenticationFailure = () => {
@@ -53,16 +60,20 @@ export const checkIfAuthenticated = (token) => {
 
 export const login = (username, password) => {
   return (dispatch) => {
-    const loginFormData = new FormData()
-    loginFormData.append("username", username)
-    loginFormData.append("password", password)
     dispatch(logging())
-    fetch(`${API_DOMAIN}/token`, {
+
+    const params = {
+      username,
+      password,
+    }
+
+    fetch(`${API_DOMAIN}/auth/jwt/login`, {
       method: "POST",
       headers: {
         Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: loginFormData,
+      body: encodeParamsToUrl(params),
       mode: "cors",
     })
       .then((response) => {
@@ -75,7 +86,7 @@ export const login = (username, password) => {
       })
       .catch((error) => {
         dispatch(loginFailure())
-        console.error(error)
+        console.error(error.json)
       })
   }
 }
@@ -109,7 +120,12 @@ export const createUser = (name, email, password) => {
     })
       .then((response) => {
         return response.json().then((json) => {
-          return response.ok ? json : Promise.reject({ json, response })
+          return response.ok
+            ? json
+            : Promise.reject({
+                json,
+                response,
+              })
         })
       })
       .then(() => dispatch(createUserSuccess()))
