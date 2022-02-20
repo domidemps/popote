@@ -11,6 +11,6 @@ COPY ./Pipfile.lock /code/Pipfile.lock
 RUN pipenv sync
 
 COPY . /code/.
-COPY ./deployment/.env /code/.env
+COPY ./deployment/.env_deploy /code/.env
 
 CMD [ "pipenv", "run", "dev" ]

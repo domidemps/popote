@@ -1,0 +1,14 @@
+Bienvenue ! 👋🏾
+Cuisinier du dimanche, pâtissière amatrice ou véritable cordon-bleu, c'est un plaisir de te compter parmi nos utilisateur·ice·s.
+Pour activer ton compte, clique sur le lien suivant :
+Confirmer l'inscription ({{ link_url }})
+Si cela ne fonctionne pas, copie-colle le lien suivant dans ton navigateur :
+{{ link_url }}
+
+Attention, ce lien n'est valable que 24 heures.
+À tes fourneaux ! 🍳
+La Popote team
+
+Contact (mailto:contact.popote@gmail.com)
+Code source (https://github.com/domidemps/popote)
+Copyright © 2022 Lou-Yann Dehaine & Domitille Dempuré

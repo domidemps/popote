@@ -4,7 +4,7 @@ from starlette import status
 from app.models import Recipe, Recipe_Create, Recipe_Read, UserDB
 from app.users import current_active_user
 
-router = APIRouter()
+router = APIRouter(tags=["recipes"])
 router.responses = {
     status.HTTP_401_UNAUTHORIZED: {
         "description": "Missing token or inactive user.",
