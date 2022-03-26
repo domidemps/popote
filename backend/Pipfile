@@ -13,7 +13,6 @@ asyncpg = "*"
 jinja2 = "*"
 aioyagmail = "*"
 structlog = "*"
-pytest-cov = "*"
 
 [dev-packages]
 pytest = "*"
@@ -24,10 +23,12 @@ black = "*"
 flake8 = "*"
 requests-mock = "*"
 pytest-mock = "*"
+pytest-cov = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.10"
 
 [scripts]
-tests="pytest tests/"
+tests="pytest --cov=app --cov-branch tests/"
 dev="uvicorn app.app:app --host 0.0.0.0 --port 5000"
