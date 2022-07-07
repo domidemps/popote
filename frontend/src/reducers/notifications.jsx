@@ -20,11 +20,6 @@ export default (state = notificationsInitialState(), action) => {
         message: '',
         severity: '',
       }
-    case 'CREATE_USER_SUCCESS':
-      return {
-        ...state,
-        dialogOpen: true,
-      }
     case 'RESET_DIALOG':
       return {
         ...state,

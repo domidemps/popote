@@ -1,47 +1,47 @@
-import { notify } from "src/actions/utils"
-import { encodeParamsToUrl } from "src/helpers/routes"
+import { notify } from 'src/actions/utils'
+import { encodeParamsToUrl } from 'src/helpers/routes'
 
 const logging = () => {
-  return { type: "LOGGING" }
+  return { type: 'LOGGING' }
 }
 
 const loginSuccess = (token) => {
   return {
-    type: "LOGIN_SUCCESS",
+    type: 'LOGIN_SUCCESS',
     token,
   }
 }
 
 const loginFailure = () => {
-  return { type: "LOGIN_FAILURE" }
+  return { type: 'LOGIN_FAILURE' }
 }
 
 const checkAuthenticationSuccess = (name) => {
   return {
-    type: "AUTHENTICATION_SUCCESS",
+    type: 'AUTHENTICATION_SUCCESS',
     name,
   }
 }
 
 const checkAuthenticationFailure = () => {
-  return { type: "AUTHENTICATION_FAILURE" }
+  return { type: 'AUTHENTICATION_FAILURE' }
 }
 
 export const logout = () => {
-  return { type: "LOGOUT" }
+  return { type: 'LOGOUT' }
 }
 
 export const checkIfAuthenticated = (token) => {
   return (dispatch) => {
     dispatch(logging())
     fetch(`${API_DOMAIN}/users/me`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      mode: "cors",
+      mode: 'cors',
     })
       .then((response) => {
         return response.json().then((json) => {
@@ -53,7 +53,7 @@ export const checkIfAuthenticated = (token) => {
       })
       .catch(() => {
         dispatch(checkAuthenticationFailure())
-        console.error("You are not authenticated")
+        console.error('You are not authenticated')
       })
   }
 }
@@ -68,13 +68,13 @@ export const login = (username, password) => {
     }
 
     fetch(`${API_DOMAIN}/auth/jwt/login`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: encodeParamsToUrl(params),
-      mode: "cors",
+      mode: 'cors',
     })
       .then((response) => {
         return response.json().then((json) => {
@@ -92,48 +92,39 @@ export const login = (username, password) => {
 }
 
 const creatingUser = () => {
-  return { type: "CREATING_USER" }
+  return { type: 'CREATING_USER' }
 }
 
-const createUserSuccess = () => {
-  return { type: "CREATE_USER_SUCCESS" }
-}
-
-const createUserFailure = () => {
-  return { type: "CREATE_USER_FAILURE" }
-}
-
-export const createUser = (name, email, password) => {
-  const parameters = {
-    name,
-    email,
-    password,
-  }
+export const createUser = (name, email, password, setIsDialogOpen) => {
   return (dispatch) => {
+    const params = {
+      email,
+      password,
+      is_active: true,
+      is_superuser: false,
+      is_verified: false,
+    }
     dispatch(creatingUser())
-    fetch(`${API_DOMAIN}/users/?` + new URLSearchParams(parameters), {
-      method: "POST",
+    fetch(`${API_DOMAIN}/auth/register`, {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      mode: "cors",
+      body: JSON.stringify(params),
     })
       .then((response) => {
         return response.json().then((json) => {
           return response.ok
             ? json
-            : Promise.reject({
-                json,
-                response,
-              })
+            : Promise.reject({ json, response })
         })
       })
-      .then(() => dispatch(createUserSuccess()))
+      .then(() => setIsDialogOpen(true))
       .catch((error) => {
-        if (error.response.status === 409) {
-          dispatch(notify("error", "Cette adresse e-mail est déjà utilisée"))
+        if (error.response.status === 400) {
+          dispatch(notify('error', 'Cette adresse e-mail est déjà utilisée'))
         }
-        dispatch(createUserFailure())
         console.error(error.json)
       })
   }

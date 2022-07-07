@@ -1,11 +1,11 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core"
-import Typography from "@material-ui/core/Typography"
-import styled from "styled-components"
+import { jsx } from '@emotion/core'
+import Typography from '@material-ui/core/Typography'
+import styled from 'styled-components'
 
-import PopoteLogo from "src/images/popote_logo.png"
-import { DARK_PURPLE } from "src/styles/material_ui_raw_theme_file"
-import { devices } from "src/styles/media"
+import PopoteLogo from 'src/images/popote_logo.png'
+import { DARK_PURPLE } from 'src/styles/material_ui_raw_theme_file'
+import { devices } from 'src/styles/media'
 
 const Layout = styled.div`
   display: flex;

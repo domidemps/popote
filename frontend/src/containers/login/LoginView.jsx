@@ -1,14 +1,16 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core"
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { push } from "connected-react-router"
-import Paper from "@material-ui/core/Paper"
-import styled from "styled-components"
-import { devices } from "src/styles/media"
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { push } from 'connected-react-router'
 
-import { LogoContainer } from "./LoginView/LogoContainer"
-import { LoginForm } from "./LoginView/LoginForm"
+import { jsx } from '@emotion/core'
+import Paper from '@material-ui/core/Paper'
+import styled from 'styled-components'
+
+import { devices } from 'src/styles/media'
+
+import { LogoContainer } from './LoginView/LogoContainer'
+import { LoginForm } from './LoginView/LoginForm'
 
 const Layout = styled.div`
   display: flex;
@@ -46,7 +48,7 @@ export const LoginView = () => {
 
   useEffect(() => {
     if (authenticated) {
-      dispatch(push("/"))
+      dispatch(push('/'))
     }
   }, [authenticated])
 

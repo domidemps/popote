@@ -1,8 +1,9 @@
 import {combineReducers} from 'redux'
-import {createBrowserHistory} from 'history'
 import {connectRouter} from 'connected-react-router'
-import user from 'reducers/user'
-import notifications from 'reducers/notifications'
+import {createBrowserHistory} from 'history'
+
+import user from 'src/reducers/user'
+import notifications from 'src/reducers/notifications'
 
 export const history = createBrowserHistory()
 

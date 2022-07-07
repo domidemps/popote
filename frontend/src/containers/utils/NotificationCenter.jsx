@@ -1,10 +1,12 @@
 /** @jsx jsx */
-import { jsx } from "@emotion/core"
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import Snackbar from "@material-ui/core/Snackbar"
-import MuiAlert from "@material-ui/lab/Alert"
-import { resetNotification } from "actions/utils"
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { jsx } from '@emotion/core'
+import Snackbar from '@material-ui/core/Snackbar'
+import MuiAlert from '@material-ui/lab/Alert'
+
+import { resetNotification } from 'src/actions/utils'
 
 export default function NotificationCenter() {
   const dispatch = useDispatch()

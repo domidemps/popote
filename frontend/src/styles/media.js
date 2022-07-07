@@ -1,4 +1,4 @@
-import { sizes } from "src/styles/breakpoints"
+import { sizes } from 'src/styles/breakpoints'
 
 export const devices = {
   bigScreen: `(max-width: ${sizes.bigScreen})`,

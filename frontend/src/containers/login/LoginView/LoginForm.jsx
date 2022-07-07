@@ -1,24 +1,24 @@
 /** @jsx jsx */
-import { useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { push } from "connected-react-router"
-import { css, jsx } from "@emotion/core"
-import { isEmpty, some } from "lodash"
-import Button from "@material-ui/core/Button"
-import FormControl from "@material-ui/core/FormControl"
-import Input from "@material-ui/core/Input"
-import InputLabel from "@material-ui/core/InputLabel"
-import Typography from "@material-ui/core/Typography"
-import LockIcon from "@material-ui/icons/Lock"
-import MailIcon from "@material-ui/icons/Mail"
-import NavigateNextIcon from "@material-ui/icons/NavigateNext"
-import styled from "styled-components"
+import { push } from 'connected-react-router'
+import { css, jsx } from '@emotion/core'
+import { isEmpty, some } from 'lodash'
+import Button from '@material-ui/core/Button'
+import FormControl from '@material-ui/core/FormControl'
+import Input from '@material-ui/core/Input'
+import InputLabel from '@material-ui/core/InputLabel'
+import Typography from '@material-ui/core/Typography'
+import LockIcon from '@material-ui/icons/Lock'
+import MailIcon from '@material-ui/icons/Mail'
+import NavigateNextIcon from '@material-ui/icons/NavigateNext'
+import styled from 'styled-components'
 
-import { login } from "src/actions/user"
-import { EMAIL_VALIDITY } from "src/helpers/regex"
-import { DARK_PURPLE, ERROR } from "src/styles/material_ui_raw_theme_file"
-import { devices } from "src/styles/media"
+import { login } from 'src/actions/user'
+import { EMAIL_VALIDITY } from 'src/helpers/regex'
+import { DARK_PURPLE, ERROR } from 'src/styles/material_ui_raw_theme_file'
+import { devices } from 'src/styles/media'
 
 const FormContainer = styled.div`
   display: flex;
@@ -75,18 +75,18 @@ const SubmitButton = styled(Button)`
 `
 
 export const LoginForm = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [errors, setErrors] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   })
   const dispatch = useDispatch()
 
   const wrongLogin = useSelector((state) => state.user.wrongLogin)
 
-  const goToSignIn = () => {
-    dispatch(push("/sign-in"))
+  const goToSignUp = () => {
+    dispatch(push('/sign-up'))
   }
 
   const renderFormControl = (name, value, helper, icon, setNewValue) => {
@@ -113,8 +113,8 @@ export const LoginForm = () => {
   const checkLogin = () => {
     const isEmailValid = EMAIL_VALIDITY.test(email.toLowerCase())
     let errors = {
-      email: isEmpty(email) ? "Ce champ est obligatoire" : "",
-      password: isEmpty(password) ? "Ce champ est obligatoire" : "",
+      email: isEmpty(email) ? 'Ce champ est obligatoire' : '',
+      password: isEmpty(password) ? 'Ce champ est obligatoire' : '',
     }
     if (!isEmailValid) {
       errors.email = "Cet e-mail n'est pas valide"
@@ -127,7 +127,7 @@ export const LoginForm = () => {
   }
 
   const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       event.preventDefault()
       checkLogin()
     }
@@ -138,30 +138,17 @@ export const LoginForm = () => {
       <Title variant="h4" align="center">
         Se connecter
       </Title>
-      {renderFormControl(
-        "email",
-        email,
-        "E-mail",
-        <StyledMailIcon />,
-        setEmail,
-      )}
-      {renderFormControl(
-        "password",
-        password,
-        "Mot de passe",
-        <StyledLockIcon />,
-        setPassword,
-      )}
+
+      {renderFormControl('email', email, 'E-mail', <StyledMailIcon />, setEmail)}
+      {renderFormControl('password', password, "Mot de passe", <StyledLockIcon />, setPassword)}
+
       {wrongLogin ? (
         <ErrorMessage>
           <strong>E-mail ou mot de passe invalide</strong>
         </ErrorMessage>
       ) : null}
-      <SubmitButton
-        variant="contained"
-        color="primary"
-        onClick={() => checkLogin()}
-      >
+
+      <SubmitButton variant="contained" color="primary" onClick={() => checkLogin()}>
         C'est parti !
       </SubmitButton>
       <Button
@@ -170,7 +157,7 @@ export const LoginForm = () => {
           text-transform: none;
         `}
         endIcon={<NavigateNextIcon />}
-        onClick={() => goToSignIn()}
+        onClick={() => goToSignUp()}
       >
         Créer un compte
       </Button>

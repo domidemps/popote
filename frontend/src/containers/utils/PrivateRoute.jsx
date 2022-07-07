@@ -1,9 +1,9 @@
-import { connect } from "react-redux"
-import React, { Component } from "react"
-import PropTypes from "prop-types"
-import { Route } from "react-router-dom"
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import { Route } from 'react-router-dom'
 
-import { checkIfAuthenticated } from "actions/user"
+import { checkIfAuthenticated } from 'src/actions/user'
 
 class PrivateRoute extends Component {
   constructor(props, context) {
@@ -31,7 +31,7 @@ class PrivateRoute extends Component {
     let routeRender = (props) => null
     if (lastAuthenticationCheck != null && !authenticated) {
       routeRender = (props) => {
-        window.location.href = "/login"
+        window.location.href = '/login'
       }
     } else if (lastAuthenticationCheck != null && authenticated) {
       routeRender = (props) => <NewComponent {...props} />

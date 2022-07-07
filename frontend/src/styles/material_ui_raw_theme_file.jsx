@@ -1,18 +1,18 @@
-import { createTheme } from "@material-ui/core/styles"
-import { lighten } from "@material-ui/core"
+import { createTheme } from '@material-ui/core/styles'
+import { lighten } from '@material-ui/core'
 
-export const LIGHT_YELLOW = "#eaf8bf"
-export const MEDIUM_YELLOW = "#e7eb90"
-export const INTENSE_YELLOW = "#eca400"
-export const MEDIUM_PURPLE = "#7f055f"
-export const DARK_PURPLE = "#45062e"
-export const WHITE = "#ffffff"
-export const ERROR = "#f44336"
+export const LIGHT_YELLOW = '#F5FCE5FF'
+export const MEDIUM_YELLOW = '#e7eb90'
+export const INTENSE_YELLOW = '#eca400'
+export const MEDIUM_PURPLE = '#7f055f'
+export const DARK_PURPLE = '#45062e'
+export const WHITE = '#ffffff'
+export const ERROR = '#f44336'
 
 const rawBaseTheme = {
   palette: {
     background: {
-      paper: "rgba(243, 251, 218, 0.8)",
+      paper: 'rgba(243, 251, 218, 0.8)',
     },
     primary: {
       main: MEDIUM_PURPLE,
@@ -27,7 +27,7 @@ const rawBaseTheme = {
     MuiButton: {
       containedPrimary: {
         backgroundColor: MEDIUM_PURPLE,
-        "&:hover": {
+        '&:hover': {
           backgroundColor: lighten(MEDIUM_PURPLE, 0.2),
         },
         borderRadius: 20,

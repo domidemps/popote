@@ -1,15 +1,16 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core"
-import { useDispatch } from "react-redux"
-import { push } from "connected-react-router"
-import AppBar from "@material-ui/core/AppBar"
-import IconButton from "@material-ui/core/IconButton"
-import Typography from "@material-ui/core/Typography"
-import ExitToAppIcon from "@material-ui/icons/ExitToApp"
+import { useDispatch } from 'react-redux'
+import { push } from 'connected-react-router'
 
-import { DARK_PURPLE } from "styles/material_ui_raw_theme_file"
-import AddNotes from "images/add_notes.svg"
-import { logout } from "actions/user"
+import { css, jsx } from '@emotion/core'
+import AppBar from '@material-ui/core/AppBar'
+import IconButton from '@material-ui/core/IconButton'
+import Typography from '@material-ui/core/Typography'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+
+import { DARK_PURPLE } from 'src/styles/material_ui_raw_theme_file'
+import AddNotes from 'src/images/add_notes.svg'
+import { logout } from 'src/actions/user'
 
 const styles = css`
   .appBar {
@@ -43,7 +44,7 @@ export default function MainView() {
 
   const doSignOut = () => {
     dispatch(logout())
-    dispatch(push("/login"))
+    dispatch(push('/login'))
   }
 
   return (

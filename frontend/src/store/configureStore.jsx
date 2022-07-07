@@ -5,7 +5,7 @@ import {routerMiddleware} from 'connected-react-router'
 import promise from 'redux-promise'
 import thunk from 'redux-thunk'
 
-import reducers, {history} from 'reducers'
+import reducers, {history} from 'src/reducers'
 
 const middlewares = [thunk, promise, routerMiddleware(history)]
 

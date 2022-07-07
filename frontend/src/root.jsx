@@ -9,7 +9,7 @@ import theme from "styles/material_ui_raw_theme_file"
 import PrivateRoute from "src/containers/utils/PrivateRoute"
 import { LoginView } from "src/containers/Login/LoginView"
 import MainView from "src/containers/MainView"
-import SignInView from "src/containers/Login/SignInView"
+import SignUpView from "src/containers/Login/SignUpView"
 import NotificationCenter from "src/containers/utils/NotificationCenter"
 import { persistor, store } from "src/store/configureStore"
 
@@ -28,7 +28,7 @@ const Popote = ({ history }) => {
             <Switch>
               <PrivateRoute exact path="/" component={MainView} />
               <Route exact path="/login" component={LoginView} />
-              <Route exact path="/sign-in" component={SignInView} />
+              <Route exact path="/sign-up" component={SignUpView} />
               <Route render={() => <div>Not found</div>} />
             </Switch>
           </MuiThemeProvider>
